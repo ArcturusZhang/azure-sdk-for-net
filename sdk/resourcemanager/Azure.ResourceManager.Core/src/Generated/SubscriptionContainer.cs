@@ -142,6 +142,7 @@ namespace Azure.ResourceManager.Core
         /// <param name="cancellationToken"> A token to allow the caller to cancel the call to the service. The default value is <see cref="CancellationToken.None" />. </param>
         /// <returns> A response with the <see cref="Response{Subscription}"/> operation for this subscription. </returns>
         /// <exception cref="ArgumentException"> subscriptionGuid cannot be null or a whitespace. </exception>
+        [ForwardsClientCalls]
         public Response<Subscription> Get(string subscriptionGuid, CancellationToken cancellationToken = default)
         {
             return new SubscriptionOperations(
@@ -156,6 +157,7 @@ namespace Azure.ResourceManager.Core
         /// <param name="cancellationToken"> A token to allow the caller to cancel the call to the service. The default value is <see cref="CancellationToken.None" />. </param>
         /// <returns> A <see cref="Task"/> that on completion returns a response with the <see cref="Response{TOperations}"/> operation for this subscription. </returns>
         /// <exception cref="ArgumentException"> subscriptionGuid cannot be null or a whitespace. </exception>
+        [ForwardsClientCalls]
         public virtual Task<Response<Subscription>> GetAsync(string subscriptionGuid, CancellationToken cancellationToken = default)
         {
             return new SubscriptionOperations(
