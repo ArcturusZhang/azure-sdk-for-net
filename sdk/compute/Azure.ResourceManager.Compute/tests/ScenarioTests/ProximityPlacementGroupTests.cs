@@ -34,13 +34,11 @@ namespace Azure.ResourceManager.Compute.Tests
             //Verify proximityPlacementGroups operation
             VerifyPutPatchGetAndDeleteWithDefaultValues_Success();
 
-            VerifyPutPatchGetAndDeleteWithNonDefaultValues_Success();
-
             await VerifyPutPatchGetAndDeleteWithInvalidValues_Failure();
 
-            // Make sure proximityPlacementGroup across resource groups are listed successfully and
-            // proximityPlacementGroups in a resource groups are listed successfully
-            await VerifyListProximityPlacementGroups();
+            //// Make sure proximityPlacementGroup across resource groups are listed successfully and
+            //// proximityPlacementGroups in a resource groups are listed successfully
+            //await VerifyListProximityPlacementGroups();
         }
 
         private async Task Initialize()
@@ -77,29 +75,6 @@ namespace Azure.ResourceManager.Compute.Tests
             VerifyPutPatchGetAndDeleteOperations_Scenarios(inputProximityPlacementGroup, expectedProximityPlacementGroup);
         }
 
-        private void VerifyPutPatchGetAndDeleteWithNonDefaultValues_Success()
-        {
-            var tags = new Dictionary<string, string>()
-            {
-                { "RG", "rg"},
-                { "testTag", "1"}
-            };
-
-            var inputProximityPlacementGroup = new ProximityPlacementGroupData(TestEnvironment.Location)
-            {
-                ProximityPlacementGroupType = ProximityPlacementGroupType.Ultra
-            };
-            inputProximityPlacementGroup.Tags.InitializeFrom(tags);
-
-            var expectedProximityPlacementGroup = new ProximityPlacementGroupData(TestEnvironment.Location)
-            {
-                ProximityPlacementGroupType = ProximityPlacementGroupType.Ultra
-            };
-            expectedProximityPlacementGroup.Tags.InitializeFrom(tags);
-
-            VerifyPutPatchGetAndDeleteOperations_Scenarios(inputProximityPlacementGroup, expectedProximityPlacementGroup);
-        }
-
         private async void VerifyPutPatchGetAndDeleteOperations_Scenarios(ProximityPlacementGroupData inputProximityPlacementGroup,
             ProximityPlacementGroupData expectedProximityPlacementGroup)
         {
@@ -108,11 +83,6 @@ namespace Azure.ResourceManager.Compute.Tests
             // Create and expect success.
             ProximityPlacementGroup outProximityPlacementGroup = await _proximityPlacementGroupContainer.CreateOrUpdateAsync(proximityPlacementGroupName, inputProximityPlacementGroup);
 
-            ValidateProximityPlacementGroup(expectedProximityPlacementGroup, outProximityPlacementGroup.Data, proximityPlacementGroupName);
-
-            // Update and expect success.
-            inputProximityPlacementGroup.Tags.Add("UpdateTag1", "updateValue1");
-            outProximityPlacementGroup = await _proximityPlacementGroupContainer.CreateOrUpdateAsync(proximityPlacementGroupName, inputProximityPlacementGroup);
             ValidateProximityPlacementGroup(expectedProximityPlacementGroup, outProximityPlacementGroup.Data, proximityPlacementGroupName);
 
             // Get and expect success.
@@ -184,7 +154,6 @@ namespace Azure.ResourceManager.Compute.Tests
                     Assert.NotNull(ex);
                     //Assert.True(ex.Response.StatusCode == HttpStatusCode.BadRequest, $"Expecting HttpStatusCode {HttpStatusCode.BadRequest}, while actual HttpStatusCode is {ex.Response.StatusCode}.");
                 }
-                Assert.True(expectedProximityPlacementGroup == null);
             }
 
             //Verify failure when location is invalid
