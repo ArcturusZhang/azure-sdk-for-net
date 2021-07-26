@@ -7,11 +7,13 @@
 
 using System.Collections.Generic;
 using Azure.Core;
+using Azure.ResourceManager;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> ServiceAssociationLink resource. </summary>
-    public partial class ServiceAssociationLink : SubResource
+    public partial class ServiceAssociationLink : WritableSubResource<ResourceIdentifier>
     {
         /// <summary> Initializes a new instance of ServiceAssociationLink. </summary>
         public ServiceAssociationLink()
@@ -20,7 +22,7 @@ namespace Azure.ResourceManager.Network.Models
         }
 
         /// <summary> Initializes a new instance of ServiceAssociationLink. </summary>
-        /// <param name="id"> Resource ID. </param>
+        /// <param name="id"> The id. </param>
         /// <param name="name"> Name of the resource that is unique within a resource group. This name can be used to access the resource. </param>
         /// <param name="etag"> A unique read-only string that changes whenever the resource is updated. </param>
         /// <param name="type"> Resource type. </param>

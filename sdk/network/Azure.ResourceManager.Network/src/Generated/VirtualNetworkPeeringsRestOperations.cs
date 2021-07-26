@@ -20,6 +20,7 @@ namespace Azure.ResourceManager.Network
     {
         private string subscriptionId;
         private Uri endpoint;
+        private string apiVersion;
         private ClientDiagnostics _clientDiagnostics;
         private HttpPipeline _pipeline;
 
@@ -28,17 +29,13 @@ namespace Azure.ResourceManager.Network
         /// <param name="pipeline"> The HTTP pipeline for sending and receiving REST requests and responses. </param>
         /// <param name="subscriptionId"> The subscription credentials which uniquely identify the Microsoft Azure subscription. The subscription ID forms part of the URI for every service call. </param>
         /// <param name="endpoint"> server parameter. </param>
-        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> is null. </exception>
-        public VirtualNetworkPeeringsRestOperations(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, string subscriptionId, Uri endpoint = null)
+        /// <param name="apiVersion"> Api Version. </param>
+        /// <exception cref="ArgumentNullException"> <paramref name="subscriptionId"/> or <paramref name="apiVersion"/> is null. </exception>
+        public VirtualNetworkPeeringsRestOperations(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, string subscriptionId, Uri endpoint = null, string apiVersion = "2021-02-01")
         {
-            if (subscriptionId == null)
-            {
-                throw new ArgumentNullException(nameof(subscriptionId));
-            }
-            endpoint ??= new Uri("https://management.azure.com");
-
-            this.subscriptionId = subscriptionId;
-            this.endpoint = endpoint;
+            this.subscriptionId = subscriptionId ?? throw new ArgumentNullException(nameof(subscriptionId));
+            this.endpoint = endpoint ?? new Uri("https://management.azure.com");
+            this.apiVersion = apiVersion ?? throw new ArgumentNullException(nameof(apiVersion));
             _clientDiagnostics = clientDiagnostics;
             _pipeline = pipeline;
         }
@@ -58,7 +55,7 @@ namespace Azure.ResourceManager.Network
             uri.AppendPath(virtualNetworkName, true);
             uri.AppendPath("/virtualNetworkPeerings/", false);
             uri.AppendPath(virtualNetworkPeeringName, true);
-            uri.AppendQuery("api-version", "2020-04-01", true);
+            uri.AppendQuery("api-version", apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;
@@ -147,7 +144,7 @@ namespace Azure.ResourceManager.Network
             uri.AppendPath(virtualNetworkName, true);
             uri.AppendPath("/virtualNetworkPeerings/", false);
             uri.AppendPath(virtualNetworkPeeringName, true);
-            uri.AppendQuery("api-version", "2020-04-01", true);
+            uri.AppendQuery("api-version", apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;
@@ -159,7 +156,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualNetworkPeeringName"> The name of the virtual network peering. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualNetworkName"/>, or <paramref name="virtualNetworkPeeringName"/> is null. </exception>
-        public async Task<Response<VirtualNetworkPeering>> GetAsync(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, CancellationToken cancellationToken = default)
+        public async Task<Response<VirtualNetworkPeeringData>> GetAsync(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
             {
@@ -180,9 +177,9 @@ namespace Azure.ResourceManager.Network
             {
                 case 200:
                     {
-                        VirtualNetworkPeering value = default;
+                        VirtualNetworkPeeringData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = VirtualNetworkPeering.DeserializeVirtualNetworkPeering(document.RootElement);
+                        value = VirtualNetworkPeeringData.DeserializeVirtualNetworkPeeringData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -196,7 +193,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualNetworkPeeringName"> The name of the virtual network peering. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualNetworkName"/>, or <paramref name="virtualNetworkPeeringName"/> is null. </exception>
-        public Response<VirtualNetworkPeering> Get(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, CancellationToken cancellationToken = default)
+        public Response<VirtualNetworkPeeringData> Get(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
             {
@@ -217,9 +214,9 @@ namespace Azure.ResourceManager.Network
             {
                 case 200:
                     {
-                        VirtualNetworkPeering value = default;
+                        VirtualNetworkPeeringData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = VirtualNetworkPeering.DeserializeVirtualNetworkPeering(document.RootElement);
+                        value = VirtualNetworkPeeringData.DeserializeVirtualNetworkPeeringData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -227,7 +224,7 @@ namespace Azure.ResourceManager.Network
             }
         }
 
-        internal HttpMessage CreateCreateOrUpdateRequest(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, VirtualNetworkPeering virtualNetworkPeeringParameters)
+        internal HttpMessage CreateCreateOrUpdateRequest(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, VirtualNetworkPeeringData virtualNetworkPeeringParameters, SyncRemoteAddressSpace? syncRemoteAddressSpace)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -242,7 +239,11 @@ namespace Azure.ResourceManager.Network
             uri.AppendPath(virtualNetworkName, true);
             uri.AppendPath("/virtualNetworkPeerings/", false);
             uri.AppendPath(virtualNetworkPeeringName, true);
-            uri.AppendQuery("api-version", "2020-04-01", true);
+            if (syncRemoteAddressSpace != null)
+            {
+                uri.AppendQuery("syncRemoteAddressSpace", syncRemoteAddressSpace.Value.ToString(), true);
+            }
+            uri.AppendQuery("api-version", apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             request.Headers.Add("Content-Type", "application/json");
@@ -257,9 +258,10 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualNetworkName"> The name of the virtual network. </param>
         /// <param name="virtualNetworkPeeringName"> The name of the peering. </param>
         /// <param name="virtualNetworkPeeringParameters"> Parameters supplied to the create or update virtual network peering operation. </param>
+        /// <param name="syncRemoteAddressSpace"> Parameter indicates the intention to sync the peering with the current address space on the remote vNet after it&apos;s updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualNetworkName"/>, <paramref name="virtualNetworkPeeringName"/>, or <paramref name="virtualNetworkPeeringParameters"/> is null. </exception>
-        public async Task<Response> CreateOrUpdateAsync(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, VirtualNetworkPeering virtualNetworkPeeringParameters, CancellationToken cancellationToken = default)
+        public async Task<Response> CreateOrUpdateAsync(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, VirtualNetworkPeeringData virtualNetworkPeeringParameters, SyncRemoteAddressSpace? syncRemoteAddressSpace = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
             {
@@ -278,7 +280,7 @@ namespace Azure.ResourceManager.Network
                 throw new ArgumentNullException(nameof(virtualNetworkPeeringParameters));
             }
 
-            using var message = CreateCreateOrUpdateRequest(resourceGroupName, virtualNetworkName, virtualNetworkPeeringName, virtualNetworkPeeringParameters);
+            using var message = CreateCreateOrUpdateRequest(resourceGroupName, virtualNetworkName, virtualNetworkPeeringName, virtualNetworkPeeringParameters, syncRemoteAddressSpace);
             await _pipeline.SendAsync(message, cancellationToken).ConfigureAwait(false);
             switch (message.Response.Status)
             {
@@ -295,9 +297,10 @@ namespace Azure.ResourceManager.Network
         /// <param name="virtualNetworkName"> The name of the virtual network. </param>
         /// <param name="virtualNetworkPeeringName"> The name of the peering. </param>
         /// <param name="virtualNetworkPeeringParameters"> Parameters supplied to the create or update virtual network peering operation. </param>
+        /// <param name="syncRemoteAddressSpace"> Parameter indicates the intention to sync the peering with the current address space on the remote vNet after it&apos;s updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="virtualNetworkName"/>, <paramref name="virtualNetworkPeeringName"/>, or <paramref name="virtualNetworkPeeringParameters"/> is null. </exception>
-        public Response CreateOrUpdate(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, VirtualNetworkPeering virtualNetworkPeeringParameters, CancellationToken cancellationToken = default)
+        public Response CreateOrUpdate(string resourceGroupName, string virtualNetworkName, string virtualNetworkPeeringName, VirtualNetworkPeeringData virtualNetworkPeeringParameters, SyncRemoteAddressSpace? syncRemoteAddressSpace = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
             {
@@ -316,7 +319,7 @@ namespace Azure.ResourceManager.Network
                 throw new ArgumentNullException(nameof(virtualNetworkPeeringParameters));
             }
 
-            using var message = CreateCreateOrUpdateRequest(resourceGroupName, virtualNetworkName, virtualNetworkPeeringName, virtualNetworkPeeringParameters);
+            using var message = CreateCreateOrUpdateRequest(resourceGroupName, virtualNetworkName, virtualNetworkPeeringName, virtualNetworkPeeringParameters, syncRemoteAddressSpace);
             _pipeline.Send(message, cancellationToken);
             switch (message.Response.Status)
             {
@@ -342,7 +345,7 @@ namespace Azure.ResourceManager.Network
             uri.AppendPath("/providers/Microsoft.Network/virtualNetworks/", false);
             uri.AppendPath(virtualNetworkName, true);
             uri.AppendPath("/virtualNetworkPeerings", false);
-            uri.AppendQuery("api-version", "2020-04-01", true);
+            uri.AppendQuery("api-version", apiVersion, true);
             request.Uri = uri;
             request.Headers.Add("Accept", "application/json");
             return message;

@@ -19,15 +19,6 @@ namespace Azure.ResourceManager.Network.Models
             Value = new ChangeTrackingList<DdosProtectionPlan>();
         }
 
-        /// <summary> Initializes a new instance of DdosProtectionPlanListResult. </summary>
-        /// <param name="value"> A list of DDoS protection plans. </param>
-        /// <param name="nextLink"> The URL to get the next set of results. </param>
-        internal DdosProtectionPlanListResult(IReadOnlyList<DdosProtectionPlan> value, string nextLink)
-        {
-            Value = value;
-            NextLink = nextLink;
-        }
-
         /// <summary> A list of DDoS protection plans. </summary>
         public IReadOnlyList<DdosProtectionPlan> Value { get; }
         /// <summary> The URL to get the next set of results. </summary>

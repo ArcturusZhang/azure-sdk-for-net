@@ -5,10 +5,13 @@
 
 #nullable disable
 
+using Azure.ResourceManager;
+using Azure.ResourceManager.Resources.Models;
+
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Frontend port of an application gateway. </summary>
-    public partial class ApplicationGatewayFrontendPort : SubResource
+    public partial class ApplicationGatewayFrontendPort : WritableSubResource<ResourceIdentifier>
     {
         /// <summary> Initializes a new instance of ApplicationGatewayFrontendPort. </summary>
         public ApplicationGatewayFrontendPort()
@@ -16,7 +19,7 @@ namespace Azure.ResourceManager.Network.Models
         }
 
         /// <summary> Initializes a new instance of ApplicationGatewayFrontendPort. </summary>
-        /// <param name="id"> Resource ID. </param>
+        /// <param name="id"> The id. </param>
         /// <param name="name"> Name of the frontend port that is unique within an Application Gateway. </param>
         /// <param name="etag"> A unique read-only string that changes whenever the resource is updated. </param>
         /// <param name="type"> Type of the resource. </param>
