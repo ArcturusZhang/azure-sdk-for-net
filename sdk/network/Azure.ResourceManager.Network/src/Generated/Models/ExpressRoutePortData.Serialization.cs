@@ -9,9 +9,10 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Network.Models;
 using Azure.ResourceManager.Resources.Models;
 
-namespace Azure.ResourceManager.Network.Models
+namespace Azure.ResourceManager.Network
 {
     public partial class ExpressRoutePortData : IUtf8JsonSerializable
     {
@@ -80,7 +81,7 @@ namespace Azure.ResourceManager.Network.Models
             Optional<string> type = default;
             Optional<string> location = default;
             Optional<IDictionary<string, string>> tags = default;
-            ResourceGroupResourceIdentifier id = default;
+            ResourceIdentifier id = default;
             Optional<string> peeringLocation = default;
             Optional<int> bandwidthInGbps = default;
             Optional<float> provisionedBandwidthInGbps = default;
@@ -89,7 +90,7 @@ namespace Azure.ResourceManager.Network.Models
             Optional<string> etherType = default;
             Optional<string> allocationDate = default;
             Optional<IList<ExpressRouteLink>> links = default;
-            Optional<IReadOnlyList<SubResource>> circuits = default;
+            Optional<IReadOnlyList<Models.SubResource>> circuits = default;
             Optional<ProvisioningState> provisioningState = default;
             Optional<string> resourceGuid = default;
             foreach (var property in element.EnumerateObject())
@@ -225,10 +226,10 @@ namespace Azure.ResourceManager.Network.Models
                                 property0.ThrowNonNullablePropertyIsNull();
                                 continue;
                             }
-                            List<SubResource> array = new List<SubResource>();
+                            List<Models.SubResource> array = new List<Models.SubResource>();
                             foreach (var item in property0.Value.EnumerateArray())
                             {
-                                array.Add(SubResource.DeserializeSubResource(item));
+                                array.Add(Models.SubResource.DeserializeSubResource(item));
                             }
                             circuits = array;
                             continue;

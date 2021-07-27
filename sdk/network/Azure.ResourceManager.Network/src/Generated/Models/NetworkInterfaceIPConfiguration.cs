@@ -7,13 +7,13 @@
 
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager;
+using Azure.ResourceManager.Network;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> IPConfiguration in a network interface. </summary>
-    public partial class NetworkInterfaceIPConfiguration : WritableSubResource<ResourceIdentifier>
+    public partial class NetworkInterfaceIPConfiguration : WritableSubResource
     {
         /// <summary> Initializes a new instance of NetworkInterfaceIPConfiguration. </summary>
         public NetworkInterfaceIPConfiguration()

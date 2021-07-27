@@ -7,13 +7,12 @@
 
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Redirect configuration of an application gateway. </summary>
-    public partial class ApplicationGatewayRedirectConfiguration : WritableSubResource<ResourceIdentifier>
+    public partial class ApplicationGatewayRedirectConfiguration : WritableSubResource
     {
         /// <summary> Initializes a new instance of ApplicationGatewayRedirectConfiguration. </summary>
         public ApplicationGatewayRedirectConfiguration()

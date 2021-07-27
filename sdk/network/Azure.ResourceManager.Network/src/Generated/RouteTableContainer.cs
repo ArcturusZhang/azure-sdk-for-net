@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing collection of RouteTable and their operations over a ResourceGroup. </summary>
-    public partial class RouteTableContainer : ResourceContainerBase<ResourceGroupResourceIdentifier, RouteTable, RouteTableData>
+    public partial class RouteTableContainer : ResourceContainerBase<RouteTable, RouteTableData>
     {
         /// <summary> Initializes a new instance of the <see cref="RouteTableContainer"/> class for mocking. </summary>
         protected RouteTableContainer()
@@ -38,9 +38,6 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Represents the REST operations. </summary>
         private RouteTablesRestOperations _restClient => new RouteTablesRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
-
-        /// <summary> Typed Resource Identifier for the container. </summary>
-        public new ResourceGroupResourceIdentifier Id => base.Id as ResourceGroupResourceIdentifier;
 
         /// <summary> Gets the valid resource type for this object. </summary>
         protected override ResourceType ValidResourceType => ResourceGroupOperations.ResourceType;
@@ -444,6 +441,6 @@ namespace Azure.ResourceManager.Network
         }
 
         // Builders.
-        // public ArmBuilder<ResourceGroupResourceIdentifier, RouteTable, RouteTableData> Construct() { }
+        // public ArmBuilder<ResourceIdentifier, RouteTable, RouteTableData> Construct() { }
     }
 }

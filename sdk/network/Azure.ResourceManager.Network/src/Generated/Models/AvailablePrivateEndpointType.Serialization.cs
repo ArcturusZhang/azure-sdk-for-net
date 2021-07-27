@@ -17,7 +17,7 @@ namespace Azure.ResourceManager.Network.Models
         {
             Optional<string> resourceName = default;
             Optional<string> displayName = default;
-            TenantResourceIdentifier id = default;
+            ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             foreach (var property in element.EnumerateObject())

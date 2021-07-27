@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing collection of NetworkProfile and their operations over a ResourceGroup. </summary>
-    public partial class NetworkProfileContainer : ResourceContainerBase<ResourceGroupResourceIdentifier, NetworkProfile, NetworkProfileData>
+    public partial class NetworkProfileContainer : ResourceContainerBase<NetworkProfile, NetworkProfileData>
     {
         /// <summary> Initializes a new instance of the <see cref="NetworkProfileContainer"/> class for mocking. </summary>
         protected NetworkProfileContainer()
@@ -38,9 +38,6 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Represents the REST operations. </summary>
         private NetworkProfilesRestOperations _restClient => new NetworkProfilesRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
-
-        /// <summary> Typed Resource Identifier for the container. </summary>
-        public new ResourceGroupResourceIdentifier Id => base.Id as ResourceGroupResourceIdentifier;
 
         /// <summary> Gets the valid resource type for this object. </summary>
         protected override ResourceType ValidResourceType => ResourceGroupOperations.ResourceType;
@@ -444,6 +441,6 @@ namespace Azure.ResourceManager.Network
         }
 
         // Builders.
-        // public ArmBuilder<ResourceGroupResourceIdentifier, NetworkProfile, NetworkProfileData> Construct() { }
+        // public ArmBuilder<ResourceIdentifier, NetworkProfile, NetworkProfileData> Construct() { }
     }
 }

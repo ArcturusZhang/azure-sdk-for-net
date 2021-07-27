@@ -11,7 +11,7 @@ using Azure.ResourceManager.Resources.Models;
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Azure Web Category Resource. </summary>
-    public partial class AzureWebCategory : Resource<TenantResourceIdentifier>
+    public partial class AzureWebCategory : Resources.Models.Resource
     {
         /// <summary> Initializes a new instance of AzureWebCategory. </summary>
         internal AzureWebCategory()
@@ -24,7 +24,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="type"> The type. </param>
         /// <param name="etag"> A unique read-only string that changes whenever the resource is updated. </param>
         /// <param name="group"> The name of the group that the category belongs to. </param>
-        internal AzureWebCategory(TenantResourceIdentifier id, string name, ResourceType type, string etag, string group) : base(id, name, type)
+        internal AzureWebCategory(ResourceIdentifier id, string name, ResourceType type, string etag, string group) : base(id, name, type)
         {
             Etag = etag;
             Group = group;

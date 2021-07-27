@@ -7,13 +7,12 @@
 
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> VpnSiteLinkConnection Resource. </summary>
-    public partial class VpnSiteLinkConnection : WritableSubResource<ResourceIdentifier>
+    public partial class VpnSiteLinkConnection : WritableSubResource
     {
         /// <summary> Initializes a new instance of VpnSiteLinkConnection. </summary>
         public VpnSiteLinkConnection()

@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing collection of ExpressRoutePort and their operations over a ResourceGroup. </summary>
-    public partial class ExpressRoutePortContainer : ResourceContainerBase<ResourceGroupResourceIdentifier, ExpressRoutePort, ExpressRoutePortData>
+    public partial class ExpressRoutePortContainer : ResourceContainerBase<ExpressRoutePort, ExpressRoutePortData>
     {
         /// <summary> Initializes a new instance of the <see cref="ExpressRoutePortContainer"/> class for mocking. </summary>
         protected ExpressRoutePortContainer()
@@ -38,9 +38,6 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Represents the REST operations. </summary>
         private ExpressRoutePortsRestOperations _restClient => new ExpressRoutePortsRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
-
-        /// <summary> Typed Resource Identifier for the container. </summary>
-        public new ResourceGroupResourceIdentifier Id => base.Id as ResourceGroupResourceIdentifier;
 
         /// <summary> Gets the valid resource type for this object. </summary>
         protected override ResourceType ValidResourceType => ResourceGroupOperations.ResourceType;
@@ -322,7 +319,7 @@ namespace Azure.ResourceManager.Network
         {
             Page<ExpressRoutePort> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("ExpressRoutePortContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("ExpressRoutePortContainer.List");
                 scope.Start();
                 try
                 {
@@ -337,7 +334,7 @@ namespace Azure.ResourceManager.Network
             }
             Page<ExpressRoutePort> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("ExpressRoutePortContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("ExpressRoutePortContainer.List");
                 scope.Start();
                 try
                 {
@@ -360,7 +357,7 @@ namespace Azure.ResourceManager.Network
         {
             async Task<Page<ExpressRoutePort>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("ExpressRoutePortContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("ExpressRoutePortContainer.List");
                 scope.Start();
                 try
                 {
@@ -375,7 +372,7 @@ namespace Azure.ResourceManager.Network
             }
             async Task<Page<ExpressRoutePort>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("ExpressRoutePortContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("ExpressRoutePortContainer.List");
                 scope.Start();
                 try
                 {
@@ -438,6 +435,6 @@ namespace Azure.ResourceManager.Network
         }
 
         // Builders.
-        // public ArmBuilder<ResourceGroupResourceIdentifier, ExpressRoutePort, ExpressRoutePortData> Construct() { }
+        // public ArmBuilder<ResourceIdentifier, ExpressRoutePort, ExpressRoutePortData> Construct() { }
     }
 }

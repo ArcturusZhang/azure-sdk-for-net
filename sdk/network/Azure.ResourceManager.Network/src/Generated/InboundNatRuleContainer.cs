@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing collection of InboundNatRule and their operations over a LoadBalancer. </summary>
-    public partial class InboundNatRuleContainer : ResourceContainerBase<ResourceGroupResourceIdentifier, InboundNatRule, InboundNatRuleData>
+    public partial class InboundNatRuleContainer : ResourceContainerBase<InboundNatRule, InboundNatRuleData>
     {
         /// <summary> Initializes a new instance of the <see cref="InboundNatRuleContainer"/> class for mocking. </summary>
         protected InboundNatRuleContainer()
@@ -38,9 +38,6 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Represents the REST operations. </summary>
         private InboundNatRulesRestOperations _restClient => new InboundNatRulesRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
-
-        /// <summary> Typed Resource Identifier for the container. </summary>
-        public new ResourceGroupResourceIdentifier Id => base.Id as ResourceGroupResourceIdentifier;
 
         /// <summary> Gets the valid resource type for this object. </summary>
         protected override ResourceType ValidResourceType => LoadBalancerOperations.ResourceType;
@@ -444,6 +441,6 @@ namespace Azure.ResourceManager.Network
         }
 
         // Builders.
-        // public ArmBuilder<ResourceGroupResourceIdentifier, InboundNatRule, InboundNatRuleData> Construct() { }
+        // public ArmBuilder<ResourceIdentifier, InboundNatRule, InboundNatRuleData> Construct() { }
     }
 }

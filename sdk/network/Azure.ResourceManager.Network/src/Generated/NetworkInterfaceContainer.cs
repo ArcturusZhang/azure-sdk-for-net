@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing collection of NetworkInterface and their operations over a ResourceGroup. </summary>
-    public partial class NetworkInterfaceContainer : ResourceContainerBase<ResourceGroupResourceIdentifier, NetworkInterface, NetworkInterfaceData>
+    public partial class NetworkInterfaceContainer : ResourceContainerBase<NetworkInterface, NetworkInterfaceData>
     {
         /// <summary> Initializes a new instance of the <see cref="NetworkInterfaceContainer"/> class for mocking. </summary>
         protected NetworkInterfaceContainer()
@@ -38,9 +38,6 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Represents the REST operations. </summary>
         private NetworkInterfacesRestOperations _restClient => new NetworkInterfacesRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
-
-        /// <summary> Typed Resource Identifier for the container. </summary>
-        public new ResourceGroupResourceIdentifier Id => base.Id as ResourceGroupResourceIdentifier;
 
         /// <summary> Gets the valid resource type for this object. </summary>
         protected override ResourceType ValidResourceType => ResourceGroupOperations.ResourceType;
@@ -444,6 +441,6 @@ namespace Azure.ResourceManager.Network
         }
 
         // Builders.
-        // public ArmBuilder<ResourceGroupResourceIdentifier, NetworkInterface, NetworkInterfaceData> Construct() { }
+        // public ArmBuilder<ResourceIdentifier, NetworkInterface, NetworkInterfaceData> Construct() { }
     }
 }

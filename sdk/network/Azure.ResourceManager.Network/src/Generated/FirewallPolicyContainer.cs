@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing collection of FirewallPolicy and their operations over a ResourceGroup. </summary>
-    public partial class FirewallPolicyContainer : ResourceContainerBase<ResourceGroupResourceIdentifier, FirewallPolicy, FirewallPolicyData>
+    public partial class FirewallPolicyContainer : ResourceContainerBase<FirewallPolicy, FirewallPolicyData>
     {
         /// <summary> Initializes a new instance of the <see cref="FirewallPolicyContainer"/> class for mocking. </summary>
         protected FirewallPolicyContainer()
@@ -38,9 +38,6 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Represents the REST operations. </summary>
         private FirewallPoliciesRestOperations _restClient => new FirewallPoliciesRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
-
-        /// <summary> Typed Resource Identifier for the container. </summary>
-        public new ResourceGroupResourceIdentifier Id => base.Id as ResourceGroupResourceIdentifier;
 
         /// <summary> Gets the valid resource type for this object. </summary>
         protected override ResourceType ValidResourceType => ResourceGroupOperations.ResourceType;
@@ -444,6 +441,6 @@ namespace Azure.ResourceManager.Network
         }
 
         // Builders.
-        // public ArmBuilder<ResourceGroupResourceIdentifier, FirewallPolicy, FirewallPolicyData> Construct() { }
+        // public ArmBuilder<ResourceIdentifier, FirewallPolicy, FirewallPolicyData> Construct() { }
     }
 }

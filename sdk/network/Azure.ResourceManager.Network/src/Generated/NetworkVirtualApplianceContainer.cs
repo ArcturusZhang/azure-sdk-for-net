@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing collection of NetworkVirtualAppliance and their operations over a ResourceGroup. </summary>
-    public partial class NetworkVirtualApplianceContainer : ResourceContainerBase<ResourceGroupResourceIdentifier, NetworkVirtualAppliance, NetworkVirtualApplianceData>
+    public partial class NetworkVirtualApplianceContainer : ResourceContainerBase<NetworkVirtualAppliance, NetworkVirtualApplianceData>
     {
         /// <summary> Initializes a new instance of the <see cref="NetworkVirtualApplianceContainer"/> class for mocking. </summary>
         protected NetworkVirtualApplianceContainer()
@@ -38,9 +38,6 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Represents the REST operations. </summary>
         private NetworkVirtualAppliancesRestOperations _restClient => new NetworkVirtualAppliancesRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
-
-        /// <summary> Typed Resource Identifier for the container. </summary>
-        public new ResourceGroupResourceIdentifier Id => base.Id as ResourceGroupResourceIdentifier;
 
         /// <summary> Gets the valid resource type for this object. </summary>
         protected override ResourceType ValidResourceType => ResourceGroupOperations.ResourceType;
@@ -328,7 +325,7 @@ namespace Azure.ResourceManager.Network
         {
             Page<NetworkVirtualAppliance> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("NetworkVirtualApplianceContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("NetworkVirtualApplianceContainer.List");
                 scope.Start();
                 try
                 {
@@ -343,7 +340,7 @@ namespace Azure.ResourceManager.Network
             }
             Page<NetworkVirtualAppliance> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("NetworkVirtualApplianceContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("NetworkVirtualApplianceContainer.List");
                 scope.Start();
                 try
                 {
@@ -366,7 +363,7 @@ namespace Azure.ResourceManager.Network
         {
             async Task<Page<NetworkVirtualAppliance>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("NetworkVirtualApplianceContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("NetworkVirtualApplianceContainer.List");
                 scope.Start();
                 try
                 {
@@ -381,7 +378,7 @@ namespace Azure.ResourceManager.Network
             }
             async Task<Page<NetworkVirtualAppliance>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("NetworkVirtualApplianceContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("NetworkVirtualApplianceContainer.List");
                 scope.Start();
                 try
                 {
@@ -444,6 +441,6 @@ namespace Azure.ResourceManager.Network
         }
 
         // Builders.
-        // public ArmBuilder<ResourceGroupResourceIdentifier, NetworkVirtualAppliance, NetworkVirtualApplianceData> Construct() { }
+        // public ArmBuilder<ResourceIdentifier, NetworkVirtualAppliance, NetworkVirtualApplianceData> Construct() { }
     }
 }

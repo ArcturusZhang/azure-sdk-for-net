@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources.Models;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing the operations that can be performed over a specific LoadBalancer. </summary>
-    public partial class LoadBalancerOperations : ResourceOperationsBase<ResourceGroupResourceIdentifier, LoadBalancer>
+    public partial class LoadBalancerOperations : ResourceOperationsBase<LoadBalancer>
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private LoadBalancersRestOperations _restClient { get; }
@@ -38,7 +38,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Initializes a new instance of the <see cref="LoadBalancerOperations"/> class. </summary>
         /// <param name="options"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        protected internal LoadBalancerOperations(OperationsBase options, ResourceGroupResourceIdentifier id) : base(options, id)
+        protected internal LoadBalancerOperations(OperationsBase options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
             _restClient = new LoadBalancersRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
@@ -216,14 +216,14 @@ namespace Azure.ResourceManager.Network
         /// <summary> Updates a load balancer tags. </summary>
         /// <param name="tags"> Resource tags. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<LoadBalancerData>> UpdateTagsAsync(IDictionary<string, string> tags = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<LoadBalancer>> UpdateTagsAsync(IDictionary<string, string> tags = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("LoadBalancerOperations.UpdateTags");
             scope.Start();
             try
             {
                 var response = await _restClient.UpdateTagsAsync(Id.ResourceGroupName, Id.Name, tags, cancellationToken).ConfigureAwait(false);
-                return response;
+                return Response.FromValue(new LoadBalancer(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {
@@ -235,14 +235,14 @@ namespace Azure.ResourceManager.Network
         /// <summary> Updates a load balancer tags. </summary>
         /// <param name="tags"> Resource tags. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<LoadBalancerData> UpdateTags(IDictionary<string, string> tags = null, CancellationToken cancellationToken = default)
+        public virtual Response<LoadBalancer> UpdateTags(IDictionary<string, string> tags = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("LoadBalancerOperations.UpdateTags");
             scope.Start();
             try
             {
                 var response = _restClient.UpdateTags(Id.ResourceGroupName, Id.Name, tags, cancellationToken);
-                return response;
+                return Response.FromValue(new LoadBalancer(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
             {

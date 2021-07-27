@@ -8,13 +8,12 @@
 using System;
 using System.Collections.Generic;
 using Azure.Core;
-using Azure.ResourceManager;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Status of packet capture session. </summary>
-    public partial class PacketCaptureQueryStatusResult : SubResource<ResourceIdentifier>
+    public partial class PacketCaptureQueryStatusResult : Resources.Models.SubResource
     {
         /// <summary> Initializes a new instance of PacketCaptureQueryStatusResult. </summary>
         internal PacketCaptureQueryStatusResult()

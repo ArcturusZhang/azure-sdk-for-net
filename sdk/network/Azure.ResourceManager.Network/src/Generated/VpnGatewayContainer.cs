@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing collection of VpnGateway and their operations over a ResourceGroup. </summary>
-    public partial class VpnGatewayContainer : ResourceContainerBase<ResourceGroupResourceIdentifier, VpnGateway, VpnGatewayData>
+    public partial class VpnGatewayContainer : ResourceContainerBase<VpnGateway, VpnGatewayData>
     {
         /// <summary> Initializes a new instance of the <see cref="VpnGatewayContainer"/> class for mocking. </summary>
         protected VpnGatewayContainer()
@@ -38,9 +38,6 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Represents the REST operations. </summary>
         private VpnGatewaysRestOperations _restClient => new VpnGatewaysRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
-
-        /// <summary> Typed Resource Identifier for the container. </summary>
-        public new ResourceGroupResourceIdentifier Id => base.Id as ResourceGroupResourceIdentifier;
 
         /// <summary> Gets the valid resource type for this object. </summary>
         protected override ResourceType ValidResourceType => ResourceGroupOperations.ResourceType;
@@ -322,7 +319,7 @@ namespace Azure.ResourceManager.Network
         {
             Page<VpnGateway> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("VpnGatewayContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("VpnGatewayContainer.List");
                 scope.Start();
                 try
                 {
@@ -337,7 +334,7 @@ namespace Azure.ResourceManager.Network
             }
             Page<VpnGateway> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("VpnGatewayContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("VpnGatewayContainer.List");
                 scope.Start();
                 try
                 {
@@ -360,7 +357,7 @@ namespace Azure.ResourceManager.Network
         {
             async Task<Page<VpnGateway>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("VpnGatewayContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("VpnGatewayContainer.List");
                 scope.Start();
                 try
                 {
@@ -375,7 +372,7 @@ namespace Azure.ResourceManager.Network
             }
             async Task<Page<VpnGateway>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("VpnGatewayContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("VpnGatewayContainer.List");
                 scope.Start();
                 try
                 {
@@ -438,6 +435,6 @@ namespace Azure.ResourceManager.Network
         }
 
         // Builders.
-        // public ArmBuilder<ResourceGroupResourceIdentifier, VpnGateway, VpnGatewayData> Construct() { }
+        // public ArmBuilder<ResourceIdentifier, VpnGateway, VpnGatewayData> Construct() { }
     }
 }

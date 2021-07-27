@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing collection of IpAllocation and their operations over a ResourceGroup. </summary>
-    public partial class IpAllocationContainer : ResourceContainerBase<ResourceGroupResourceIdentifier, IpAllocation, IpAllocationData>
+    public partial class IpAllocationContainer : ResourceContainerBase<IpAllocation, IpAllocationData>
     {
         /// <summary> Initializes a new instance of the <see cref="IpAllocationContainer"/> class for mocking. </summary>
         protected IpAllocationContainer()
@@ -38,9 +38,6 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Represents the REST operations. </summary>
         private IpAllocationsRestOperations _restClient => new IpAllocationsRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
-
-        /// <summary> Typed Resource Identifier for the container. </summary>
-        public new ResourceGroupResourceIdentifier Id => base.Id as ResourceGroupResourceIdentifier;
 
         /// <summary> Gets the valid resource type for this object. </summary>
         protected override ResourceType ValidResourceType => ResourceGroupOperations.ResourceType;
@@ -328,7 +325,7 @@ namespace Azure.ResourceManager.Network
         {
             Page<IpAllocation> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("IpAllocationContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("IpAllocationContainer.List");
                 scope.Start();
                 try
                 {
@@ -343,7 +340,7 @@ namespace Azure.ResourceManager.Network
             }
             Page<IpAllocation> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("IpAllocationContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("IpAllocationContainer.List");
                 scope.Start();
                 try
                 {
@@ -366,7 +363,7 @@ namespace Azure.ResourceManager.Network
         {
             async Task<Page<IpAllocation>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("IpAllocationContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("IpAllocationContainer.List");
                 scope.Start();
                 try
                 {
@@ -381,7 +378,7 @@ namespace Azure.ResourceManager.Network
             }
             async Task<Page<IpAllocation>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = _clientDiagnostics.CreateScope("IpAllocationContainer.ListByResourceGroup");
+                using var scope = _clientDiagnostics.CreateScope("IpAllocationContainer.List");
                 scope.Start();
                 try
                 {
@@ -444,6 +441,6 @@ namespace Azure.ResourceManager.Network
         }
 
         // Builders.
-        // public ArmBuilder<ResourceGroupResourceIdentifier, IpAllocation, IpAllocationData> Construct() { }
+        // public ArmBuilder<ResourceIdentifier, IpAllocation, IpAllocationData> Construct() { }
     }
 }

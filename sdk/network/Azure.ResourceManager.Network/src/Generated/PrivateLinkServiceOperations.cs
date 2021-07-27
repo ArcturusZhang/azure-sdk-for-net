@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources.Models;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing the operations that can be performed over a specific PrivateLinkService. </summary>
-    public partial class PrivateLinkServiceOperations : ResourceOperationsBase<ResourceGroupResourceIdentifier, PrivateLinkService>
+    public partial class PrivateLinkServiceOperations : ResourceOperationsBase<PrivateLinkService>
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private PrivateLinkServicesRestOperations _restClient { get; }
@@ -33,7 +33,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Initializes a new instance of the <see cref="PrivateLinkServiceOperations"/> class. </summary>
         /// <param name="options"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        protected internal PrivateLinkServiceOperations(OperationsBase options, ResourceGroupResourceIdentifier id) : base(options, id)
+        protected internal PrivateLinkServiceOperations(OperationsBase options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
             _restClient = new PrivateLinkServicesRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);

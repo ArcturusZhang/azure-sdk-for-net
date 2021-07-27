@@ -16,7 +16,7 @@ namespace Azure.ResourceManager.Network.Models
         internal static AzureWebCategory DeserializeAzureWebCategory(JsonElement element)
         {
             Optional<string> etag = default;
-            TenantResourceIdentifier id = default;
+            ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             Optional<string> group = default;

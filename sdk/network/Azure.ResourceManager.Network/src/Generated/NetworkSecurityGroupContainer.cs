@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing collection of NetworkSecurityGroup and their operations over a ResourceGroup. </summary>
-    public partial class NetworkSecurityGroupContainer : ResourceContainerBase<ResourceGroupResourceIdentifier, NetworkSecurityGroup, NetworkSecurityGroupData>
+    public partial class NetworkSecurityGroupContainer : ResourceContainerBase<NetworkSecurityGroup, NetworkSecurityGroupData>
     {
         /// <summary> Initializes a new instance of the <see cref="NetworkSecurityGroupContainer"/> class for mocking. </summary>
         protected NetworkSecurityGroupContainer()
@@ -38,9 +38,6 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Represents the REST operations. </summary>
         private NetworkSecurityGroupsRestOperations _restClient => new NetworkSecurityGroupsRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
-
-        /// <summary> Typed Resource Identifier for the container. </summary>
-        public new ResourceGroupResourceIdentifier Id => base.Id as ResourceGroupResourceIdentifier;
 
         /// <summary> Gets the valid resource type for this object. </summary>
         protected override ResourceType ValidResourceType => ResourceGroupOperations.ResourceType;
@@ -444,6 +441,6 @@ namespace Azure.ResourceManager.Network
         }
 
         // Builders.
-        // public ArmBuilder<ResourceGroupResourceIdentifier, NetworkSecurityGroup, NetworkSecurityGroupData> Construct() { }
+        // public ArmBuilder<ResourceIdentifier, NetworkSecurityGroup, NetworkSecurityGroupData> Construct() { }
     }
 }

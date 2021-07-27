@@ -5,13 +5,12 @@
 
 #nullable disable
 
-using Azure.ResourceManager;
 using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> IP configuration of an Bastion Host. </summary>
-    public partial class BastionHostIPConfiguration : WritableSubResource<ResourceIdentifier>
+    public partial class BastionHostIPConfiguration : WritableSubResource
     {
         /// <summary> Initializes a new instance of BastionHostIPConfiguration. </summary>
         public BastionHostIPConfiguration()

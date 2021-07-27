@@ -170,6 +170,16 @@ namespace Azure.ResourceManager.Network
         }
         #endregion
 
+        #region DdosProtectionPlan
+        /// <summary> Gets an object representing a DdosProtectionPlanContainer along with the instance operations that can be performed on it. </summary>
+        /// <param name="resourceGroup"> The <see cref="ResourceGroupOperations" /> instance the method will execute against. </param>
+        /// <returns> Returns a <see cref="DdosProtectionPlanContainer" /> object. </returns>
+        public static DdosProtectionPlanContainer GetDdosProtectionPlans(this ResourceGroupOperations resourceGroup)
+        {
+            return new DdosProtectionPlanContainer(resourceGroup);
+        }
+        #endregion
+
         #region DscpConfiguration
         /// <summary> Gets an object representing a DscpConfigurationContainer along with the instance operations that can be performed on it. </summary>
         /// <param name="resourceGroup"> The <see cref="ResourceGroupOperations" /> instance the method will execute against. </param>

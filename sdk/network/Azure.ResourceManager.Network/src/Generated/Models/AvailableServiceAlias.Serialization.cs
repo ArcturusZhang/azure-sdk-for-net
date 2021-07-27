@@ -16,7 +16,7 @@ namespace Azure.ResourceManager.Network.Models
         internal static AvailableServiceAlias DeserializeAvailableServiceAlias(JsonElement element)
         {
             Optional<string> resourceName = default;
-            TenantResourceIdentifier id = default;
+            ResourceIdentifier id = default;
             string name = default;
             ResourceType type = default;
             foreach (var property in element.EnumerateObject())

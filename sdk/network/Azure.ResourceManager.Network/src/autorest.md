@@ -292,13 +292,13 @@ directive:
 #   - remove-operation: "DdosProtectionPlans_Delete"
 #   - remove-operation: "DdosProtectionPlans_UpdateTags"
 #   - remove-operation: "DdosProtectionPlans_List"
-  - from: swagger-document
-    where: $.paths
-    transform: delete $['/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans/{ddosProtectionPlanName}']
-  - from: swagger-document
-    where: $.paths
-    transform: delete $['/subscriptions/{subscriptionId}/providers/Microsoft.Network/ddosProtectionPlans']
-  - from: swagger-document
-    where: $.paths
-    transform: delete $['/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans']
+  # - from: swagger-document
+  #   where: $.paths
+  #   transform: delete $['/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans/{ddosProtectionPlanName}']
+  # - from: swagger-document
+  #   where: $.paths
+  #   transform: delete $['/subscriptions/{subscriptionId}/providers/Microsoft.Network/ddosProtectionPlans']
+  # - from: swagger-document
+  #   where: $.paths
+  #   transform: delete $['/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.Network/ddosProtectionPlans']
 ```

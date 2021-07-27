@@ -20,7 +20,7 @@ using Azure.ResourceManager.Resources.Models;
 namespace Azure.ResourceManager.Network
 {
     /// <summary> A class representing the operations that can be performed over a specific ExpressRouteCircuitPeering. </summary>
-    public partial class ExpressRouteCircuitPeeringOperations : ResourceOperationsBase<ResourceGroupResourceIdentifier, ExpressRouteCircuitPeering>
+    public partial class ExpressRouteCircuitPeeringOperations : ResourceOperationsBase<ExpressRouteCircuitPeering>
     {
         private readonly ClientDiagnostics _clientDiagnostics;
         private ExpressRouteCircuitPeeringsRestOperations _restClient { get; }
@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Initializes a new instance of the <see cref="ExpressRouteCircuitPeeringOperations"/> class. </summary>
         /// <param name="options"> The client parameters to use in these operations. </param>
         /// <param name="id"> The identifier of the resource that is the target of operations. </param>
-        protected internal ExpressRouteCircuitPeeringOperations(OperationsBase options, ResourceGroupResourceIdentifier id) : base(options, id)
+        protected internal ExpressRouteCircuitPeeringOperations(OperationsBase options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
             _restClient = new ExpressRouteCircuitPeeringsRestOperations(_clientDiagnostics, Pipeline, Id.SubscriptionId, BaseUri);
