@@ -5,20 +5,20 @@
 
 #nullable disable
 
-using Azure.ResourceManager.Network;
+using Azure.ResourceManager.Network.Models;
 using Azure.ResourceManager.Resources.Models;
 
-namespace Azure.ResourceManager.Network.Models
+namespace Azure.ResourceManager.Network
 {
-    /// <summary> PrivateEndpointConnection resource. </summary>
-    public partial class PrivateEndpointConnection : WritableSubResource
+    /// <summary> A class representing the PrivateEndpointConnection data model. </summary>
+    public partial class PrivateEndpointConnectionData : WritableSubResource
     {
-        /// <summary> Initializes a new instance of PrivateEndpointConnection. </summary>
-        public PrivateEndpointConnection()
+        /// <summary> Initializes a new instance of PrivateEndpointConnectionData. </summary>
+        public PrivateEndpointConnectionData()
         {
         }
 
-        /// <summary> Initializes a new instance of PrivateEndpointConnection. </summary>
+        /// <summary> Initializes a new instance of PrivateEndpointConnectionData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name of the resource that is unique within a resource group. This name can be used to access the resource. </param>
         /// <param name="type"> The resource type. </param>
@@ -27,7 +27,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="privateLinkServiceConnectionState"> A collection of information about the state of the connection between service consumer and provider. </param>
         /// <param name="provisioningState"> The provisioning state of the private endpoint connection resource. </param>
         /// <param name="linkIdentifier"> The consumer link id. </param>
-        internal PrivateEndpointConnection(string id, string name, string type, string etag, PrivateEndpointData privateEndpoint, PrivateLinkServiceConnectionState privateLinkServiceConnectionState, ProvisioningState? provisioningState, string linkIdentifier) : base(id)
+        internal PrivateEndpointConnectionData(string id, string name, string type, string etag, PrivateEndpointData privateEndpoint, PrivateLinkServiceConnectionState privateLinkServiceConnectionState, ProvisioningState? provisioningState, string linkIdentifier) : base(id)
         {
             Name = name;
             Type = type;

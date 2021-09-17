@@ -10,29 +10,30 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure;
 using Azure.Core;
+using Azure.ResourceManager.Network;
 
 namespace Azure.ResourceManager.Network.Models
 {
     /// <summary> Approve or reject private end point connection for a private link service in a subscription. </summary>
-    public partial class PrivateLinkServiceUpdatePrivateEndpointConnectionOperation : Operation<PrivateEndpointConnection>
+    public partial class PrivateLinkServiceUpdatePrivateEndpointConnectionOperation : Operation<PrivateEndpointConnectionData>
     {
-        private readonly OperationOrResponseInternals<PrivateEndpointConnection> _operation;
+        private readonly OperationOrResponseInternals<PrivateEndpointConnectionData> _operation;
 
         /// <summary> Initializes a new instance of PrivateLinkServiceUpdatePrivateEndpointConnectionOperation for mocking. </summary>
         protected PrivateLinkServiceUpdatePrivateEndpointConnectionOperation()
         {
         }
 
-        internal PrivateLinkServiceUpdatePrivateEndpointConnectionOperation(Response<PrivateEndpointConnection> response)
+        internal PrivateLinkServiceUpdatePrivateEndpointConnectionOperation(Response<PrivateEndpointConnectionData> response)
         {
-            _operation = new OperationOrResponseInternals<PrivateEndpointConnection>(response);
+            _operation = new OperationOrResponseInternals<PrivateEndpointConnectionData>(response);
         }
 
         /// <inheritdoc />
         public override string Id => _operation.Id;
 
         /// <inheritdoc />
-        public override PrivateEndpointConnection Value => _operation.Value;
+        public override PrivateEndpointConnectionData Value => _operation.Value;
 
         /// <inheritdoc />
         public override bool HasCompleted => _operation.HasCompleted;
@@ -50,9 +51,9 @@ namespace Azure.ResourceManager.Network.Models
         public override ValueTask<Response> UpdateStatusAsync(CancellationToken cancellationToken = default) => _operation.UpdateStatusAsync(cancellationToken);
 
         /// <inheritdoc />
-        public override ValueTask<Response<PrivateEndpointConnection>> WaitForCompletionAsync(CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(cancellationToken);
+        public override ValueTask<Response<PrivateEndpointConnectionData>> WaitForCompletionAsync(CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(cancellationToken);
 
         /// <inheritdoc />
-        public override ValueTask<Response<PrivateEndpointConnection>> WaitForCompletionAsync(TimeSpan pollingInterval, CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(pollingInterval, cancellationToken);
+        public override ValueTask<Response<PrivateEndpointConnectionData>> WaitForCompletionAsync(TimeSpan pollingInterval, CancellationToken cancellationToken = default) => _operation.WaitForCompletionAsync(pollingInterval, cancellationToken);
     }
 }

@@ -8,11 +8,11 @@
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager;
-using Azure.ResourceManager.Network;
+using Azure.ResourceManager.Network.Models;
 
-namespace Azure.ResourceManager.Network.Models
+namespace Azure.ResourceManager.Network
 {
-    public partial class PrivateEndpointConnection : IUtf8JsonSerializable
+    public partial class PrivateEndpointConnectionData : IUtf8JsonSerializable
     {
         void IUtf8JsonSerializable.Write(Utf8JsonWriter writer)
         {
@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.Network.Models
             writer.WriteEndObject();
         }
 
-        internal static PrivateEndpointConnection DeserializePrivateEndpointConnection(JsonElement element)
+        internal static PrivateEndpointConnectionData DeserializePrivateEndpointConnectionData(JsonElement element)
         {
             Optional<string> name = default;
             Optional<string> type = default;
@@ -115,7 +115,7 @@ namespace Azure.ResourceManager.Network.Models
                     continue;
                 }
             }
-            return new PrivateEndpointConnection(id, name.Value, type.Value, etag.Value, privateEndpoint.Value, privateLinkServiceConnectionState.Value, Optional.ToNullable(provisioningState), linkIdentifier.Value);
+            return new PrivateEndpointConnectionData(id, name.Value, type.Value, etag.Value, privateEndpoint.Value, privateLinkServiceConnectionState.Value, Optional.ToNullable(provisioningState), linkIdentifier.Value);
         }
     }
 }

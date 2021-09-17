@@ -469,7 +469,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="expand"> Expands referenced resources. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="serviceName"/>, or <paramref name="peConnectionName"/> is null. </exception>
-        public async Task<Response<PrivateEndpointConnection>> GetPrivateEndpointConnectionAsync(string resourceGroupName, string serviceName, string peConnectionName, string expand = null, CancellationToken cancellationToken = default)
+        public async Task<Response<PrivateEndpointConnectionData>> GetPrivateEndpointConnectionAsync(string resourceGroupName, string serviceName, string peConnectionName, string expand = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
             {
@@ -490,9 +490,9 @@ namespace Azure.ResourceManager.Network
             {
                 case 200:
                     {
-                        PrivateEndpointConnection value = default;
+                        PrivateEndpointConnectionData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = PrivateEndpointConnection.DeserializePrivateEndpointConnection(document.RootElement);
+                        value = PrivateEndpointConnectionData.DeserializePrivateEndpointConnectionData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -507,7 +507,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="expand"> Expands referenced resources. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="serviceName"/>, or <paramref name="peConnectionName"/> is null. </exception>
-        public Response<PrivateEndpointConnection> GetPrivateEndpointConnection(string resourceGroupName, string serviceName, string peConnectionName, string expand = null, CancellationToken cancellationToken = default)
+        public Response<PrivateEndpointConnectionData> GetPrivateEndpointConnection(string resourceGroupName, string serviceName, string peConnectionName, string expand = null, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
             {
@@ -528,9 +528,9 @@ namespace Azure.ResourceManager.Network
             {
                 case 200:
                     {
-                        PrivateEndpointConnection value = default;
+                        PrivateEndpointConnectionData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = PrivateEndpointConnection.DeserializePrivateEndpointConnection(document.RootElement);
+                        value = PrivateEndpointConnectionData.DeserializePrivateEndpointConnectionData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -538,7 +538,7 @@ namespace Azure.ResourceManager.Network
             }
         }
 
-        internal HttpMessage CreateUpdatePrivateEndpointConnectionRequest(string resourceGroupName, string serviceName, string peConnectionName, PrivateEndpointConnection parameters)
+        internal HttpMessage CreateUpdatePrivateEndpointConnectionRequest(string resourceGroupName, string serviceName, string peConnectionName, PrivateEndpointConnectionData parameters)
         {
             var message = _pipeline.CreateMessage();
             var request = message.Request;
@@ -571,7 +571,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="parameters"> Parameters supplied to approve or reject the private end point connection. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="serviceName"/>, <paramref name="peConnectionName"/>, or <paramref name="parameters"/> is null. </exception>
-        public async Task<Response<PrivateEndpointConnection>> UpdatePrivateEndpointConnectionAsync(string resourceGroupName, string serviceName, string peConnectionName, PrivateEndpointConnection parameters, CancellationToken cancellationToken = default)
+        public async Task<Response<PrivateEndpointConnectionData>> UpdatePrivateEndpointConnectionAsync(string resourceGroupName, string serviceName, string peConnectionName, PrivateEndpointConnectionData parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
             {
@@ -596,9 +596,9 @@ namespace Azure.ResourceManager.Network
             {
                 case 200:
                     {
-                        PrivateEndpointConnection value = default;
+                        PrivateEndpointConnectionData value = default;
                         using var document = await JsonDocument.ParseAsync(message.Response.ContentStream, default, cancellationToken).ConfigureAwait(false);
-                        value = PrivateEndpointConnection.DeserializePrivateEndpointConnection(document.RootElement);
+                        value = PrivateEndpointConnectionData.DeserializePrivateEndpointConnectionData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:
@@ -613,7 +613,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="parameters"> Parameters supplied to approve or reject the private end point connection. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourceGroupName"/>, <paramref name="serviceName"/>, <paramref name="peConnectionName"/>, or <paramref name="parameters"/> is null. </exception>
-        public Response<PrivateEndpointConnection> UpdatePrivateEndpointConnection(string resourceGroupName, string serviceName, string peConnectionName, PrivateEndpointConnection parameters, CancellationToken cancellationToken = default)
+        public Response<PrivateEndpointConnectionData> UpdatePrivateEndpointConnection(string resourceGroupName, string serviceName, string peConnectionName, PrivateEndpointConnectionData parameters, CancellationToken cancellationToken = default)
         {
             if (resourceGroupName == null)
             {
@@ -638,9 +638,9 @@ namespace Azure.ResourceManager.Network
             {
                 case 200:
                     {
-                        PrivateEndpointConnection value = default;
+                        PrivateEndpointConnectionData value = default;
                         using var document = JsonDocument.Parse(message.Response.ContentStream);
-                        value = PrivateEndpointConnection.DeserializePrivateEndpointConnection(document.RootElement);
+                        value = PrivateEndpointConnectionData.DeserializePrivateEndpointConnectionData(document.RootElement);
                         return Response.FromValue(value, message.Response);
                     }
                 default:

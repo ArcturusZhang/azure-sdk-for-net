@@ -9,12 +9,13 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 using Azure.ResourceManager;
+using Azure.ResourceManager.Network.Models;
 
-namespace Azure.ResourceManager.Network.Models
+namespace Azure.ResourceManager.Network
 {
-    public partial class ServiceTagsListResult
+    public partial class ServiceTagsListResultData
     {
-        internal static ServiceTagsListResult DeserializeServiceTagsListResult(JsonElement element)
+        internal static ServiceTagsListResultData DeserializeServiceTagsListResultData(JsonElement element)
         {
             Optional<string> changeNumber = default;
             Optional<string> cloud = default;
@@ -71,7 +72,7 @@ namespace Azure.ResourceManager.Network.Models
                     continue;
                 }
             }
-            return new ServiceTagsListResult(id, name, type, changeNumber.Value, cloud.Value, Optional.ToList(values), nextLink.Value);
+            return new ServiceTagsListResultData(id, name, type, changeNumber.Value, cloud.Value, Optional.ToList(values), nextLink.Value);
         }
     }
 }

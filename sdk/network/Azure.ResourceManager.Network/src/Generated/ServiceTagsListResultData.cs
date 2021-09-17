@@ -9,19 +9,20 @@ using System.Collections.Generic;
 using Azure.Core;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Models;
+using Azure.ResourceManager.Network.Models;
 
-namespace Azure.ResourceManager.Network.Models
+namespace Azure.ResourceManager.Network
 {
-    /// <summary> Response for the ListServiceTags API service call. </summary>
-    public partial class ServiceTagsListResult : ResourceManager.Models.Resource
+    /// <summary> A class representing the ServiceTagsListResult data model. </summary>
+    public partial class ServiceTagsListResultData : ResourceManager.Models.Resource
     {
-        /// <summary> Initializes a new instance of ServiceTagsListResult. </summary>
-        internal ServiceTagsListResult()
+        /// <summary> Initializes a new instance of ServiceTagsListResultData. </summary>
+        internal ServiceTagsListResultData()
         {
             Values = new ChangeTrackingList<ServiceTagInformation>();
         }
 
-        /// <summary> Initializes a new instance of ServiceTagsListResult. </summary>
+        /// <summary> Initializes a new instance of ServiceTagsListResultData. </summary>
         /// <param name="id"> The id. </param>
         /// <param name="name"> The name. </param>
         /// <param name="type"> The type. </param>
@@ -29,7 +30,7 @@ namespace Azure.ResourceManager.Network.Models
         /// <param name="cloud"> The name of the cloud. </param>
         /// <param name="values"> The list of service tag information resources. </param>
         /// <param name="nextLink"> The URL to get next page of service tag information resources. </param>
-        internal ServiceTagsListResult(ResourceIdentifier id, string name, ResourceType type, string changeNumber, string cloud, IReadOnlyList<ServiceTagInformation> values, string nextLink) : base(id, name, type)
+        internal ServiceTagsListResultData(ResourceIdentifier id, string name, ResourceType type, string changeNumber, string cloud, IReadOnlyList<ServiceTagInformation> values, string nextLink) : base(id, name, type)
         {
             ChangeNumber = changeNumber;
             Cloud = cloud;

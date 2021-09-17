@@ -188,7 +188,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Get the specific private end point connection by specific private link service in the resource group. </summary>
         /// <param name="expand"> Expands referenced resources. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<PrivateEndpointConnection>> GetPrivateEndpointConnectionAsync(string expand = null, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<PrivateEndpointConnectionData>> GetPrivateEndpointConnectionAsync(string expand = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("PrivateLinkService.GetPrivateEndpointConnection");
             scope.Start();
@@ -207,7 +207,7 @@ namespace Azure.ResourceManager.Network
         /// <summary> Get the specific private end point connection by specific private link service in the resource group. </summary>
         /// <param name="expand"> Expands referenced resources. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<PrivateEndpointConnection> GetPrivateEndpointConnection(string expand = null, CancellationToken cancellationToken = default)
+        public virtual Response<PrivateEndpointConnectionData> GetPrivateEndpointConnection(string expand = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("PrivateLinkService.GetPrivateEndpointConnection");
             scope.Start();
@@ -227,7 +227,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="parameters"> Parameters supplied to approve or reject the private end point connection. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public virtual async Task<Response<PrivateEndpointConnection>> UpdatePrivateEndpointConnectionAsync(PrivateEndpointConnection parameters, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<PrivateEndpointConnectionData>> UpdatePrivateEndpointConnectionAsync(PrivateEndpointConnectionData parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -252,7 +252,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="parameters"> Parameters supplied to approve or reject the private end point connection. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public virtual Response<PrivateEndpointConnection> UpdatePrivateEndpointConnection(PrivateEndpointConnection parameters, CancellationToken cancellationToken = default)
+        public virtual Response<PrivateEndpointConnectionData> UpdatePrivateEndpointConnection(PrivateEndpointConnectionData parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -275,10 +275,10 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Gets all private end point connections for a specific private link service. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> A collection of <see cref="PrivateEndpointConnection" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<PrivateEndpointConnection> GetPrivateEndpointConnections(CancellationToken cancellationToken = default)
+        /// <returns> A collection of <see cref="PrivateEndpointConnectionData" /> that may take multiple service requests to iterate over. </returns>
+        public virtual Pageable<PrivateEndpointConnectionData> GetPrivateEndpointConnections(CancellationToken cancellationToken = default)
         {
-            Page<PrivateEndpointConnection> FirstPageFunc(int? pageSizeHint)
+            Page<PrivateEndpointConnectionData> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("PrivateLinkService.GetPrivateEndpointConnections");
                 scope.Start();
@@ -293,7 +293,7 @@ namespace Azure.ResourceManager.Network
                     throw;
                 }
             }
-            Page<PrivateEndpointConnection> NextPageFunc(string nextLink, int? pageSizeHint)
+            Page<PrivateEndpointConnectionData> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("PrivateLinkService.GetPrivateEndpointConnections");
                 scope.Start();
@@ -313,10 +313,10 @@ namespace Azure.ResourceManager.Network
 
         /// <summary> Gets all private end point connections for a specific private link service. </summary>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        /// <returns> An async collection of <see cref="PrivateEndpointConnection" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<PrivateEndpointConnection> GetPrivateEndpointConnectionsAsync(CancellationToken cancellationToken = default)
+        /// <returns> An async collection of <see cref="PrivateEndpointConnectionData" /> that may take multiple service requests to iterate over. </returns>
+        public virtual AsyncPageable<PrivateEndpointConnectionData> GetPrivateEndpointConnectionsAsync(CancellationToken cancellationToken = default)
         {
-            async Task<Page<PrivateEndpointConnection>> FirstPageFunc(int? pageSizeHint)
+            async Task<Page<PrivateEndpointConnectionData>> FirstPageFunc(int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("PrivateLinkService.GetPrivateEndpointConnections");
                 scope.Start();
@@ -331,7 +331,7 @@ namespace Azure.ResourceManager.Network
                     throw;
                 }
             }
-            async Task<Page<PrivateEndpointConnection>> NextPageFunc(string nextLink, int? pageSizeHint)
+            async Task<Page<PrivateEndpointConnectionData>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
                 using var scope = _clientDiagnostics.CreateScope("PrivateLinkService.GetPrivateEndpointConnections");
                 scope.Start();
