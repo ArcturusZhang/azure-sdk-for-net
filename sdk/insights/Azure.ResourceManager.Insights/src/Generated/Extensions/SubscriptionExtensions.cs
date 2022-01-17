@@ -71,7 +71,7 @@ namespace Insights
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<AutoscaleSettingResource> GetAutoscaleSettingsAsync(this Subscription subscription, CancellationToken cancellationToken = default)
+        public static AsyncPageable<AutoscaleSettingResource> GetAutoscaleSettingResourcesAsync(this Subscription subscription, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -80,7 +80,7 @@ namespace Insights
                 AutoscaleSettingsRestOperations restOperations = GetAutoscaleSettingsRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 async Task<Page<AutoscaleSettingResource>> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAutoscaleSettings");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAutoscaleSettingResources");
                     scope.Start();
                     try
                     {
@@ -95,7 +95,7 @@ namespace Insights
                 }
                 async Task<Page<AutoscaleSettingResource>> NextPageFunc(string nextLink, int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAutoscaleSettings");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAutoscaleSettingResources");
                     scope.Start();
                     try
                     {
@@ -117,7 +117,7 @@ namespace Insights
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static Pageable<AutoscaleSettingResource> GetAutoscaleSettings(this Subscription subscription, CancellationToken cancellationToken = default)
+        public static Pageable<AutoscaleSettingResource> GetAutoscaleSettingResources(this Subscription subscription, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -126,7 +126,7 @@ namespace Insights
                 AutoscaleSettingsRestOperations restOperations = GetAutoscaleSettingsRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 Page<AutoscaleSettingResource> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAutoscaleSettings");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAutoscaleSettingResources");
                     scope.Start();
                     try
                     {
@@ -141,7 +141,7 @@ namespace Insights
                 }
                 Page<AutoscaleSettingResource> NextPageFunc(string nextLink, int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAutoscaleSettings");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAutoscaleSettingResources");
                     scope.Start();
                     try
                     {
@@ -191,7 +191,7 @@ namespace Insights
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<AlertRuleResource> GetAlertRulesAsync(this Subscription subscription, CancellationToken cancellationToken = default)
+        public static AsyncPageable<AlertRuleResource> GetAlertRuleResourcesAsync(this Subscription subscription, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -200,7 +200,7 @@ namespace Insights
                 AlertRulesRestOperations restOperations = GetAlertRulesRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 async Task<Page<AlertRuleResource>> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAlertRules");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAlertRuleResources");
                     scope.Start();
                     try
                     {
@@ -222,7 +222,7 @@ namespace Insights
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static Pageable<AlertRuleResource> GetAlertRules(this Subscription subscription, CancellationToken cancellationToken = default)
+        public static Pageable<AlertRuleResource> GetAlertRuleResources(this Subscription subscription, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -231,7 +231,7 @@ namespace Insights
                 AlertRulesRestOperations restOperations = GetAlertRulesRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 Page<AlertRuleResource> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAlertRules");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAlertRuleResources");
                     scope.Start();
                     try
                     {
@@ -281,7 +281,7 @@ namespace Insights
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<ActionGroupResource> GetActionGroupsBySubscriptionIdAsync(this Subscription subscription, CancellationToken cancellationToken = default)
+        public static AsyncPageable<ActionGroupResource> GetActionGroupResourcesAsync(this Subscription subscription, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -290,7 +290,7 @@ namespace Insights
                 ActionGroupsRestOperations restOperations = GetActionGroupsRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 async Task<Page<ActionGroupResource>> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetActionGroupsBySubscriptionId");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetActionGroupResources");
                     scope.Start();
                     try
                     {
@@ -312,7 +312,7 @@ namespace Insights
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static Pageable<ActionGroupResource> GetActionGroupsBySubscriptionId(this Subscription subscription, CancellationToken cancellationToken = default)
+        public static Pageable<ActionGroupResource> GetActionGroupResources(this Subscription subscription, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -321,7 +321,7 @@ namespace Insights
                 ActionGroupsRestOperations restOperations = GetActionGroupsRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 Page<ActionGroupResource> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetActionGroupsBySubscriptionId");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetActionGroupResources");
                     scope.Start();
                     try
                     {
@@ -371,7 +371,7 @@ namespace Insights
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<ActivityLogAlertResource> GetActivityLogAlertsBySubscriptionIdAsync(this Subscription subscription, CancellationToken cancellationToken = default)
+        public static AsyncPageable<ActivityLogAlertResource> GetActivityLogAlertResourcesAsync(this Subscription subscription, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -380,7 +380,7 @@ namespace Insights
                 ActivityLogAlertsRestOperations restOperations = GetActivityLogAlertsRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 async Task<Page<ActivityLogAlertResource>> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetActivityLogAlertsBySubscriptionId");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetActivityLogAlertResources");
                     scope.Start();
                     try
                     {
@@ -402,7 +402,7 @@ namespace Insights
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static Pageable<ActivityLogAlertResource> GetActivityLogAlertsBySubscriptionId(this Subscription subscription, CancellationToken cancellationToken = default)
+        public static Pageable<ActivityLogAlertResource> GetActivityLogAlertResources(this Subscription subscription, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -411,7 +411,7 @@ namespace Insights
                 ActivityLogAlertsRestOperations restOperations = GetActivityLogAlertsRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 Page<ActivityLogAlertResource> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetActivityLogAlertsBySubscriptionId");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetActivityLogAlertResources");
                     scope.Start();
                     try
                     {
@@ -567,7 +567,7 @@ namespace Insights
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<MetricAlertResource> GetMetricAlertsAsync(this Subscription subscription, CancellationToken cancellationToken = default)
+        public static AsyncPageable<MetricAlertResource> GetMetricAlertResourcesAsync(this Subscription subscription, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -576,7 +576,7 @@ namespace Insights
                 MetricAlertsRestOperations restOperations = GetMetricAlertsRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 async Task<Page<MetricAlertResource>> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetMetricAlerts");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetMetricAlertResources");
                     scope.Start();
                     try
                     {
@@ -598,7 +598,7 @@ namespace Insights
         /// <param name="subscription"> The <see cref="Subscription" /> instance the method will execute against. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static Pageable<MetricAlertResource> GetMetricAlerts(this Subscription subscription, CancellationToken cancellationToken = default)
+        public static Pageable<MetricAlertResource> GetMetricAlertResources(this Subscription subscription, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -607,7 +607,7 @@ namespace Insights
                 MetricAlertsRestOperations restOperations = GetMetricAlertsRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 Page<MetricAlertResource> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetMetricAlerts");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetMetricAlertResources");
                     scope.Start();
                     try
                     {
@@ -658,7 +658,7 @@ namespace Insights
         /// <param name="filter"> The filter to apply on the operation. For more information please see https://msdn.microsoft.com/en-us/library/azure/dn931934.aspx. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<LogSearchRuleResource> GetScheduledQueryRulesAsync(this Subscription subscription, string filter = null, CancellationToken cancellationToken = default)
+        public static AsyncPageable<LogSearchRuleResource> GetLogSearchRuleResourcesAsync(this Subscription subscription, string filter = null, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -667,7 +667,7 @@ namespace Insights
                 ScheduledQueryRulesRestOperations restOperations = GetScheduledQueryRulesRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 async Task<Page<LogSearchRuleResource>> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetScheduledQueryRules");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetLogSearchRuleResources");
                     scope.Start();
                     try
                     {
@@ -690,7 +690,7 @@ namespace Insights
         /// <param name="filter"> The filter to apply on the operation. For more information please see https://msdn.microsoft.com/en-us/library/azure/dn931934.aspx. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static Pageable<LogSearchRuleResource> GetScheduledQueryRules(this Subscription subscription, string filter = null, CancellationToken cancellationToken = default)
+        public static Pageable<LogSearchRuleResource> GetLogSearchRuleResources(this Subscription subscription, string filter = null, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -699,7 +699,7 @@ namespace Insights
                 ScheduledQueryRulesRestOperations restOperations = GetScheduledQueryRulesRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 Page<LogSearchRuleResource> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetScheduledQueryRules");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetLogSearchRuleResources");
                     scope.Start();
                     try
                     {

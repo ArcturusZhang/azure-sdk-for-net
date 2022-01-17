@@ -54,7 +54,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="filter"> The filter to apply on the list resource links operation. The supported filter for list resource links is targetId. For example, $filter=targetId eq {value}. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static AsyncPageable<ResourceLink> GetAtSubscriptionResourceLinksAsync(this Subscription subscription, string filter = null, CancellationToken cancellationToken = default)
+        public static AsyncPageable<ResourceLink> GetResourceLinksAsync(this Subscription subscription, string filter = null, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -63,7 +63,7 @@ namespace Azure.ResourceManager.Resources
                 ResourceLinksRestOperations restOperations = GetResourceLinksRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 async Task<Page<ResourceLink>> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAtSubscriptionResourceLinks");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetResourceLinks");
                     scope.Start();
                     try
                     {
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.Resources
                 }
                 async Task<Page<ResourceLink>> NextPageFunc(string nextLink, int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAtSubscriptionResourceLinks");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetResourceLinks");
                     scope.Start();
                     try
                     {
@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.Resources
         /// <param name="filter"> The filter to apply on the list resource links operation. The supported filter for list resource links is targetId. For example, $filter=targetId eq {value}. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of resource operations that may take multiple service requests to iterate over. </returns>
-        public static Pageable<ResourceLink> GetAtSubscriptionResourceLinks(this Subscription subscription, string filter = null, CancellationToken cancellationToken = default)
+        public static Pageable<ResourceLink> GetResourceLinks(this Subscription subscription, string filter = null, CancellationToken cancellationToken = default)
         {
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
@@ -113,7 +113,7 @@ namespace Azure.ResourceManager.Resources
                 ResourceLinksRestOperations restOperations = GetResourceLinksRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 Page<ResourceLink> FirstPageFunc(int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAtSubscriptionResourceLinks");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetResourceLinks");
                     scope.Start();
                     try
                     {
@@ -128,7 +128,7 @@ namespace Azure.ResourceManager.Resources
                 }
                 Page<ResourceLink> NextPageFunc(string nextLink, int? pageSizeHint)
                 {
-                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAtSubscriptionResourceLinks");
+                    using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetResourceLinks");
                     scope.Start();
                     try
                     {
