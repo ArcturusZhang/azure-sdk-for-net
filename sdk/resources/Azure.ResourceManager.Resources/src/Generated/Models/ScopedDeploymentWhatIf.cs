@@ -10,7 +10,7 @@ using System;
 namespace Azure.ResourceManager.Resources.Models
 {
     /// <summary> Deployment What-if operation parameters. </summary>
-    internal partial class ScopedDeploymentWhatIf
+    public partial class ScopedDeploymentWhatIf
     {
         /// <summary> Initializes a new instance of ScopedDeploymentWhatIf. </summary>
         /// <param name="location"> The location to store the deployment data. </param>

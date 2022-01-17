@@ -226,15 +226,15 @@ namespace Azure.ResourceManager.Resources
         }
 
         /// <summary> Updates deployment script tags with specified values. </summary>
-        /// <param name="tags"> Resource tags to be updated. </param>
+        /// <param name="deploymentScript"> Deployment script resource with the tags to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<Response<DeploymentScript>> UpdateAsync(IDictionary<string, string> tags = null, CancellationToken cancellationToken = default)
+        public async virtual Task<Response<DeploymentScript>> UpdateAsync(DeploymentScriptUpdateParameter deploymentScript = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("DeploymentScript.Update");
             scope.Start();
             try
             {
-                var response = await _deploymentScriptsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, tags, cancellationToken).ConfigureAwait(false);
+                var response = await _deploymentScriptsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, deploymentScript, cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(new DeploymentScript(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -245,15 +245,15 @@ namespace Azure.ResourceManager.Resources
         }
 
         /// <summary> Updates deployment script tags with specified values. </summary>
-        /// <param name="tags"> Resource tags to be updated. </param>
+        /// <param name="deploymentScript"> Deployment script resource with the tags to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<DeploymentScript> Update(IDictionary<string, string> tags = null, CancellationToken cancellationToken = default)
+        public virtual Response<DeploymentScript> Update(DeploymentScriptUpdateParameter deploymentScript = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("DeploymentScript.Update");
             scope.Start();
             try
             {
-                var response = _deploymentScriptsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, tags, cancellationToken);
+                var response = _deploymentScriptsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, deploymentScript, cancellationToken);
                 return Response.FromValue(new DeploymentScript(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
