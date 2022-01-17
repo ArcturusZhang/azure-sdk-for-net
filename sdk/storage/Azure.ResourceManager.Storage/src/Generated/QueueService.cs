@@ -46,7 +46,8 @@ namespace Azure.ResourceManager.Storage
             _data = data;
             Parent = options;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _queueServicesRestClient = new QueueServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _queueServicesRestClient = new QueueServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -59,7 +60,8 @@ namespace Azure.ResourceManager.Storage
         {
             Parent = options;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _queueServicesRestClient = new QueueServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _queueServicesRestClient = new QueueServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -74,7 +76,8 @@ namespace Azure.ResourceManager.Storage
         internal QueueService(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _queueServicesRestClient = new QueueServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _queueServicesRestClient = new QueueServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -188,7 +191,7 @@ namespace Azure.ResourceManager.Storage
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<QueueServiceSetServicePropertiesOperation> CreateOrUpdateAsync(bool waitForCompletion, QueueServiceData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<QueueServiceCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, QueueServiceData parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -200,7 +203,7 @@ namespace Azure.ResourceManager.Storage
             try
             {
                 var response = await _queueServicesRestClient.SetServicePropertiesAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new QueueServiceSetServicePropertiesOperation(this, response);
+                var operation = new QueueServiceCreateOrUpdateOperation(this, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -217,7 +220,7 @@ namespace Azure.ResourceManager.Storage
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public virtual QueueServiceSetServicePropertiesOperation CreateOrUpdate(bool waitForCompletion, QueueServiceData parameters, CancellationToken cancellationToken = default)
+        public virtual QueueServiceCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, QueueServiceData parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -229,7 +232,7 @@ namespace Azure.ResourceManager.Storage
             try
             {
                 var response = _queueServicesRestClient.SetServiceProperties(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, parameters, cancellationToken);
-                var operation = new QueueServiceSetServicePropertiesOperation(this, response);
+                var operation = new QueueServiceCreateOrUpdateOperation(this, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;

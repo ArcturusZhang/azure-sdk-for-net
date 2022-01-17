@@ -8,14 +8,14 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> The onboarding status for the resource. Note that, a higher level scope, e.g., resource group or subscription, is considered onboarded if at least one resource under it is onboarded. </summary>
     public readonly partial struct OnboardingStatus : IEquatable<OnboardingStatus>
     {
         private readonly string _value;
 
-        /// <summary> Determines if two <see cref="OnboardingStatus"/> values are the same. </summary>
+        /// <summary> Initializes a new instance of <see cref="OnboardingStatus"/>. </summary>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public OnboardingStatus(string value)
         {

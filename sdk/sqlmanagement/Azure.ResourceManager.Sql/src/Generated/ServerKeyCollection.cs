@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal ServerKeyCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _serverKeysRestClient = new ServerKeysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ServerKey.ResourceType, out string apiVersion);
+            _serverKeysRestClient = new ServerKeysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

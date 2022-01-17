@@ -8,14 +8,15 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Insights;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     internal partial class AlertRuleResourceCollection
     {
         internal static AlertRuleResourceCollection DeserializeAlertRuleResourceCollection(JsonElement element)
         {
-            Optional<IReadOnlyList<AlertRuleResource>> value = default;
+            Optional<IReadOnlyList<AlertRuleResourceData>> value = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"))
@@ -25,10 +26,10 @@ namespace Azure.ResourceManager.Insights.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    List<AlertRuleResource> array = new List<AlertRuleResource>();
+                    List<AlertRuleResourceData> array = new List<AlertRuleResourceData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(AlertRuleResource.DeserializeAlertRuleResource(item));
+                        array.Add(AlertRuleResourceData.DeserializeAlertRuleResourceData(item));
                     }
                     value = array;
                     continue;

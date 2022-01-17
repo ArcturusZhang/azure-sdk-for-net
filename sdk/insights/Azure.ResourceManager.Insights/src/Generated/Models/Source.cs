@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using Azure.Core;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Specifies the log search query. </summary>
     public partial class Source

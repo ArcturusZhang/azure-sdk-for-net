@@ -8,14 +8,15 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Insights;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     internal partial class MetricAlertResourceCollection
     {
         internal static MetricAlertResourceCollection DeserializeMetricAlertResourceCollection(JsonElement element)
         {
-            Optional<IReadOnlyList<MetricAlertResource>> value = default;
+            Optional<IReadOnlyList<MetricAlertResourceData>> value = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"))
@@ -25,10 +26,10 @@ namespace Azure.ResourceManager.Insights.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    List<MetricAlertResource> array = new List<MetricAlertResource>();
+                    List<MetricAlertResourceData> array = new List<MetricAlertResourceData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(MetricAlertResource.DeserializeMetricAlertResource(item));
+                        array.Add(MetricAlertResourceData.DeserializeMetricAlertResourceData(item));
                     }
                     value = array;
                     continue;

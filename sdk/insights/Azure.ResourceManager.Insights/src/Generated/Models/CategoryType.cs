@@ -5,7 +5,7 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> The type of the diagnostic settings category. </summary>
     public enum CategoryType

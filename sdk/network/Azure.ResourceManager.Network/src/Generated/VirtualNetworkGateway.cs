@@ -45,7 +45,8 @@ namespace Azure.ResourceManager.Network
             HasData = true;
             _data = data;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _virtualNetworkGatewaysRestClient = new VirtualNetworkGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _virtualNetworkGatewaysRestClient = new VirtualNetworkGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -57,7 +58,8 @@ namespace Azure.ResourceManager.Network
         internal VirtualNetworkGateway(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _virtualNetworkGatewaysRestClient = new VirtualNetworkGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _virtualNetworkGatewaysRestClient = new VirtualNetworkGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -72,7 +74,8 @@ namespace Azure.ResourceManager.Network
         internal VirtualNetworkGateway(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _virtualNetworkGatewaysRestClient = new VirtualNetworkGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _virtualNetworkGatewaysRestClient = new VirtualNetworkGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -212,7 +215,7 @@ namespace Azure.ResourceManager.Network
                 var response = _virtualNetworkGatewaysRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 var operation = new VirtualNetworkGatewayDeleteOperation(_clientDiagnostics, Pipeline, _virtualNetworkGatewaysRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -227,7 +230,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<VirtualNetworkGatewayUpdateTagsOperation> UpdateAsync(bool waitForCompletion, TagsObject parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<VirtualNetworkGatewayUpdateOperation> UpdateAsync(bool waitForCompletion, TagsObject parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -239,7 +242,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = await _virtualNetworkGatewaysRestClient.UpdateTagsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new VirtualNetworkGatewayUpdateTagsOperation(this, _clientDiagnostics, Pipeline, _virtualNetworkGatewaysRestClient.CreateUpdateTagsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
+                var operation = new VirtualNetworkGatewayUpdateOperation(this, _clientDiagnostics, Pipeline, _virtualNetworkGatewaysRestClient.CreateUpdateTagsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -256,7 +259,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public virtual VirtualNetworkGatewayUpdateTagsOperation Update(bool waitForCompletion, TagsObject parameters, CancellationToken cancellationToken = default)
+        public virtual VirtualNetworkGatewayUpdateOperation Update(bool waitForCompletion, TagsObject parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -268,7 +271,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = _virtualNetworkGatewaysRestClient.UpdateTags(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters, cancellationToken);
-                var operation = new VirtualNetworkGatewayUpdateTagsOperation(this, _clientDiagnostics, Pipeline, _virtualNetworkGatewaysRestClient.CreateUpdateTagsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
+                var operation = new VirtualNetworkGatewayUpdateOperation(this, _clientDiagnostics, Pipeline, _virtualNetworkGatewaysRestClient.CreateUpdateTagsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -436,7 +439,7 @@ namespace Azure.ResourceManager.Network
                 var response = _virtualNetworkGatewaysRestClient.ResetVpnClientSharedKey(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 var operation = new VirtualNetworkGatewayResetVpnClientSharedKeyOperation(_clientDiagnostics, Pipeline, _virtualNetworkGatewaysRestClient.CreateResetVpnClientSharedKeyRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -1088,7 +1091,7 @@ namespace Azure.ResourceManager.Network
                 var response = _virtualNetworkGatewaysRestClient.DisconnectVirtualNetworkGatewayVpnConnections(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, request, cancellationToken);
                 var operation = new VirtualNetworkGatewayDisconnectVirtualNetworkGatewayVpnConnectionsOperation(_clientDiagnostics, Pipeline, _virtualNetworkGatewaysRestClient.CreateDisconnectVirtualNetworkGatewayVpnConnectionsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, request).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)

@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Compute
         internal VirtualMachineScaleSetVMCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _virtualMachineScaleSetVMsRestClient = new VirtualMachineScaleSetVMsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(VirtualMachineScaleSetVM.ResourceType, out string apiVersion);
+            _virtualMachineScaleSetVMsRestClient = new VirtualMachineScaleSetVMsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="instanceId"/> or <paramref name="parameters"/> is null. </exception>
-        public virtual VirtualMachineScaleSetVMUpdateOperation CreateOrUpdate(bool waitForCompletion, string instanceId, VirtualMachineScaleSetVMData parameters, CancellationToken cancellationToken = default)
+        public virtual VirtualMachineScaleSetVMCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string instanceId, VirtualMachineScaleSetVMData parameters, CancellationToken cancellationToken = default)
         {
             if (instanceId == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.Compute
             try
             {
                 var response = _virtualMachineScaleSetVMsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, instanceId, parameters, cancellationToken);
-                var operation = new VirtualMachineScaleSetVMUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualMachineScaleSetVMsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, instanceId, parameters).Request, response);
+                var operation = new VirtualMachineScaleSetVMCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualMachineScaleSetVMsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, instanceId, parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="instanceId"/> or <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<VirtualMachineScaleSetVMUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string instanceId, VirtualMachineScaleSetVMData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<VirtualMachineScaleSetVMCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string instanceId, VirtualMachineScaleSetVMData parameters, CancellationToken cancellationToken = default)
         {
             if (instanceId == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.Compute
             try
             {
                 var response = await _virtualMachineScaleSetVMsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, instanceId, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new VirtualMachineScaleSetVMUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualMachineScaleSetVMsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, instanceId, parameters).Request, response);
+                var operation = new VirtualMachineScaleSetVMCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualMachineScaleSetVMsRestClient.CreateUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, instanceId, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

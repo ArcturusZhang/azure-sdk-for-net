@@ -8,14 +8,14 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> The status of VM Insights data from the resource. When reported as `present` the data array will contain information about the data containers to which data for the specified resource is being routed. </summary>
     public readonly partial struct DataStatus : IEquatable<DataStatus>
     {
         private readonly string _value;
 
-        /// <summary> Determines if two <see cref="DataStatus"/> values are the same. </summary>
+        /// <summary> Initializes a new instance of <see cref="DataStatus"/>. </summary>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public DataStatus(string value)
         {

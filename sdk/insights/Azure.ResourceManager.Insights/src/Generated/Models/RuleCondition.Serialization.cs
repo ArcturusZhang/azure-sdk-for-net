@@ -8,7 +8,7 @@
 using System.Text.Json;
 using Azure.Core;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     public partial class RuleCondition : IUtf8JsonSerializable
     {

@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Network
         internal ServiceEndpointPolicyDefinitionCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _serviceEndpointPolicyDefinitionsRestClient = new ServiceEndpointPolicyDefinitionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ServiceEndpointPolicyDefinition.ResourceType, out string apiVersion);
+            _serviceEndpointPolicyDefinitionsRestClient = new ServiceEndpointPolicyDefinitionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

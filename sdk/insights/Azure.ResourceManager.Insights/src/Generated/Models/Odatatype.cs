@@ -8,14 +8,14 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> specifies the type of the alert criteria. </summary>
     public readonly partial struct Odatatype : IEquatable<Odatatype>
     {
         private readonly string _value;
 
-        /// <summary> Determines if two <see cref="Odatatype"/> values are the same. </summary>
+        /// <summary> Initializes a new instance of <see cref="Odatatype"/>. </summary>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public Odatatype(string value)
         {

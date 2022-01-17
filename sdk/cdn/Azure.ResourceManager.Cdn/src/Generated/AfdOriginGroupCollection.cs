@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Cdn
         internal AfdOriginGroupCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _afdOriginGroupsRestClient = new AfdOriginGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(AfdOriginGroup.ResourceType, out string apiVersion);
+            _afdOriginGroupsRestClient = new AfdOriginGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="originGroupName"/> or <paramref name="originGroup"/> is null. </exception>
-        public virtual AfdOriginGroupCreateOperation CreateOrUpdate(bool waitForCompletion, string originGroupName, AfdOriginGroupData originGroup, CancellationToken cancellationToken = default)
+        public virtual AfdOriginGroupCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string originGroupName, AfdOriginGroupData originGroup, CancellationToken cancellationToken = default)
         {
             if (originGroupName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = _afdOriginGroupsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, originGroupName, originGroup, cancellationToken);
-                var operation = new AfdOriginGroupCreateOperation(Parent, _clientDiagnostics, Pipeline, _afdOriginGroupsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, originGroupName, originGroup).Request, response);
+                var operation = new AfdOriginGroupCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _afdOriginGroupsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, originGroupName, originGroup).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="originGroupName"/> or <paramref name="originGroup"/> is null. </exception>
-        public async virtual Task<AfdOriginGroupCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string originGroupName, AfdOriginGroupData originGroup, CancellationToken cancellationToken = default)
+        public async virtual Task<AfdOriginGroupCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string originGroupName, AfdOriginGroupData originGroup, CancellationToken cancellationToken = default)
         {
             if (originGroupName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = await _afdOriginGroupsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, originGroupName, originGroup, cancellationToken).ConfigureAwait(false);
-                var operation = new AfdOriginGroupCreateOperation(Parent, _clientDiagnostics, Pipeline, _afdOriginGroupsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, originGroupName, originGroup).Request, response);
+                var operation = new AfdOriginGroupCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _afdOriginGroupsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, originGroupName, originGroup).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

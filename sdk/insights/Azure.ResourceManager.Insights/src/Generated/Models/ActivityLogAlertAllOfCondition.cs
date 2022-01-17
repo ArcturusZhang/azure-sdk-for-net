@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> An Activity Log alert condition that is met when all its member conditions are met. </summary>
     public partial class ActivityLogAlertAllOfCondition

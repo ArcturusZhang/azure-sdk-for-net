@@ -35,7 +35,8 @@ namespace Azure.ResourceManager.Network
         internal DdosCustomPolicyCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _ddosCustomPoliciesRestClient = new DdosCustomPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(DdosCustomPolicy.ResourceType, out string apiVersion);
+            _ddosCustomPoliciesRestClient = new DdosCustomPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

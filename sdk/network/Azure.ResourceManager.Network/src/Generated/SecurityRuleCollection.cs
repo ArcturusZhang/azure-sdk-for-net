@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Network
         internal SecurityRuleCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _securityRulesRestClient = new SecurityRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(SecurityRule.ResourceType, out string apiVersion);
+            _securityRulesRestClient = new SecurityRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

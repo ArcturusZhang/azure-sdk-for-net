@@ -5,7 +5,7 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> The claims for a rule management event data source. </summary>
     public partial class RuleManagementEventClaimsDataSource

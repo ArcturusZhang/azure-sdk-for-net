@@ -8,14 +8,15 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using DnsManagementClient;
 
-namespace Azure.ResourceManager.Dns.Models
+namespace DnsManagementClient.Models
 {
     internal partial class RecordSetListResult
     {
         internal static RecordSetListResult DeserializeRecordSetListResult(JsonElement element)
         {
-            Optional<IReadOnlyList<RecordSet>> value = default;
+            Optional<IReadOnlyList<RecordSetData>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -26,10 +27,10 @@ namespace Azure.ResourceManager.Dns.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    List<RecordSet> array = new List<RecordSet>();
+                    List<RecordSetData> array = new List<RecordSetData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(RecordSet.DeserializeRecordSet(item));
+                        array.Add(RecordSetData.DeserializeRecordSetData(item));
                     }
                     value = array;
                     continue;

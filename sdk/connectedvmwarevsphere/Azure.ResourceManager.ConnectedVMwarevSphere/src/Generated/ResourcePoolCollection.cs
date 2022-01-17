@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         internal ResourcePoolCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _resourcePoolsRestClient = new ResourcePoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourcePool.ResourceType, out string apiVersion);
+            _resourcePoolsRestClient = new ResourcePoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -61,7 +62,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourcePoolName"/> is null. </exception>
-        public virtual ResourcePoolCreateOperation CreateOrUpdate(bool waitForCompletion, string resourcePoolName, ResourcePoolData body = null, CancellationToken cancellationToken = default)
+        public virtual ResourcePoolCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string resourcePoolName, ResourcePoolData body = null, CancellationToken cancellationToken = default)
         {
             if (resourcePoolName == null)
             {
@@ -73,7 +74,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
             try
             {
                 var response = _resourcePoolsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, resourcePoolName, body, cancellationToken);
-                var operation = new ResourcePoolCreateOperation(Parent, _clientDiagnostics, Pipeline, _resourcePoolsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, resourcePoolName, body).Request, response);
+                var operation = new ResourcePoolCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _resourcePoolsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, resourcePoolName, body).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -94,7 +95,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="resourcePoolName"/> is null. </exception>
-        public async virtual Task<ResourcePoolCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string resourcePoolName, ResourcePoolData body = null, CancellationToken cancellationToken = default)
+        public async virtual Task<ResourcePoolCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string resourcePoolName, ResourcePoolData body = null, CancellationToken cancellationToken = default)
         {
             if (resourcePoolName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
             try
             {
                 var response = await _resourcePoolsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, resourcePoolName, body, cancellationToken).ConfigureAwait(false);
-                var operation = new ResourcePoolCreateOperation(Parent, _clientDiagnostics, Pipeline, _resourcePoolsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, resourcePoolName, body).Request, response);
+                var operation = new ResourcePoolCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _resourcePoolsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, resourcePoolName, body).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

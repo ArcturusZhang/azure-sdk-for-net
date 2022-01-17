@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Network
         internal VirtualHubRouteTableV2Collection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _virtualHubRouteTableV2sRestClient = new VirtualHubRouteTableV2SRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(VirtualHubRouteTableV2.ResourceType, out string apiVersion);
+            _virtualHubRouteTableV2sRestClient = new VirtualHubRouteTableV2SRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="routeTableName"/> or <paramref name="virtualHubRouteTableV2Parameters"/> is null. </exception>
-        public virtual VirtualHubRouteTableV2SCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string routeTableName, VirtualHubRouteTableV2Data virtualHubRouteTableV2Parameters, CancellationToken cancellationToken = default)
+        public virtual VirtualHubRouteTableV2CreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string routeTableName, VirtualHubRouteTableV2Data virtualHubRouteTableV2Parameters, CancellationToken cancellationToken = default)
         {
             if (routeTableName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = _virtualHubRouteTableV2sRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, routeTableName, virtualHubRouteTableV2Parameters, cancellationToken);
-                var operation = new VirtualHubRouteTableV2SCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualHubRouteTableV2sRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, routeTableName, virtualHubRouteTableV2Parameters).Request, response);
+                var operation = new VirtualHubRouteTableV2CreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualHubRouteTableV2sRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, routeTableName, virtualHubRouteTableV2Parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="routeTableName"/> or <paramref name="virtualHubRouteTableV2Parameters"/> is null. </exception>
-        public async virtual Task<VirtualHubRouteTableV2SCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string routeTableName, VirtualHubRouteTableV2Data virtualHubRouteTableV2Parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<VirtualHubRouteTableV2CreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string routeTableName, VirtualHubRouteTableV2Data virtualHubRouteTableV2Parameters, CancellationToken cancellationToken = default)
         {
             if (routeTableName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = await _virtualHubRouteTableV2sRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, routeTableName, virtualHubRouteTableV2Parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new VirtualHubRouteTableV2SCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualHubRouteTableV2sRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, routeTableName, virtualHubRouteTableV2Parameters).Request, response);
+                var operation = new VirtualHubRouteTableV2CreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualHubRouteTableV2sRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, routeTableName, virtualHubRouteTableV2Parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Network
         internal BackendAddressPoolCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _loadBalancerBackendAddressPoolsRestClient = new LoadBalancerBackendAddressPoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(BackendAddressPool.ResourceType, out string apiVersion);
+            _loadBalancerBackendAddressPoolsRestClient = new LoadBalancerBackendAddressPoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="backendAddressPoolName"/> or <paramref name="parameters"/> is null. </exception>
-        public virtual LoadBalancerBackendAddressPoolCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string backendAddressPoolName, BackendAddressPoolData parameters, CancellationToken cancellationToken = default)
+        public virtual BackendAddressPoolCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string backendAddressPoolName, BackendAddressPoolData parameters, CancellationToken cancellationToken = default)
         {
             if (backendAddressPoolName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = _loadBalancerBackendAddressPoolsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendAddressPoolName, parameters, cancellationToken);
-                var operation = new LoadBalancerBackendAddressPoolCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _loadBalancerBackendAddressPoolsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendAddressPoolName, parameters).Request, response);
+                var operation = new BackendAddressPoolCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _loadBalancerBackendAddressPoolsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendAddressPoolName, parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="backendAddressPoolName"/> or <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<LoadBalancerBackendAddressPoolCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string backendAddressPoolName, BackendAddressPoolData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<BackendAddressPoolCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string backendAddressPoolName, BackendAddressPoolData parameters, CancellationToken cancellationToken = default)
         {
             if (backendAddressPoolName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = await _loadBalancerBackendAddressPoolsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendAddressPoolName, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new LoadBalancerBackendAddressPoolCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _loadBalancerBackendAddressPoolsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendAddressPoolName, parameters).Request, response);
+                var operation = new BackendAddressPoolCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _loadBalancerBackendAddressPoolsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, backendAddressPoolName, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

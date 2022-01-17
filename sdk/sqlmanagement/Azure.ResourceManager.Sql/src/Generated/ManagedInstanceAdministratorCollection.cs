@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal ManagedInstanceAdministratorCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedInstanceAdministratorsRestClient = new ManagedInstanceAdministratorsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ManagedInstanceAdministrator.ResourceType, out string apiVersion);
+            _managedInstanceAdministratorsRestClient = new ManagedInstanceAdministratorsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

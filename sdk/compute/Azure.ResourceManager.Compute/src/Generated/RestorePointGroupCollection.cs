@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Compute
         internal RestorePointGroupCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _restorePointCollectionsRestClient = new RestorePointCollectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(RestorePointGroup.ResourceType, out string apiVersion);
+            _restorePointCollectionsRestClient = new RestorePointCollectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -58,7 +59,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="restorePointCollectionName"/> or <paramref name="parameters"/> is null. </exception>
-        public virtual RestorePointCollectionCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string restorePointCollectionName, RestorePointGroupData parameters, CancellationToken cancellationToken = default)
+        public virtual RestorePointGroupCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string restorePointCollectionName, RestorePointGroupData parameters, CancellationToken cancellationToken = default)
         {
             if (restorePointCollectionName == null)
             {
@@ -74,7 +75,7 @@ namespace Azure.ResourceManager.Compute
             try
             {
                 var response = _restorePointCollectionsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, restorePointCollectionName, parameters, cancellationToken);
-                var operation = new RestorePointCollectionCreateOrUpdateOperation(Parent, response);
+                var operation = new RestorePointGroupCreateOrUpdateOperation(Parent, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -92,7 +93,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="restorePointCollectionName"/> or <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<RestorePointCollectionCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string restorePointCollectionName, RestorePointGroupData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<RestorePointGroupCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string restorePointCollectionName, RestorePointGroupData parameters, CancellationToken cancellationToken = default)
         {
             if (restorePointCollectionName == null)
             {
@@ -108,7 +109,7 @@ namespace Azure.ResourceManager.Compute
             try
             {
                 var response = await _restorePointCollectionsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, restorePointCollectionName, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new RestorePointCollectionCreateOrUpdateOperation(Parent, response);
+                var operation = new RestorePointGroupCreateOrUpdateOperation(Parent, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

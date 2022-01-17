@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal ServerConnectionPolicyCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _serverConnectionPoliciesRestClient = new ServerConnectionPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ServerConnectionPolicy.ResourceType, out string apiVersion);
+            _serverConnectionPoliciesRestClient = new ServerConnectionPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

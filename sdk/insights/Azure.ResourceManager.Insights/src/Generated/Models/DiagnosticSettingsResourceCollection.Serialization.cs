@@ -8,14 +8,15 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Insights;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     public partial class DiagnosticSettingsResourceCollection
     {
         internal static DiagnosticSettingsResourceCollection DeserializeDiagnosticSettingsResourceCollection(JsonElement element)
         {
-            Optional<IReadOnlyList<DiagnosticSettingsResource>> value = default;
+            Optional<IReadOnlyList<DiagnosticSettingsResourceData>> value = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"))
@@ -25,10 +26,10 @@ namespace Azure.ResourceManager.Insights.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    List<DiagnosticSettingsResource> array = new List<DiagnosticSettingsResource>();
+                    List<DiagnosticSettingsResourceData> array = new List<DiagnosticSettingsResourceData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(DiagnosticSettingsResource.DeserializeDiagnosticSettingsResource(item));
+                        array.Add(DiagnosticSettingsResourceData.DeserializeDiagnosticSettingsResourceData(item));
                     }
                     value = array;
                     continue;

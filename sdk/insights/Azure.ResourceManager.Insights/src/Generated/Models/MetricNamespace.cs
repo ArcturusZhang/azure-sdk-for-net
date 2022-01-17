@@ -5,10 +5,13 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager.Insights.Models
+using Azure.Core;
+using Azure.ResourceManager.Models;
+
+namespace Insights.Models
 {
     /// <summary> Metric namespace class specifies the metadata for a metric namespace. </summary>
-    public partial class MetricNamespace
+    public partial class MetricNamespace : Resource
     {
         /// <summary> Initializes a new instance of MetricNamespace. </summary>
         internal MetricNamespace()
@@ -16,24 +19,15 @@ namespace Azure.ResourceManager.Insights.Models
         }
 
         /// <summary> Initializes a new instance of MetricNamespace. </summary>
-        /// <param name="id"> The ID of the metricNamespace. </param>
-        /// <param name="type"> The type of the namespace. </param>
-        /// <param name="name"> The name of the namespace. </param>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="type"> The type. </param>
         /// <param name="properties"> Properties which include the fully qualified namespace name. </param>
-        internal MetricNamespace(string id, string type, string name, MetricNamespaceName properties)
+        internal MetricNamespace(ResourceIdentifier id, string name, ResourceType type, MetricNamespaceName properties) : base(id, name, type)
         {
-            Id = id;
-            Type = type;
-            Name = name;
             Properties = properties;
         }
 
-        /// <summary> The ID of the metricNamespace. </summary>
-        public string Id { get; }
-        /// <summary> The type of the namespace. </summary>
-        public string Type { get; }
-        /// <summary> The name of the namespace. </summary>
-        public string Name { get; }
         /// <summary> Properties which include the fully qualified namespace name. </summary>
         public MetricNamespaceName Properties { get; }
     }

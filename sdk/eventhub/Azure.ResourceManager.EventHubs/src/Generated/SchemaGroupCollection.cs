@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.EventHubs
         internal SchemaGroupCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _schemaRegistryRestClient = new SchemaRegistryRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(SchemaGroup.ResourceType, out string apiVersion);
+            _schemaRegistryRestClient = new SchemaRegistryRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -55,7 +56,7 @@ namespace Azure.ResourceManager.EventHubs
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="schemaGroupName"/> or <paramref name="parameters"/> is null. </exception>
-        public virtual SchemaRegistryCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string schemaGroupName, SchemaGroupData parameters, CancellationToken cancellationToken = default)
+        public virtual SchemaGroupCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string schemaGroupName, SchemaGroupData parameters, CancellationToken cancellationToken = default)
         {
             if (schemaGroupName == null)
             {
@@ -71,7 +72,7 @@ namespace Azure.ResourceManager.EventHubs
             try
             {
                 var response = _schemaRegistryRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, schemaGroupName, parameters, cancellationToken);
-                var operation = new SchemaRegistryCreateOrUpdateOperation(Parent, response);
+                var operation = new SchemaGroupCreateOrUpdateOperation(Parent, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -88,7 +89,7 @@ namespace Azure.ResourceManager.EventHubs
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="schemaGroupName"/> or <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<SchemaRegistryCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string schemaGroupName, SchemaGroupData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<SchemaGroupCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string schemaGroupName, SchemaGroupData parameters, CancellationToken cancellationToken = default)
         {
             if (schemaGroupName == null)
             {
@@ -104,7 +105,7 @@ namespace Azure.ResourceManager.EventHubs
             try
             {
                 var response = await _schemaRegistryRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, schemaGroupName, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new SchemaRegistryCreateOrUpdateOperation(Parent, response);
+                var operation = new SchemaGroupCreateOrUpdateOperation(Parent, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

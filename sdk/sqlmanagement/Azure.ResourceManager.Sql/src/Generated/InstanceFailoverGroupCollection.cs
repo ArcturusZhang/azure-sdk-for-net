@@ -41,7 +41,8 @@ namespace Azure.ResourceManager.Sql
         internal InstanceFailoverGroupCollection(ArmResource parent, string locationName) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _instanceFailoverGroupsRestClient = new InstanceFailoverGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(InstanceFailoverGroup.ResourceType, out string apiVersion);
+            _instanceFailoverGroupsRestClient = new InstanceFailoverGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
             _locationName = locationName;
 #if DEBUG
 			ValidateResourceId(Id);

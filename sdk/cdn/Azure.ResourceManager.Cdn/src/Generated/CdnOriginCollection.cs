@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Cdn
         internal CdnOriginCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _cdnOriginsRestClient = new CdnOriginsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(CdnOrigin.ResourceType, out string apiVersion);
+            _cdnOriginsRestClient = new CdnOriginsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="originName"/> or <paramref name="origin"/> is null. </exception>
-        public virtual CdnOriginCreateOperation CreateOrUpdate(bool waitForCompletion, string originName, CdnOriginData origin, CancellationToken cancellationToken = default)
+        public virtual CdnOriginCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string originName, CdnOriginData origin, CancellationToken cancellationToken = default)
         {
             if (originName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = _cdnOriginsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin, cancellationToken);
-                var operation = new CdnOriginCreateOperation(Parent, _clientDiagnostics, Pipeline, _cdnOriginsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin).Request, response);
+                var operation = new CdnOriginCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _cdnOriginsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="originName"/> or <paramref name="origin"/> is null. </exception>
-        public async virtual Task<CdnOriginCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string originName, CdnOriginData origin, CancellationToken cancellationToken = default)
+        public async virtual Task<CdnOriginCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string originName, CdnOriginData origin, CancellationToken cancellationToken = default)
         {
             if (originName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = await _cdnOriginsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin, cancellationToken).ConfigureAwait(false);
-                var operation = new CdnOriginCreateOperation(Parent, _clientDiagnostics, Pipeline, _cdnOriginsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin).Request, response);
+                var operation = new CdnOriginCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _cdnOriginsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal PrivateLinkServiceCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _privateLinkServicesRestClient = new PrivateLinkServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(PrivateLinkService.ResourceType, out string apiVersion);
+            _privateLinkServicesRestClient = new PrivateLinkServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

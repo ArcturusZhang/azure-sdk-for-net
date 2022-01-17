@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal DscpConfigurationCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _dscpConfigurationRestClient = new DscpConfigurationRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(DscpConfiguration.ResourceType, out string apiVersion);
+            _dscpConfigurationRestClient = new DscpConfigurationRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

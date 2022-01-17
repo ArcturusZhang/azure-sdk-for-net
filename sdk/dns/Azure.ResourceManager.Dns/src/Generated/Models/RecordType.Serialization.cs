@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.ResourceManager.Dns.Models
+namespace DnsManagementClient.Models
 {
     internal static partial class RecordTypeExtensions
     {

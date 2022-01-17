@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Network
         internal VirtualApplianceSiteCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _virtualApplianceSitesRestClient = new VirtualApplianceSitesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(VirtualApplianceSite.ResourceType, out string apiVersion);
+            _virtualApplianceSitesRestClient = new VirtualApplianceSitesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

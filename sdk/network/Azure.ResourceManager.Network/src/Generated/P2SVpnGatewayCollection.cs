@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal P2SVpnGatewayCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _p2sVpnGatewaysRestClient = new P2SVpnGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(P2SVpnGateway.ResourceType, out string apiVersion);
+            _p2sVpnGatewaysRestClient = new P2SVpnGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

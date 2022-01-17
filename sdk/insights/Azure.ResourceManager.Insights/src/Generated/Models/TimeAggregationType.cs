@@ -5,7 +5,7 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> time aggregation type. How the data that is collected should be combined over time. The default value is Average. </summary>
     public enum TimeAggregationType

@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal WebApplicationFirewallPolicyCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _webApplicationFirewallPoliciesRestClient = new WebApplicationFirewallPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(WebApplicationFirewallPolicy.ResourceType, out string apiVersion);
+            _webApplicationFirewallPoliciesRestClient = new WebApplicationFirewallPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

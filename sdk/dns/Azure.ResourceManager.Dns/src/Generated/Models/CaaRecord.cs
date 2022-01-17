@@ -5,7 +5,7 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager.Dns.Models
+namespace DnsManagementClient.Models
 {
     /// <summary> A CAA record. </summary>
     public partial class CaaRecord

@@ -41,7 +41,8 @@ namespace Azure.ResourceManager.Sql
         internal ServerTrustGroupCollection(ArmResource parent, string locationName) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _serverTrustGroupsRestClient = new ServerTrustGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ServerTrustGroup.ResourceType, out string apiVersion);
+            _serverTrustGroupsRestClient = new ServerTrustGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
             _locationName = locationName;
 #if DEBUG
 			ValidateResourceId(Id);

@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal BackupShortTermRetentionPolicyCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _backupShortTermRetentionPoliciesRestClient = new BackupShortTermRetentionPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(BackupShortTermRetentionPolicy.ResourceType, out string apiVersion);
+            _backupShortTermRetentionPoliciesRestClient = new BackupShortTermRetentionPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

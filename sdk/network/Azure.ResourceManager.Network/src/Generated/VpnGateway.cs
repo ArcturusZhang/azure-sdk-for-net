@@ -45,7 +45,8 @@ namespace Azure.ResourceManager.Network
             HasData = true;
             _data = data;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _vpnGatewaysRestClient = new VpnGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _vpnGatewaysRestClient = new VpnGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -57,7 +58,8 @@ namespace Azure.ResourceManager.Network
         internal VpnGateway(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _vpnGatewaysRestClient = new VpnGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _vpnGatewaysRestClient = new VpnGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -72,7 +74,8 @@ namespace Azure.ResourceManager.Network
         internal VpnGateway(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _vpnGatewaysRestClient = new VpnGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _vpnGatewaysRestClient = new VpnGatewaysRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -212,7 +215,7 @@ namespace Azure.ResourceManager.Network
                 var response = _vpnGatewaysRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 var operation = new VpnGatewayDeleteOperation(_clientDiagnostics, Pipeline, _vpnGatewaysRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -227,7 +230,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="vpnGatewayParameters"/> is null. </exception>
-        public async virtual Task<VpnGatewayUpdateTagsOperation> UpdateAsync(bool waitForCompletion, TagsObject vpnGatewayParameters, CancellationToken cancellationToken = default)
+        public async virtual Task<VpnGatewayUpdateOperation> UpdateAsync(bool waitForCompletion, TagsObject vpnGatewayParameters, CancellationToken cancellationToken = default)
         {
             if (vpnGatewayParameters == null)
             {
@@ -239,7 +242,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = await _vpnGatewaysRestClient.UpdateTagsAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, vpnGatewayParameters, cancellationToken).ConfigureAwait(false);
-                var operation = new VpnGatewayUpdateTagsOperation(this, _clientDiagnostics, Pipeline, _vpnGatewaysRestClient.CreateUpdateTagsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, vpnGatewayParameters).Request, response);
+                var operation = new VpnGatewayUpdateOperation(this, _clientDiagnostics, Pipeline, _vpnGatewaysRestClient.CreateUpdateTagsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, vpnGatewayParameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -256,7 +259,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="vpnGatewayParameters"/> is null. </exception>
-        public virtual VpnGatewayUpdateTagsOperation Update(bool waitForCompletion, TagsObject vpnGatewayParameters, CancellationToken cancellationToken = default)
+        public virtual VpnGatewayUpdateOperation Update(bool waitForCompletion, TagsObject vpnGatewayParameters, CancellationToken cancellationToken = default)
         {
             if (vpnGatewayParameters == null)
             {
@@ -268,7 +271,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = _vpnGatewaysRestClient.UpdateTags(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, vpnGatewayParameters, cancellationToken);
-                var operation = new VpnGatewayUpdateTagsOperation(this, _clientDiagnostics, Pipeline, _vpnGatewaysRestClient.CreateUpdateTagsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, vpnGatewayParameters).Request, response);
+                var operation = new VpnGatewayUpdateOperation(this, _clientDiagnostics, Pipeline, _vpnGatewaysRestClient.CreateUpdateTagsRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, vpnGatewayParameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;

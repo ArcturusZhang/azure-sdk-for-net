@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> An Activity Log alert condition that is met by comparing an activity log field and value. </summary>
     public partial class ActivityLogAlertLeafCondition

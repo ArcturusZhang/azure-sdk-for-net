@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Network
         internal ExpressRouteCircuitPeeringCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _expressRouteCircuitPeeringsRestClient = new ExpressRouteCircuitPeeringsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ExpressRouteCircuitPeering.ResourceType, out string apiVersion);
+            _expressRouteCircuitPeeringsRestClient = new ExpressRouteCircuitPeeringsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

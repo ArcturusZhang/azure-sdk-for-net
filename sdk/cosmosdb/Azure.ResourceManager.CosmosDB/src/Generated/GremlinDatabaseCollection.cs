@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.CosmosDB
         internal GremlinDatabaseCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _gremlinResourcesRestClient = new GremlinResourcesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(GremlinDatabase.ResourceType, out string apiVersion);
+            _gremlinResourcesRestClient = new GremlinResourcesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.CosmosDB
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="databaseName"/> or <paramref name="createUpdateGremlinDatabaseParameters"/> is null. </exception>
-        public virtual GremlinResourceCreateUpdateGremlinDatabaseOperation CreateOrUpdate(bool waitForCompletion, string databaseName, GremlinDatabaseCreateUpdateOptions createUpdateGremlinDatabaseParameters, CancellationToken cancellationToken = default)
+        public virtual GremlinDatabaseCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string databaseName, GremlinDatabaseCreateUpdateOptions createUpdateGremlinDatabaseParameters, CancellationToken cancellationToken = default)
         {
             if (databaseName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.CosmosDB
             try
             {
                 var response = _gremlinResourcesRestClient.CreateUpdateGremlinDatabase(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, databaseName, createUpdateGremlinDatabaseParameters, cancellationToken);
-                var operation = new GremlinResourceCreateUpdateGremlinDatabaseOperation(Parent, _clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateCreateUpdateGremlinDatabaseRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, databaseName, createUpdateGremlinDatabaseParameters).Request, response);
+                var operation = new GremlinDatabaseCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateCreateUpdateGremlinDatabaseRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, databaseName, createUpdateGremlinDatabaseParameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.CosmosDB
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="databaseName"/> or <paramref name="createUpdateGremlinDatabaseParameters"/> is null. </exception>
-        public async virtual Task<GremlinResourceCreateUpdateGremlinDatabaseOperation> CreateOrUpdateAsync(bool waitForCompletion, string databaseName, GremlinDatabaseCreateUpdateOptions createUpdateGremlinDatabaseParameters, CancellationToken cancellationToken = default)
+        public async virtual Task<GremlinDatabaseCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string databaseName, GremlinDatabaseCreateUpdateOptions createUpdateGremlinDatabaseParameters, CancellationToken cancellationToken = default)
         {
             if (databaseName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.CosmosDB
             try
             {
                 var response = await _gremlinResourcesRestClient.CreateUpdateGremlinDatabaseAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, databaseName, createUpdateGremlinDatabaseParameters, cancellationToken).ConfigureAwait(false);
-                var operation = new GremlinResourceCreateUpdateGremlinDatabaseOperation(Parent, _clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateCreateUpdateGremlinDatabaseRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, databaseName, createUpdateGremlinDatabaseParameters).Request, response);
+                var operation = new GremlinDatabaseCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateCreateUpdateGremlinDatabaseRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, databaseName, createUpdateGremlinDatabaseParameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

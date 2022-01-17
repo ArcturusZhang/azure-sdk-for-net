@@ -5,7 +5,7 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Indicates the status of the receiver. Receivers that are not Enabled will not receive any communications. </summary>
     public enum ReceiverStatus

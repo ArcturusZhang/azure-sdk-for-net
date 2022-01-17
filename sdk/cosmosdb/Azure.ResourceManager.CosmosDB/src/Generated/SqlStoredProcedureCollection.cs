@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.CosmosDB
         internal SqlStoredProcedureCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _sqlResourcesRestClient = new SqlResourcesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(SqlStoredProcedure.ResourceType, out string apiVersion);
+            _sqlResourcesRestClient = new SqlResourcesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.CosmosDB
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="storedProcedureName"/> or <paramref name="createUpdateSqlStoredProcedureParameters"/> is null. </exception>
-        public virtual SqlResourceCreateUpdateSqlStoredProcedureOperation CreateOrUpdate(bool waitForCompletion, string storedProcedureName, SqlStoredProcedureCreateUpdateOptions createUpdateSqlStoredProcedureParameters, CancellationToken cancellationToken = default)
+        public virtual SqlStoredProcedureCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string storedProcedureName, SqlStoredProcedureCreateUpdateOptions createUpdateSqlStoredProcedureParameters, CancellationToken cancellationToken = default)
         {
             if (storedProcedureName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.CosmosDB
             try
             {
                 var response = _sqlResourcesRestClient.CreateUpdateSqlStoredProcedure(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, storedProcedureName, createUpdateSqlStoredProcedureParameters, cancellationToken);
-                var operation = new SqlResourceCreateUpdateSqlStoredProcedureOperation(Parent, _clientDiagnostics, Pipeline, _sqlResourcesRestClient.CreateCreateUpdateSqlStoredProcedureRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, storedProcedureName, createUpdateSqlStoredProcedureParameters).Request, response);
+                var operation = new SqlStoredProcedureCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _sqlResourcesRestClient.CreateCreateUpdateSqlStoredProcedureRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, storedProcedureName, createUpdateSqlStoredProcedureParameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.CosmosDB
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="storedProcedureName"/> or <paramref name="createUpdateSqlStoredProcedureParameters"/> is null. </exception>
-        public async virtual Task<SqlResourceCreateUpdateSqlStoredProcedureOperation> CreateOrUpdateAsync(bool waitForCompletion, string storedProcedureName, SqlStoredProcedureCreateUpdateOptions createUpdateSqlStoredProcedureParameters, CancellationToken cancellationToken = default)
+        public async virtual Task<SqlStoredProcedureCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string storedProcedureName, SqlStoredProcedureCreateUpdateOptions createUpdateSqlStoredProcedureParameters, CancellationToken cancellationToken = default)
         {
             if (storedProcedureName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.CosmosDB
             try
             {
                 var response = await _sqlResourcesRestClient.CreateUpdateSqlStoredProcedureAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, storedProcedureName, createUpdateSqlStoredProcedureParameters, cancellationToken).ConfigureAwait(false);
-                var operation = new SqlResourceCreateUpdateSqlStoredProcedureOperation(Parent, _clientDiagnostics, Pipeline, _sqlResourcesRestClient.CreateCreateUpdateSqlStoredProcedureRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, storedProcedureName, createUpdateSqlStoredProcedureParameters).Request, response);
+                var operation = new SqlStoredProcedureCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _sqlResourcesRestClient.CreateCreateUpdateSqlStoredProcedureRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, storedProcedureName, createUpdateSqlStoredProcedureParameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

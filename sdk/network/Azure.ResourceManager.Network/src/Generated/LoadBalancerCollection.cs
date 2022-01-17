@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal LoadBalancerCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _loadBalancersRestClient = new LoadBalancersRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(LoadBalancer.ResourceType, out string apiVersion);
+            _loadBalancersRestClient = new LoadBalancersRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

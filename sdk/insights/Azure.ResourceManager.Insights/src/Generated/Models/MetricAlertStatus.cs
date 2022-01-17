@@ -5,10 +5,13 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager.Insights.Models
+using Azure.Core;
+using Azure.ResourceManager.Models;
+
+namespace Insights.Models
 {
     /// <summary> An alert status. </summary>
-    public partial class MetricAlertStatus
+    public partial class MetricAlertStatus : Resource
     {
         /// <summary> Initializes a new instance of MetricAlertStatus. </summary>
         internal MetricAlertStatus()
@@ -16,24 +19,15 @@ namespace Azure.ResourceManager.Insights.Models
         }
 
         /// <summary> Initializes a new instance of MetricAlertStatus. </summary>
-        /// <param name="name"> The status name. </param>
-        /// <param name="id"> The alert rule arm id. </param>
-        /// <param name="type"> The extended resource type name. </param>
+        /// <param name="id"> The id. </param>
+        /// <param name="name"> The name. </param>
+        /// <param name="type"> The type. </param>
         /// <param name="properties"> The alert status properties of the metric alert status. </param>
-        internal MetricAlertStatus(string name, string id, string type, MetricAlertStatusProperties properties)
+        internal MetricAlertStatus(ResourceIdentifier id, string name, ResourceType type, MetricAlertStatusProperties properties) : base(id, name, type)
         {
-            Name = name;
-            Id = id;
-            Type = type;
             Properties = properties;
         }
 
-        /// <summary> The status name. </summary>
-        public string Name { get; }
-        /// <summary> The alert rule arm id. </summary>
-        public string Id { get; }
-        /// <summary> The extended resource type name. </summary>
-        public string Type { get; }
         /// <summary> The alert status properties of the metric alert status. </summary>
         public MetricAlertStatusProperties Properties { get; }
     }

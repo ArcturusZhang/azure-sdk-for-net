@@ -7,8 +7,9 @@
 
 using System.Collections.Generic;
 using Azure.Core;
+using Insights;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Represents a collection of Log Search rule resources. </summary>
     internal partial class LogSearchRuleResourceCollection
@@ -16,17 +17,17 @@ namespace Azure.ResourceManager.Insights.Models
         /// <summary> Initializes a new instance of LogSearchRuleResourceCollection. </summary>
         internal LogSearchRuleResourceCollection()
         {
-            Value = new ChangeTrackingList<LogSearchRuleResource>();
+            Value = new ChangeTrackingList<LogSearchRuleResourceData>();
         }
 
         /// <summary> Initializes a new instance of LogSearchRuleResourceCollection. </summary>
         /// <param name="value"> The values for the Log Search Rule resources. </param>
-        internal LogSearchRuleResourceCollection(IReadOnlyList<LogSearchRuleResource> value)
+        internal LogSearchRuleResourceCollection(IReadOnlyList<LogSearchRuleResourceData> value)
         {
             Value = value;
         }
 
         /// <summary> The values for the Log Search Rule resources. </summary>
-        public IReadOnlyList<LogSearchRuleResource> Value { get; }
+        public IReadOnlyList<LogSearchRuleResourceData> Value { get; }
     }
 }

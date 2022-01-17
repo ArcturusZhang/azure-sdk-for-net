@@ -8,33 +8,18 @@
 using System.Text.Json;
 using Azure.Core;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     public partial class MetricNamespace
     {
         internal static MetricNamespace DeserializeMetricNamespace(JsonElement element)
         {
-            Optional<string> id = default;
-            Optional<string> type = default;
-            Optional<string> name = default;
             Optional<MetricNamespaceName> properties = default;
+            ResourceIdentifier id = default;
+            string name = default;
+            ResourceType type = default;
             foreach (var property in element.EnumerateObject())
             {
-                if (property.NameEquals("id"))
-                {
-                    id = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("type"))
-                {
-                    type = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("name"))
-                {
-                    name = property.Value.GetString();
-                    continue;
-                }
                 if (property.NameEquals("properties"))
                 {
                     if (property.Value.ValueKind == JsonValueKind.Null)
@@ -45,8 +30,23 @@ namespace Azure.ResourceManager.Insights.Models
                     properties = MetricNamespaceName.DeserializeMetricNamespaceName(property.Value);
                     continue;
                 }
+                if (property.NameEquals("id"))
+                {
+                    id = new ResourceIdentifier(property.Value.GetString());
+                    continue;
+                }
+                if (property.NameEquals("name"))
+                {
+                    name = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("type"))
+                {
+                    type = property.Value.GetString();
+                    continue;
+                }
             }
-            return new MetricNamespace(id.Value, type.Value, name.Value, properties.Value);
+            return new MetricNamespace(id, name, type, properties.Value);
         }
     }
 }

@@ -37,7 +37,8 @@ namespace Azure.ResourceManager.Resources
         internal TemplateSpecCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _templateSpecsRestClient = new TemplateSpecsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(TemplateSpec.ResourceType, out string apiVersion);
+            _templateSpecsRestClient = new TemplateSpecsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

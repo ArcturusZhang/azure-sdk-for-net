@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> An email receiver. </summary>
     public partial class EmailReceiver

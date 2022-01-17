@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal PublicIPAddressCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _publicIPAddressesRestClient = new PublicIPAddressesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(PublicIPAddress.ResourceType, out string apiVersion);
+            _publicIPAddressesRestClient = new PublicIPAddressesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

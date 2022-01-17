@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Cdn
         internal AfdRuleSetCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _afdRuleSetsRestClient = new AfdRuleSetsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(AfdRuleSet.ResourceType, out string apiVersion);
+            _afdRuleSetsRestClient = new AfdRuleSetsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -55,7 +56,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="ruleSetName"/> is null. </exception>
-        public virtual AfdRuleSetCreateOperation CreateOrUpdate(bool waitForCompletion, string ruleSetName, CancellationToken cancellationToken = default)
+        public virtual AfdRuleSetCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string ruleSetName, CancellationToken cancellationToken = default)
         {
             if (ruleSetName == null)
             {
@@ -67,7 +68,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = _afdRuleSetsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ruleSetName, cancellationToken);
-                var operation = new AfdRuleSetCreateOperation(Parent, _clientDiagnostics, Pipeline, _afdRuleSetsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ruleSetName).Request, response);
+                var operation = new AfdRuleSetCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _afdRuleSetsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ruleSetName).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -84,7 +85,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="ruleSetName"/> is null. </exception>
-        public async virtual Task<AfdRuleSetCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string ruleSetName, CancellationToken cancellationToken = default)
+        public async virtual Task<AfdRuleSetCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string ruleSetName, CancellationToken cancellationToken = default)
         {
             if (ruleSetName == null)
             {
@@ -96,7 +97,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = await _afdRuleSetsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ruleSetName, cancellationToken).ConfigureAwait(false);
-                var operation = new AfdRuleSetCreateOperation(Parent, _clientDiagnostics, Pipeline, _afdRuleSetsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ruleSetName).Request, response);
+                var operation = new AfdRuleSetCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _afdRuleSetsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ruleSetName).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

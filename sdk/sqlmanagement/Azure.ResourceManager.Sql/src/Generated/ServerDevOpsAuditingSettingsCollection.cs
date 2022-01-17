@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal ServerDevOpsAuditingSettingsCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _serverDevOpsAuditSettingsRestClient = new ServerDevOpsAuditSettingsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ServerDevOpsAuditingSettings.ResourceType, out string apiVersion);
+            _serverDevOpsAuditSettingsRestClient = new ServerDevOpsAuditSettingsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -59,7 +60,7 @@ namespace Azure.ResourceManager.Sql
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="devOpsAuditingSettingsName"/> or <paramref name="parameters"/> is null. </exception>
-        public virtual ServerDevOpsAuditSettingCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string devOpsAuditingSettingsName, ServerDevOpsAuditingSettingsData parameters, CancellationToken cancellationToken = default)
+        public virtual ServerDevOpsAuditingSettingsCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string devOpsAuditingSettingsName, ServerDevOpsAuditingSettingsData parameters, CancellationToken cancellationToken = default)
         {
             if (devOpsAuditingSettingsName == null)
             {
@@ -75,7 +76,7 @@ namespace Azure.ResourceManager.Sql
             try
             {
                 var response = _serverDevOpsAuditSettingsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, devOpsAuditingSettingsName, parameters, cancellationToken);
-                var operation = new ServerDevOpsAuditSettingCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _serverDevOpsAuditSettingsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, devOpsAuditingSettingsName, parameters).Request, response);
+                var operation = new ServerDevOpsAuditingSettingsCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _serverDevOpsAuditSettingsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, devOpsAuditingSettingsName, parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -96,7 +97,7 @@ namespace Azure.ResourceManager.Sql
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="devOpsAuditingSettingsName"/> or <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<ServerDevOpsAuditSettingCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string devOpsAuditingSettingsName, ServerDevOpsAuditingSettingsData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<ServerDevOpsAuditingSettingsCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string devOpsAuditingSettingsName, ServerDevOpsAuditingSettingsData parameters, CancellationToken cancellationToken = default)
         {
             if (devOpsAuditingSettingsName == null)
             {
@@ -112,7 +113,7 @@ namespace Azure.ResourceManager.Sql
             try
             {
                 var response = await _serverDevOpsAuditSettingsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, devOpsAuditingSettingsName, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new ServerDevOpsAuditSettingCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _serverDevOpsAuditSettingsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, devOpsAuditingSettingsName, parameters).Request, response);
+                var operation = new ServerDevOpsAuditingSettingsCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _serverDevOpsAuditSettingsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, devOpsAuditingSettingsName, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

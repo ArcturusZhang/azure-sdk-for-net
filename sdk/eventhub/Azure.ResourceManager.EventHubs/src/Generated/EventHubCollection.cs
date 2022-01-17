@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.EventHubs
         internal EventHubCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _eventHubsRestClient = new EventHubsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(EventHub.ResourceType, out string apiVersion);
+            _eventHubsRestClient = new EventHubsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

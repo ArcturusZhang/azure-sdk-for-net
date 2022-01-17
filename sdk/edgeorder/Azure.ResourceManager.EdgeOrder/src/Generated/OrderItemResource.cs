@@ -45,7 +45,8 @@ namespace Azure.ResourceManager.EdgeOrder
             HasData = true;
             _data = data;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _restClient = new EdgeOrderManagementRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _restClient = new EdgeOrderManagementRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -57,7 +58,8 @@ namespace Azure.ResourceManager.EdgeOrder
         internal OrderItemResource(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _restClient = new EdgeOrderManagementRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _restClient = new EdgeOrderManagementRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -72,7 +74,8 @@ namespace Azure.ResourceManager.EdgeOrder
         internal OrderItemResource(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _restClient = new EdgeOrderManagementRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _restClient = new EdgeOrderManagementRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -192,14 +195,14 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <summary> Deletes an order item. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<EdgeOrderManagementDeleteOrderItemByNameOperation> DeleteAsync(bool waitForCompletion, CancellationToken cancellationToken = default)
+        public async virtual Task<OrderItemResourceDeleteOperation> DeleteAsync(bool waitForCompletion, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("OrderItemResource.Delete");
             scope.Start();
             try
             {
                 var response = await _restClient.DeleteOrderItemByNameAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new EdgeOrderManagementDeleteOrderItemByNameOperation(_clientDiagnostics, Pipeline, _restClient.CreateDeleteOrderItemByNameRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
+                var operation = new OrderItemResourceDeleteOperation(_clientDiagnostics, Pipeline, _restClient.CreateDeleteOrderItemByNameRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -217,16 +220,16 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <summary> Deletes an order item. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual EdgeOrderManagementDeleteOrderItemByNameOperation Delete(bool waitForCompletion, CancellationToken cancellationToken = default)
+        public virtual OrderItemResourceDeleteOperation Delete(bool waitForCompletion, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("OrderItemResource.Delete");
             scope.Start();
             try
             {
                 var response = _restClient.DeleteOrderItemByName(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                var operation = new EdgeOrderManagementDeleteOrderItemByNameOperation(_clientDiagnostics, Pipeline, _restClient.CreateDeleteOrderItemByNameRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
+                var operation = new OrderItemResourceDeleteOperation(_clientDiagnostics, Pipeline, _restClient.CreateDeleteOrderItemByNameRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -417,7 +420,7 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="orderItemUpdateParameter"/> is null. </exception>
-        public async virtual Task<EdgeOrderManagementUpdateOrderItemOperation> UpdateAsync(bool waitForCompletion, OrderItemUpdateParameter orderItemUpdateParameter, string ifMatch = null, CancellationToken cancellationToken = default)
+        public async virtual Task<OrderItemResourceUpdateOperation> UpdateAsync(bool waitForCompletion, OrderItemUpdateParameter orderItemUpdateParameter, string ifMatch = null, CancellationToken cancellationToken = default)
         {
             if (orderItemUpdateParameter == null)
             {
@@ -429,7 +432,7 @@ namespace Azure.ResourceManager.EdgeOrder
             try
             {
                 var response = await _restClient.UpdateOrderItemAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, orderItemUpdateParameter, ifMatch, cancellationToken).ConfigureAwait(false);
-                var operation = new EdgeOrderManagementUpdateOrderItemOperation(this, _clientDiagnostics, Pipeline, _restClient.CreateUpdateOrderItemRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, orderItemUpdateParameter, ifMatch).Request, response);
+                var operation = new OrderItemResourceUpdateOperation(this, _clientDiagnostics, Pipeline, _restClient.CreateUpdateOrderItemRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, orderItemUpdateParameter, ifMatch).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -450,7 +453,7 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="orderItemUpdateParameter"/> is null. </exception>
-        public virtual EdgeOrderManagementUpdateOrderItemOperation Update(bool waitForCompletion, OrderItemUpdateParameter orderItemUpdateParameter, string ifMatch = null, CancellationToken cancellationToken = default)
+        public virtual OrderItemResourceUpdateOperation Update(bool waitForCompletion, OrderItemUpdateParameter orderItemUpdateParameter, string ifMatch = null, CancellationToken cancellationToken = default)
         {
             if (orderItemUpdateParameter == null)
             {
@@ -462,7 +465,7 @@ namespace Azure.ResourceManager.EdgeOrder
             try
             {
                 var response = _restClient.UpdateOrderItem(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, orderItemUpdateParameter, ifMatch, cancellationToken);
-                var operation = new EdgeOrderManagementUpdateOrderItemOperation(this, _clientDiagnostics, Pipeline, _restClient.CreateUpdateOrderItemRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, orderItemUpdateParameter, ifMatch).Request, response);
+                var operation = new OrderItemResourceUpdateOperation(this, _clientDiagnostics, Pipeline, _restClient.CreateUpdateOrderItemRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, orderItemUpdateParameter, ifMatch).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -538,7 +541,7 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="returnOrderItemDetails"/> is null. </exception>
-        public async virtual Task<EdgeOrderManagementReturnOrderItemOperation> ReturnOrderItemAsync(bool waitForCompletion, ReturnOrderItemDetails returnOrderItemDetails, CancellationToken cancellationToken = default)
+        public async virtual Task<OrderItemResourceReturnOrderItemOperation> ReturnOrderItemAsync(bool waitForCompletion, ReturnOrderItemDetails returnOrderItemDetails, CancellationToken cancellationToken = default)
         {
             if (returnOrderItemDetails == null)
             {
@@ -550,7 +553,7 @@ namespace Azure.ResourceManager.EdgeOrder
             try
             {
                 var response = await _restClient.ReturnOrderItemAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, returnOrderItemDetails, cancellationToken).ConfigureAwait(false);
-                var operation = new EdgeOrderManagementReturnOrderItemOperation(_clientDiagnostics, Pipeline, _restClient.CreateReturnOrderItemRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, returnOrderItemDetails).Request, response);
+                var operation = new OrderItemResourceReturnOrderItemOperation(_clientDiagnostics, Pipeline, _restClient.CreateReturnOrderItemRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, returnOrderItemDetails).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -570,7 +573,7 @@ namespace Azure.ResourceManager.EdgeOrder
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="returnOrderItemDetails"/> is null. </exception>
-        public virtual EdgeOrderManagementReturnOrderItemOperation ReturnOrderItem(bool waitForCompletion, ReturnOrderItemDetails returnOrderItemDetails, CancellationToken cancellationToken = default)
+        public virtual OrderItemResourceReturnOrderItemOperation ReturnOrderItem(bool waitForCompletion, ReturnOrderItemDetails returnOrderItemDetails, CancellationToken cancellationToken = default)
         {
             if (returnOrderItemDetails == null)
             {
@@ -582,9 +585,9 @@ namespace Azure.ResourceManager.EdgeOrder
             try
             {
                 var response = _restClient.ReturnOrderItem(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, returnOrderItemDetails, cancellationToken);
-                var operation = new EdgeOrderManagementReturnOrderItemOperation(_clientDiagnostics, Pipeline, _restClient.CreateReturnOrderItemRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, returnOrderItemDetails).Request, response);
+                var operation = new OrderItemResourceReturnOrderItemOperation(_clientDiagnostics, Pipeline, _restClient.CreateReturnOrderItemRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, returnOrderItemDetails).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)

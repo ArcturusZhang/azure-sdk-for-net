@@ -1,23 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Version>1.0.0-beta.1</Version>
-    <Description>
-      Azure management client SDK for Azure resource provider MachineLearningServices.
-      This is the first beta preview version, so expect incompatible changes in subsequent releases as we improve the product.
-    </Description>
-    <PackageId>Azure.ResourceManager.MachineLearningServices</PackageId>
-    <PackageTags>azure;management;machinelearning;machinelearningservices;aml;ml</PackageTags>
-    <TargetFrameworks>$(RequiredTargetFrameworks)</TargetFrameworks>
-    <IsMgmtSubLibrary>false</IsMgmtSubLibrary>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Nullable>annotations</Nullable>
   </PropertyGroup>
 
-    <PropertyGroup>
-    <!-- Link to preapproved, registered namespaces: https://azure.github.io/azure-sdk/registered_namespaces.html  -->
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
-    <ExcludeMgmtCoreShared>true</ExcludeMgmtCoreShared>
+  <PropertyGroup>
+    <LangVersion>8.0</LangVersion>
+    <IncludeGeneratorSharedCode>true</IncludeGeneratorSharedCode>
+    <RestoreAdditionalProjectSources>https://azuresdkartifacts.blob.core.windows.net/azure-sdk-tools/index.json</RestoreAdditionalProjectSources>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Azure.AutoRest.CSharp" VersionOverride="$(MgmtAutorestVersion)" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.Azure.AutoRest.CSharp" Version="3.0.0-beta.20220117.1" PrivateAssets="All" />
   </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Azure.Core" Version="1.22.0" />
+  </ItemGroup>
+
 </Project>

@@ -16,6 +16,7 @@ using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.Core;
+using Azure.ResourceManager.ServiceBus.Models;
 
 namespace Azure.ResourceManager.ServiceBus
 {
@@ -35,7 +36,8 @@ namespace Azure.ResourceManager.ServiceBus
         internal NamespaceDisasterRecoveryConfigAuthorizationRuleCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _disasterRecoveryConfigAuthorizationRulesRestClient = new DisasterRecoveryConfigAuthorizationRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(NamespaceDisasterRecoveryConfigAuthorizationRule.ResourceType, out string apiVersion);
+            _disasterRecoveryConfigAuthorizationRulesRestClient = new DisasterRecoveryConfigAuthorizationRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

@@ -56,18 +56,19 @@ namespace Azure.ResourceManager.CosmosDB
             HasData = true;
             _data = data;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _databaseAccountsRestClient = new DatabaseAccountsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _databaseRestClient = new DatabaseRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionRestClient = new CollectionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionRegionRestClient = new CollectionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _databaseAccountRegionRestClient = new DatabaseAccountRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _percentileSourceTargetRestClient = new PercentileSourceTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _percentileTargetRestClient = new PercentileTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _percentileRestClient = new PercentileRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionPartitionRegionRestClient = new CollectionPartitionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionPartitionRestClient = new CollectionPartitionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _partitionKeyRangeIdRestClient = new PartitionKeyRangeIdRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _partitionKeyRangeIdRegionRestClient = new PartitionKeyRangeIdRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _databaseAccountsRestClient = new DatabaseAccountsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _databaseRestClient = new DatabaseRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionRestClient = new CollectionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionRegionRestClient = new CollectionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _databaseAccountRegionRestClient = new DatabaseAccountRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _percentileSourceTargetRestClient = new PercentileSourceTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _percentileTargetRestClient = new PercentileTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _percentileRestClient = new PercentileRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionPartitionRegionRestClient = new CollectionPartitionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionPartitionRestClient = new CollectionPartitionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _partitionKeyRangeIdRestClient = new PartitionKeyRangeIdRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _partitionKeyRangeIdRegionRestClient = new PartitionKeyRangeIdRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -79,18 +80,19 @@ namespace Azure.ResourceManager.CosmosDB
         internal DatabaseAccount(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _databaseAccountsRestClient = new DatabaseAccountsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _databaseRestClient = new DatabaseRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionRestClient = new CollectionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionRegionRestClient = new CollectionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _databaseAccountRegionRestClient = new DatabaseAccountRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _percentileSourceTargetRestClient = new PercentileSourceTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _percentileTargetRestClient = new PercentileTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _percentileRestClient = new PercentileRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionPartitionRegionRestClient = new CollectionPartitionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionPartitionRestClient = new CollectionPartitionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _partitionKeyRangeIdRestClient = new PartitionKeyRangeIdRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _partitionKeyRangeIdRegionRestClient = new PartitionKeyRangeIdRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _databaseAccountsRestClient = new DatabaseAccountsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _databaseRestClient = new DatabaseRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionRestClient = new CollectionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionRegionRestClient = new CollectionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _databaseAccountRegionRestClient = new DatabaseAccountRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _percentileSourceTargetRestClient = new PercentileSourceTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _percentileTargetRestClient = new PercentileTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _percentileRestClient = new PercentileRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionPartitionRegionRestClient = new CollectionPartitionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionPartitionRestClient = new CollectionPartitionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _partitionKeyRangeIdRestClient = new PartitionKeyRangeIdRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _partitionKeyRangeIdRegionRestClient = new PartitionKeyRangeIdRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -105,18 +107,19 @@ namespace Azure.ResourceManager.CosmosDB
         internal DatabaseAccount(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _databaseAccountsRestClient = new DatabaseAccountsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _databaseRestClient = new DatabaseRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionRestClient = new CollectionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionRegionRestClient = new CollectionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _databaseAccountRegionRestClient = new DatabaseAccountRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _percentileSourceTargetRestClient = new PercentileSourceTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _percentileTargetRestClient = new PercentileTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _percentileRestClient = new PercentileRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionPartitionRegionRestClient = new CollectionPartitionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _collectionPartitionRestClient = new CollectionPartitionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _partitionKeyRangeIdRestClient = new PartitionKeyRangeIdRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _partitionKeyRangeIdRegionRestClient = new PartitionKeyRangeIdRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _databaseAccountsRestClient = new DatabaseAccountsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _databaseRestClient = new DatabaseRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionRestClient = new CollectionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionRegionRestClient = new CollectionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _databaseAccountRegionRestClient = new DatabaseAccountRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _percentileSourceTargetRestClient = new PercentileSourceTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _percentileTargetRestClient = new PercentileTargetRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _percentileRestClient = new PercentileRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionPartitionRegionRestClient = new CollectionPartitionRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _collectionPartitionRestClient = new CollectionPartitionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _partitionKeyRangeIdRestClient = new PartitionKeyRangeIdRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _partitionKeyRangeIdRegionRestClient = new PartitionKeyRangeIdRegionRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -256,7 +259,7 @@ namespace Azure.ResourceManager.CosmosDB
                 var response = _databaseAccountsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 var operation = new DatabaseAccountDeleteOperation(_clientDiagnostics, Pipeline, _databaseAccountsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -544,7 +547,7 @@ namespace Azure.ResourceManager.CosmosDB
                 var response = _databaseAccountsRestClient.FailoverPriorityChange(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, failoverParameters, cancellationToken);
                 var operation = new DatabaseAccountFailoverPriorityChangeOperation(_clientDiagnostics, Pipeline, _databaseAccountsRestClient.CreateFailoverPriorityChangeRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, failoverParameters).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -674,7 +677,7 @@ namespace Azure.ResourceManager.CosmosDB
                 var response = _databaseAccountsRestClient.OfflineRegion(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, regionParameterForOffline, cancellationToken);
                 var operation = new DatabaseAccountOfflineRegionOperation(_clientDiagnostics, Pipeline, _databaseAccountsRestClient.CreateOfflineRegionRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, regionParameterForOffline).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -732,7 +735,7 @@ namespace Azure.ResourceManager.CosmosDB
                 var response = _databaseAccountsRestClient.OnlineRegion(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, regionParameterForOnline, cancellationToken);
                 var operation = new DatabaseAccountOnlineRegionOperation(_clientDiagnostics, Pipeline, _databaseAccountsRestClient.CreateOnlineRegionRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, regionParameterForOnline).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -826,7 +829,7 @@ namespace Azure.ResourceManager.CosmosDB
                 var response = _databaseAccountsRestClient.RegenerateKey(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, keyToRegenerate, cancellationToken);
                 var operation = new DatabaseAccountRegenerateKeyOperation(_clientDiagnostics, Pipeline, _databaseAccountsRestClient.CreateRegenerateKeyRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, keyToRegenerate).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)

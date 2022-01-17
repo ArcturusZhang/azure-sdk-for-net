@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Cdn
         internal AfdRouteCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _afdRoutesRestClient = new AfdRoutesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(AfdRoute.ResourceType, out string apiVersion);
+            _afdRoutesRestClient = new AfdRoutesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="routeName"/> or <paramref name="route"/> is null. </exception>
-        public virtual AfdRouteCreateOperation CreateOrUpdate(bool waitForCompletion, string routeName, AfdRouteData route, CancellationToken cancellationToken = default)
+        public virtual AfdRouteCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string routeName, AfdRouteData route, CancellationToken cancellationToken = default)
         {
             if (routeName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = _afdRoutesRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, routeName, route, cancellationToken);
-                var operation = new AfdRouteCreateOperation(Parent, _clientDiagnostics, Pipeline, _afdRoutesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, routeName, route).Request, response);
+                var operation = new AfdRouteCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _afdRoutesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, routeName, route).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="routeName"/> or <paramref name="route"/> is null. </exception>
-        public async virtual Task<AfdRouteCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string routeName, AfdRouteData route, CancellationToken cancellationToken = default)
+        public async virtual Task<AfdRouteCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string routeName, AfdRouteData route, CancellationToken cancellationToken = default)
         {
             if (routeName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = await _afdRoutesRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, routeName, route, cancellationToken).ConfigureAwait(false);
-                var operation = new AfdRouteCreateOperation(Parent, _clientDiagnostics, Pipeline, _afdRoutesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, routeName, route).Request, response);
+                var operation = new AfdRouteCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _afdRoutesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, routeName, route).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

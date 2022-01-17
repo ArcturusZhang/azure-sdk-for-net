@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Criterion for dynamic threshold. </summary>
     public partial class DynamicMetricCriteria : MultiMetricCriteria
@@ -49,7 +49,7 @@ namespace Azure.ResourceManager.Insights.Models
         /// <param name="metricNamespace"> Namespace of the metric. </param>
         /// <param name="timeAggregation"> the criteria time aggregation types. </param>
         /// <param name="dimensions"> List of dimension conditions. </param>
-        /// <param name="additionalProperties"> . </param>
+        /// <param name="additionalProperties"> Additional Properties. </param>
         /// <param name="operator"> The operator used to compare the metric value against the threshold. </param>
         /// <param name="alertSensitivity"> The extent of deviation required to trigger an alert. This will affect how tight the threshold is to the metric series pattern. </param>
         /// <param name="failingPeriods"> The minimum number of violations required within the selected lookback time window required to raise an alert. </param>

@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Cdn
         internal AfdSecretCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _afdSecretsRestClient = new AfdSecretsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(AfdSecret.ResourceType, out string apiVersion);
+            _afdSecretsRestClient = new AfdSecretsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="secretName"/> or <paramref name="secret"/> is null. </exception>
-        public virtual AfdSecretCreateOperation CreateOrUpdate(bool waitForCompletion, string secretName, AfdSecretData secret, CancellationToken cancellationToken = default)
+        public virtual AfdSecretCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string secretName, AfdSecretData secret, CancellationToken cancellationToken = default)
         {
             if (secretName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = _afdSecretsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, secret, cancellationToken);
-                var operation = new AfdSecretCreateOperation(Parent, _clientDiagnostics, Pipeline, _afdSecretsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, secret).Request, response);
+                var operation = new AfdSecretCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _afdSecretsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, secret).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="secretName"/> or <paramref name="secret"/> is null. </exception>
-        public async virtual Task<AfdSecretCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string secretName, AfdSecretData secret, CancellationToken cancellationToken = default)
+        public async virtual Task<AfdSecretCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string secretName, AfdSecretData secret, CancellationToken cancellationToken = default)
         {
             if (secretName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = await _afdSecretsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, secret, cancellationToken).ConfigureAwait(false);
-                var operation = new AfdSecretCreateOperation(Parent, _clientDiagnostics, Pipeline, _afdSecretsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, secret).Request, response);
+                var operation = new AfdSecretCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _afdSecretsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, secretName, secret).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

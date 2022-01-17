@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Compute
         internal DiskEncryptionSetCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _diskEncryptionSetsRestClient = new DiskEncryptionSetsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(DiskEncryptionSet.ResourceType, out string apiVersion);
+            _diskEncryptionSetsRestClient = new DiskEncryptionSetsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

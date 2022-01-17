@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.EventHubs
         internal ConsumerGroupCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _consumerGroupsRestClient = new ConsumerGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ConsumerGroup.ResourceType, out string apiVersion);
+            _consumerGroupsRestClient = new ConsumerGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

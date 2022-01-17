@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Network
         internal FlowLogCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _flowLogsRestClient = new FlowLogsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(FlowLog.ResourceType, out string apiVersion);
+            _flowLogsRestClient = new FlowLogsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

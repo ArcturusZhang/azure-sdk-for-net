@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal PublicIPPrefixCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _publicIPPrefixesRestClient = new PublicIPPrefixesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(PublicIPPrefix.ResourceType, out string apiVersion);
+            _publicIPPrefixesRestClient = new PublicIPPrefixesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

@@ -46,7 +46,8 @@ namespace Azure.ResourceManager.CosmosDB
             _data = data;
             Parent = options;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _gremlinResourcesRestClient = new GremlinResourcesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _gremlinResourcesRestClient = new GremlinResourcesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -59,7 +60,8 @@ namespace Azure.ResourceManager.CosmosDB
         {
             Parent = options;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _gremlinResourcesRestClient = new GremlinResourcesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _gremlinResourcesRestClient = new GremlinResourcesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -74,7 +76,8 @@ namespace Azure.ResourceManager.CosmosDB
         internal DatabaseAccountGremlinDatabaseThroughputSetting(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _gremlinResourcesRestClient = new GremlinResourcesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _gremlinResourcesRestClient = new GremlinResourcesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -188,7 +191,7 @@ namespace Azure.ResourceManager.CosmosDB
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="updateThroughputParameters"/> is null. </exception>
-        public async virtual Task<GremlinResourceUpdateGremlinDatabaseThroughputOperation> CreateOrUpdateAsync(bool waitForCompletion, ThroughputSettingsUpdateOptions updateThroughputParameters, CancellationToken cancellationToken = default)
+        public async virtual Task<DatabaseAccountGremlinDatabaseThroughputSettingCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, ThroughputSettingsUpdateOptions updateThroughputParameters, CancellationToken cancellationToken = default)
         {
             if (updateThroughputParameters == null)
             {
@@ -200,7 +203,7 @@ namespace Azure.ResourceManager.CosmosDB
             try
             {
                 var response = await _gremlinResourcesRestClient.UpdateGremlinDatabaseThroughputAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, updateThroughputParameters, cancellationToken).ConfigureAwait(false);
-                var operation = new GremlinResourceUpdateGremlinDatabaseThroughputOperation(this, _clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateUpdateGremlinDatabaseThroughputRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, updateThroughputParameters).Request, response);
+                var operation = new DatabaseAccountGremlinDatabaseThroughputSettingCreateOrUpdateOperation(this, _clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateUpdateGremlinDatabaseThroughputRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, updateThroughputParameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -217,7 +220,7 @@ namespace Azure.ResourceManager.CosmosDB
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="updateThroughputParameters"/> is null. </exception>
-        public virtual GremlinResourceUpdateGremlinDatabaseThroughputOperation CreateOrUpdate(bool waitForCompletion, ThroughputSettingsUpdateOptions updateThroughputParameters, CancellationToken cancellationToken = default)
+        public virtual DatabaseAccountGremlinDatabaseThroughputSettingCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, ThroughputSettingsUpdateOptions updateThroughputParameters, CancellationToken cancellationToken = default)
         {
             if (updateThroughputParameters == null)
             {
@@ -229,7 +232,7 @@ namespace Azure.ResourceManager.CosmosDB
             try
             {
                 var response = _gremlinResourcesRestClient.UpdateGremlinDatabaseThroughput(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, updateThroughputParameters, cancellationToken);
-                var operation = new GremlinResourceUpdateGremlinDatabaseThroughputOperation(this, _clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateUpdateGremlinDatabaseThroughputRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, updateThroughputParameters).Request, response);
+                var operation = new DatabaseAccountGremlinDatabaseThroughputSettingCreateOrUpdateOperation(this, _clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateUpdateGremlinDatabaseThroughputRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, updateThroughputParameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -416,14 +419,14 @@ namespace Azure.ResourceManager.CosmosDB
         /// <summary> Migrate an Azure Cosmos DB Gremlin database from manual throughput to autoscale. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<GremlinResourceMigrateGremlinDatabaseToAutoscaleOperation> MigrateGremlinDatabaseToAutoscaleAsync(bool waitForCompletion, CancellationToken cancellationToken = default)
+        public async virtual Task<DatabaseAccountGremlinDatabaseThroughputSettingMigrateGremlinDatabaseToAutoscaleOperation> MigrateGremlinDatabaseToAutoscaleAsync(bool waitForCompletion, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("DatabaseAccountGremlinDatabaseThroughputSetting.MigrateGremlinDatabaseToAutoscale");
             scope.Start();
             try
             {
                 var response = await _gremlinResourcesRestClient.MigrateGremlinDatabaseToAutoscaleAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new GremlinResourceMigrateGremlinDatabaseToAutoscaleOperation(_clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateMigrateGremlinDatabaseToAutoscaleRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name).Request, response);
+                var operation = new DatabaseAccountGremlinDatabaseThroughputSettingMigrateGremlinDatabaseToAutoscaleOperation(_clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateMigrateGremlinDatabaseToAutoscaleRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -438,14 +441,14 @@ namespace Azure.ResourceManager.CosmosDB
         /// <summary> Migrate an Azure Cosmos DB Gremlin database from manual throughput to autoscale. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual GremlinResourceMigrateGremlinDatabaseToAutoscaleOperation MigrateGremlinDatabaseToAutoscale(bool waitForCompletion, CancellationToken cancellationToken = default)
+        public virtual DatabaseAccountGremlinDatabaseThroughputSettingMigrateGremlinDatabaseToAutoscaleOperation MigrateGremlinDatabaseToAutoscale(bool waitForCompletion, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("DatabaseAccountGremlinDatabaseThroughputSetting.MigrateGremlinDatabaseToAutoscale");
             scope.Start();
             try
             {
                 var response = _gremlinResourcesRestClient.MigrateGremlinDatabaseToAutoscale(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, cancellationToken);
-                var operation = new GremlinResourceMigrateGremlinDatabaseToAutoscaleOperation(_clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateMigrateGremlinDatabaseToAutoscaleRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name).Request, response);
+                var operation = new DatabaseAccountGremlinDatabaseThroughputSettingMigrateGremlinDatabaseToAutoscaleOperation(_clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateMigrateGremlinDatabaseToAutoscaleRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -460,14 +463,14 @@ namespace Azure.ResourceManager.CosmosDB
         /// <summary> Migrate an Azure Cosmos DB Gremlin database from autoscale to manual throughput. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<GremlinResourceMigrateGremlinDatabaseToManualThroughputOperation> MigrateGremlinDatabaseToManualThroughputAsync(bool waitForCompletion, CancellationToken cancellationToken = default)
+        public async virtual Task<DatabaseAccountGremlinDatabaseThroughputSettingMigrateGremlinDatabaseToManualThroughputOperation> MigrateGremlinDatabaseToManualThroughputAsync(bool waitForCompletion, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("DatabaseAccountGremlinDatabaseThroughputSetting.MigrateGremlinDatabaseToManualThroughput");
             scope.Start();
             try
             {
                 var response = await _gremlinResourcesRestClient.MigrateGremlinDatabaseToManualThroughputAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new GremlinResourceMigrateGremlinDatabaseToManualThroughputOperation(_clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateMigrateGremlinDatabaseToManualThroughputRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name).Request, response);
+                var operation = new DatabaseAccountGremlinDatabaseThroughputSettingMigrateGremlinDatabaseToManualThroughputOperation(_clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateMigrateGremlinDatabaseToManualThroughputRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -482,14 +485,14 @@ namespace Azure.ResourceManager.CosmosDB
         /// <summary> Migrate an Azure Cosmos DB Gremlin database from autoscale to manual throughput. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual GremlinResourceMigrateGremlinDatabaseToManualThroughputOperation MigrateGremlinDatabaseToManualThroughput(bool waitForCompletion, CancellationToken cancellationToken = default)
+        public virtual DatabaseAccountGremlinDatabaseThroughputSettingMigrateGremlinDatabaseToManualThroughputOperation MigrateGremlinDatabaseToManualThroughput(bool waitForCompletion, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("DatabaseAccountGremlinDatabaseThroughputSetting.MigrateGremlinDatabaseToManualThroughput");
             scope.Start();
             try
             {
                 var response = _gremlinResourcesRestClient.MigrateGremlinDatabaseToManualThroughput(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, cancellationToken);
-                var operation = new GremlinResourceMigrateGremlinDatabaseToManualThroughputOperation(_clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateMigrateGremlinDatabaseToManualThroughputRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name).Request, response);
+                var operation = new DatabaseAccountGremlinDatabaseThroughputSettingMigrateGremlinDatabaseToManualThroughputOperation(_clientDiagnostics, Pipeline, _gremlinResourcesRestClient.CreateMigrateGremlinDatabaseToManualThroughputRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;

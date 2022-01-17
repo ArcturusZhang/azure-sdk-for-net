@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Network
         internal HubVirtualNetworkConnectionCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _hubVirtualNetworkConnectionsRestClient = new HubVirtualNetworkConnectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(HubVirtualNetworkConnection.ResourceType, out string apiVersion);
+            _hubVirtualNetworkConnectionsRestClient = new HubVirtualNetworkConnectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

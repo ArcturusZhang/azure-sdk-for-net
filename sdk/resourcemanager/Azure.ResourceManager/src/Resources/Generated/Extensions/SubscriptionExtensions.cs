@@ -14,6 +14,7 @@ using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Core;
+using Azure.ResourceManager.Resources.Models;
 
 namespace Azure.ResourceManager.Resources
 {
@@ -40,9 +41,9 @@ namespace Azure.ResourceManager.Resources
         }
         #endregion
 
-        private static ResourceLinksRestOperations GetResourceLinksRestOperations(ClientDiagnostics clientDiagnostics, TokenCredential credential, ArmClientOptions clientOptions, HttpPipeline pipeline, Uri endpoint = null)
+        private static ResourceLinksRestOperations GetResourceLinksRestOperations(ClientDiagnostics clientDiagnostics, HttpPipeline pipeline, ArmClientOptions clientOptions, Uri endpoint = null, string apiVersion = default)
         {
-            return new ResourceLinksRestOperations(clientDiagnostics, pipeline, clientOptions, endpoint);
+            return new ResourceLinksRestOperations(clientDiagnostics, pipeline, clientOptions, endpoint, apiVersion);
         }
 
         /// RequestPath: /subscriptions/{subscriptionId}/providers/Microsoft.Resources/links
@@ -58,7 +59,8 @@ namespace Azure.ResourceManager.Resources
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
                 var clientDiagnostics = new ClientDiagnostics(options);
-                var restOperations = GetResourceLinksRestOperations(clientDiagnostics, credential, options, pipeline, baseUri);
+                options.TryGetApiVersion(ResourceLink.ResourceType, out string apiVersion);
+                ResourceLinksRestOperations restOperations = GetResourceLinksRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 async Task<Page<ResourceLink>> FirstPageFunc(int? pageSizeHint)
                 {
                     using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAtSubscriptionResourceLinks");
@@ -107,7 +109,8 @@ namespace Azure.ResourceManager.Resources
             return subscription.UseClientContext((baseUri, credential, options, pipeline) =>
             {
                 var clientDiagnostics = new ClientDiagnostics(options);
-                var restOperations = GetResourceLinksRestOperations(clientDiagnostics, credential, options, pipeline, baseUri);
+                options.TryGetApiVersion(ResourceLink.ResourceType, out string apiVersion);
+                ResourceLinksRestOperations restOperations = GetResourceLinksRestOperations(clientDiagnostics, pipeline, options, baseUri, apiVersion);
                 Page<ResourceLink> FirstPageFunc(int? pageSizeHint)
                 {
                     using var scope = clientDiagnostics.CreateScope("SubscriptionExtensions.GetAtSubscriptionResourceLinks");

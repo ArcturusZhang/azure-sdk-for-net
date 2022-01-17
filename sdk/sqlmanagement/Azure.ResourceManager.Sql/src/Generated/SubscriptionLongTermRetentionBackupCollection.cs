@@ -45,7 +45,8 @@ namespace Azure.ResourceManager.Sql
         internal SubscriptionLongTermRetentionBackupCollection(ArmResource parent, string locationName, string longTermRetentionServerName, string longTermRetentionDatabaseName) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _longTermRetentionBackupsRestClient = new LongTermRetentionBackupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(SubscriptionLongTermRetentionBackup.ResourceType, out string apiVersion);
+            _longTermRetentionBackupsRestClient = new LongTermRetentionBackupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
             _locationName = locationName;
             _longTermRetentionServerName = longTermRetentionServerName;
             _longTermRetentionDatabaseName = longTermRetentionDatabaseName;

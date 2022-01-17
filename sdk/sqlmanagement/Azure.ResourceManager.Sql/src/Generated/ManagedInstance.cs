@@ -48,10 +48,11 @@ namespace Azure.ResourceManager.Sql
             HasData = true;
             _data = data;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedInstanceTdeCertificatesRestClient = new ManagedInstanceTdeCertificatesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _serverTrustGroupsRestClient = new ServerTrustGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedInstanceTdeCertificatesRestClient = new ManagedInstanceTdeCertificatesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _serverTrustGroupsRestClient = new ServerTrustGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -63,10 +64,11 @@ namespace Azure.ResourceManager.Sql
         internal ManagedInstance(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedInstanceTdeCertificatesRestClient = new ManagedInstanceTdeCertificatesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _serverTrustGroupsRestClient = new ServerTrustGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedInstanceTdeCertificatesRestClient = new ManagedInstanceTdeCertificatesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _serverTrustGroupsRestClient = new ServerTrustGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -81,10 +83,11 @@ namespace Azure.ResourceManager.Sql
         internal ManagedInstance(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedInstanceTdeCertificatesRestClient = new ManagedInstanceTdeCertificatesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _serverTrustGroupsRestClient = new ServerTrustGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedInstanceTdeCertificatesRestClient = new ManagedInstanceTdeCertificatesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _serverTrustGroupsRestClient = new ServerTrustGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -238,7 +241,7 @@ namespace Azure.ResourceManager.Sql
                 var response = _managedInstancesRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 var operation = new ManagedInstanceDeleteOperation(_clientDiagnostics, Pipeline, _managedInstancesRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -704,7 +707,7 @@ namespace Azure.ResourceManager.Sql
                 var response = _managedInstancesRestClient.Failover(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, replicaType, cancellationToken);
                 var operation = new ManagedInstanceFailoverOperation(_clientDiagnostics, Pipeline, _managedInstancesRestClient.CreateFailoverRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, replicaType).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -722,7 +725,7 @@ namespace Azure.ResourceManager.Sql
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<ManagedInstanceTdeCertificateCreateOperation> CreateManagedInstanceTdeCertificateAsync(bool waitForCompletion, TdeCertificate parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<ManagedInstanceCreateManagedInstanceTdeCertificateOperation> CreateManagedInstanceTdeCertificateAsync(bool waitForCompletion, TdeCertificate parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -734,7 +737,7 @@ namespace Azure.ResourceManager.Sql
             try
             {
                 var response = await _managedInstanceTdeCertificatesRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new ManagedInstanceTdeCertificateCreateOperation(_clientDiagnostics, Pipeline, _managedInstanceTdeCertificatesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
+                var operation = new ManagedInstanceCreateManagedInstanceTdeCertificateOperation(_clientDiagnostics, Pipeline, _managedInstanceTdeCertificatesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -754,7 +757,7 @@ namespace Azure.ResourceManager.Sql
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public virtual ManagedInstanceTdeCertificateCreateOperation CreateManagedInstanceTdeCertificate(bool waitForCompletion, TdeCertificate parameters, CancellationToken cancellationToken = default)
+        public virtual ManagedInstanceCreateManagedInstanceTdeCertificateOperation CreateManagedInstanceTdeCertificate(bool waitForCompletion, TdeCertificate parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -766,9 +769,9 @@ namespace Azure.ResourceManager.Sql
             try
             {
                 var response = _managedInstanceTdeCertificatesRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters, cancellationToken);
-                var operation = new ManagedInstanceTdeCertificateCreateOperation(_clientDiagnostics, Pipeline, _managedInstanceTdeCertificatesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
+                var operation = new ManagedInstanceCreateManagedInstanceTdeCertificateOperation(_clientDiagnostics, Pipeline, _managedInstanceTdeCertificatesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)

@@ -10,15 +10,15 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     public partial class SingleMetricBaseline
     {
         internal static SingleMetricBaseline DeserializeSingleMetricBaseline(JsonElement element)
         {
-            string id = default;
-            string type = default;
+            ResourceIdentifier id = default;
             string name = default;
+            ResourceType type = default;
             string timespan = default;
             TimeSpan interval = default;
             Optional<string> @namespace = default;
@@ -27,17 +27,17 @@ namespace Azure.ResourceManager.Insights.Models
             {
                 if (property.NameEquals("id"))
                 {
-                    id = property.Value.GetString();
-                    continue;
-                }
-                if (property.NameEquals("type"))
-                {
-                    type = property.Value.GetString();
+                    id = new ResourceIdentifier(property.Value.GetString());
                     continue;
                 }
                 if (property.NameEquals("name"))
                 {
                     name = property.Value.GetString();
+                    continue;
+                }
+                if (property.NameEquals("type"))
+                {
+                    type = property.Value.GetString();
                     continue;
                 }
                 if (property.NameEquals("properties"))
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.Insights.Models
                     continue;
                 }
             }
-            return new SingleMetricBaseline(id, type, name, timespan, interval, @namespace.Value, baselines);
+            return new SingleMetricBaseline(id, name, type, timespan, interval, @namespace.Value, baselines);
         }
     }
 }

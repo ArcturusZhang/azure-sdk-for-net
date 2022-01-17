@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         internal VirtualMachineTemplateCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _virtualMachineTemplatesRestClient = new VirtualMachineTemplatesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(VirtualMachineTemplate.ResourceType, out string apiVersion);
+            _virtualMachineTemplatesRestClient = new VirtualMachineTemplatesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -61,7 +62,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="virtualMachineTemplateName"/> is null. </exception>
-        public virtual VirtualMachineTemplateCreateOperation CreateOrUpdate(bool waitForCompletion, string virtualMachineTemplateName, VirtualMachineTemplateData body = null, CancellationToken cancellationToken = default)
+        public virtual VirtualMachineTemplateCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string virtualMachineTemplateName, VirtualMachineTemplateData body = null, CancellationToken cancellationToken = default)
         {
             if (virtualMachineTemplateName == null)
             {
@@ -73,7 +74,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
             try
             {
                 var response = _virtualMachineTemplatesRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, virtualMachineTemplateName, body, cancellationToken);
-                var operation = new VirtualMachineTemplateCreateOperation(Parent, _clientDiagnostics, Pipeline, _virtualMachineTemplatesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualMachineTemplateName, body).Request, response);
+                var operation = new VirtualMachineTemplateCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualMachineTemplatesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualMachineTemplateName, body).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -94,7 +95,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="virtualMachineTemplateName"/> is null. </exception>
-        public async virtual Task<VirtualMachineTemplateCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string virtualMachineTemplateName, VirtualMachineTemplateData body = null, CancellationToken cancellationToken = default)
+        public async virtual Task<VirtualMachineTemplateCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string virtualMachineTemplateName, VirtualMachineTemplateData body = null, CancellationToken cancellationToken = default)
         {
             if (virtualMachineTemplateName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
             try
             {
                 var response = await _virtualMachineTemplatesRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, virtualMachineTemplateName, body, cancellationToken).ConfigureAwait(false);
-                var operation = new VirtualMachineTemplateCreateOperation(Parent, _clientDiagnostics, Pipeline, _virtualMachineTemplatesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualMachineTemplateName, body).Request, response);
+                var operation = new VirtualMachineTemplateCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualMachineTemplatesRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualMachineTemplateName, body).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

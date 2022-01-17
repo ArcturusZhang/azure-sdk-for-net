@@ -5,7 +5,7 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Part of MultiTenantDiagnosticSettings. Specifies the settings for a particular log. </summary>
     public partial class LogSettings

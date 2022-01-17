@@ -47,8 +47,9 @@ namespace Azure.ResourceManager.Sql
             _data = data;
             Parent = options;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _dataMaskingPoliciesRestClient = new DataMaskingPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _dataMaskingRulesRestClient = new DataMaskingRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _dataMaskingPoliciesRestClient = new DataMaskingPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _dataMaskingRulesRestClient = new DataMaskingRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -61,8 +62,9 @@ namespace Azure.ResourceManager.Sql
         {
             Parent = options;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _dataMaskingPoliciesRestClient = new DataMaskingPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _dataMaskingRulesRestClient = new DataMaskingRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _dataMaskingPoliciesRestClient = new DataMaskingPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _dataMaskingRulesRestClient = new DataMaskingRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -77,8 +79,9 @@ namespace Azure.ResourceManager.Sql
         internal DataMaskingPolicy(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _dataMaskingPoliciesRestClient = new DataMaskingPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _dataMaskingRulesRestClient = new DataMaskingRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _dataMaskingPoliciesRestClient = new DataMaskingPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _dataMaskingRulesRestClient = new DataMaskingRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

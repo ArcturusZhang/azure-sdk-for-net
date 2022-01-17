@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal DataWarehouseUserActivitiesCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _dataWarehouseUserActivitiesRestClient = new DataWarehouseUserActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(DataWarehouseUserActivities.ResourceType, out string apiVersion);
+            _dataWarehouseUserActivitiesRestClient = new DataWarehouseUserActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

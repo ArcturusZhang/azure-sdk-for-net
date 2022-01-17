@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Network
         internal RouteCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _routesRestClient = new RoutesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(Route.ResourceType, out string apiVersion);
+            _routesRestClient = new RoutesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

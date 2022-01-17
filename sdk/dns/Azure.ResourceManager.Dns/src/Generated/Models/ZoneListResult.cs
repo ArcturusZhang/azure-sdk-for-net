@@ -7,8 +7,9 @@
 
 using System.Collections.Generic;
 using Azure.Core;
+using DnsManagementClient;
 
-namespace Azure.ResourceManager.Dns.Models
+namespace DnsManagementClient.Models
 {
     /// <summary> The response to a Zone List or ListAll operation. </summary>
     internal partial class ZoneListResult
@@ -16,20 +17,20 @@ namespace Azure.ResourceManager.Dns.Models
         /// <summary> Initializes a new instance of ZoneListResult. </summary>
         internal ZoneListResult()
         {
-            Value = new ChangeTrackingList<Zone>();
+            Value = new ChangeTrackingList<ZoneData>();
         }
 
         /// <summary> Initializes a new instance of ZoneListResult. </summary>
         /// <param name="value"> Information about the DNS zones. </param>
         /// <param name="nextLink"> The continuation token for the next page of results. </param>
-        internal ZoneListResult(IReadOnlyList<Zone> value, string nextLink)
+        internal ZoneListResult(IReadOnlyList<ZoneData> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
         /// <summary> Information about the DNS zones. </summary>
-        public IReadOnlyList<Zone> Value { get; }
+        public IReadOnlyList<ZoneData> Value { get; }
         /// <summary> The continuation token for the next page of results. </summary>
         public string NextLink { get; }
     }

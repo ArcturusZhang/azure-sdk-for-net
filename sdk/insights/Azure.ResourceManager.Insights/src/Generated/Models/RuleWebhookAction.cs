@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using Azure.Core;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Specifies the action to post to service when the rule condition is evaluated. The discriminator is always RuleWebhookAction in this case. </summary>
     public partial class RuleWebhookAction : RuleAction

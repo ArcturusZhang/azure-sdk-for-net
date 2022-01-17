@@ -8,14 +8,15 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Insights;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     internal partial class ActivityLogAlertList
     {
         internal static ActivityLogAlertList DeserializeActivityLogAlertList(JsonElement element)
         {
-            Optional<IReadOnlyList<ActivityLogAlertResource>> value = default;
+            Optional<IReadOnlyList<ActivityLogAlertResourceData>> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
@@ -26,10 +27,10 @@ namespace Azure.ResourceManager.Insights.Models
                         property.ThrowNonNullablePropertyIsNull();
                         continue;
                     }
-                    List<ActivityLogAlertResource> array = new List<ActivityLogAlertResource>();
+                    List<ActivityLogAlertResourceData> array = new List<ActivityLogAlertResourceData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(ActivityLogAlertResource.DeserializeActivityLogAlertResource(item));
+                        array.Add(ActivityLogAlertResourceData.DeserializeActivityLogAlertResourceData(item));
                     }
                     value = array;
                     continue;

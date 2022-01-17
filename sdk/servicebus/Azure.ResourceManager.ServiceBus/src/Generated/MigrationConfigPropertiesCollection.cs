@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.ServiceBus
         internal MigrationConfigPropertiesCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _migrationConfigsRestClient = new MigrationConfigsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(MigrationConfigProperties.ResourceType, out string apiVersion);
+            _migrationConfigsRestClient = new MigrationConfigsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.ServiceBus
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public virtual MigrationConfigCreateAndStartMigrationOperation CreateOrUpdate(bool waitForCompletion, MigrationConfigurationName configName, MigrationConfigPropertiesData parameters, CancellationToken cancellationToken = default)
+        public virtual MigrationConfigPropertiesCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, MigrationConfigurationName configName, MigrationConfigPropertiesData parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -68,7 +69,7 @@ namespace Azure.ResourceManager.ServiceBus
             try
             {
                 var response = _migrationConfigsRestClient.CreateAndStartMigration(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, configName, parameters, cancellationToken);
-                var operation = new MigrationConfigCreateAndStartMigrationOperation(Parent, _clientDiagnostics, Pipeline, _migrationConfigsRestClient.CreateCreateAndStartMigrationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, configName, parameters).Request, response);
+                var operation = new MigrationConfigPropertiesCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _migrationConfigsRestClient.CreateCreateAndStartMigrationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, configName, parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -86,7 +87,7 @@ namespace Azure.ResourceManager.ServiceBus
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<MigrationConfigCreateAndStartMigrationOperation> CreateOrUpdateAsync(bool waitForCompletion, MigrationConfigurationName configName, MigrationConfigPropertiesData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<MigrationConfigPropertiesCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, MigrationConfigurationName configName, MigrationConfigPropertiesData parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -98,7 +99,7 @@ namespace Azure.ResourceManager.ServiceBus
             try
             {
                 var response = await _migrationConfigsRestClient.CreateAndStartMigrationAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, configName, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new MigrationConfigCreateAndStartMigrationOperation(Parent, _clientDiagnostics, Pipeline, _migrationConfigsRestClient.CreateCreateAndStartMigrationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, configName, parameters).Request, response);
+                var operation = new MigrationConfigPropertiesCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _migrationConfigsRestClient.CreateCreateAndStartMigrationRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, configName, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

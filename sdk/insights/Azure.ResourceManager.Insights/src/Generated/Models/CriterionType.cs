@@ -8,14 +8,14 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Specifies the type of threshold criteria. </summary>
     public readonly partial struct CriterionType : IEquatable<CriterionType>
     {
         private readonly string _value;
 
-        /// <summary> Determines if two <see cref="CriterionType"/> values are the same. </summary>
+        /// <summary> Initializes a new instance of <see cref="CriterionType"/>. </summary>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public CriterionType(string value)
         {

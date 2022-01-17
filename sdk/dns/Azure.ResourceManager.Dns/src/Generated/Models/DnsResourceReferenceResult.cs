@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using Azure.Core;
 
-namespace Azure.ResourceManager.Dns.Models
+namespace DnsManagementClient.Models
 {
     /// <summary> Represents the properties of the Dns Resource Reference Result. </summary>
     public partial class DnsResourceReferenceResult

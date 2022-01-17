@@ -16,6 +16,7 @@ using Azure;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.ResourceManager.Core;
+using Azure.ResourceManager.Sql.Models;
 
 namespace Azure.ResourceManager.Sql
 {
@@ -35,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal ManagedInstanceDatabaseSchemaCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedDatabaseSchemasRestClient = new ManagedDatabaseSchemasRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ManagedInstanceDatabaseSchema.ResourceType, out string apiVersion);
+            _managedDatabaseSchemasRestClient = new ManagedDatabaseSchemasRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

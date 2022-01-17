@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         internal GuestAgentCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _guestAgentsRestClient = new GuestAgentsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(GuestAgent.ResourceType, out string apiVersion);
+            _guestAgentsRestClient = new GuestAgentsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -59,7 +60,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
-        public virtual GuestAgentCreateOperation CreateOrUpdate(bool waitForCompletion, string name, GuestAgentData body = null, CancellationToken cancellationToken = default)
+        public virtual GuestAgentCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string name, GuestAgentData body = null, CancellationToken cancellationToken = default)
         {
             if (name == null)
             {
@@ -71,7 +72,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
             try
             {
                 var response = _guestAgentsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, name, body, cancellationToken);
-                var operation = new GuestAgentCreateOperation(Parent, _clientDiagnostics, Pipeline, _guestAgentsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, name, body).Request, response);
+                var operation = new GuestAgentCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _guestAgentsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, name, body).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -92,7 +93,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="name"/> is null. </exception>
-        public async virtual Task<GuestAgentCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string name, GuestAgentData body = null, CancellationToken cancellationToken = default)
+        public async virtual Task<GuestAgentCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string name, GuestAgentData body = null, CancellationToken cancellationToken = default)
         {
             if (name == null)
             {
@@ -104,7 +105,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
             try
             {
                 var response = await _guestAgentsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, name, body, cancellationToken).ConfigureAwait(false);
-                var operation = new GuestAgentCreateOperation(Parent, _clientDiagnostics, Pipeline, _guestAgentsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, name, body).Request, response);
+                var operation = new GuestAgentCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _guestAgentsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, name, body).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
