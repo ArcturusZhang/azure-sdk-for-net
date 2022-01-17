@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Storage
         internal StorageQueueCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _queueRestClient = new QueueRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(StorageQueue.ResourceType, out string apiVersion);
+            _queueRestClient = new QueueRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.Storage
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="queueName"/> or <paramref name="queue"/> is null. </exception>
-        public virtual QueueCreateOperation CreateOrUpdate(bool waitForCompletion, string queueName, StorageQueueData queue, CancellationToken cancellationToken = default)
+        public virtual StorageQueueCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string queueName, StorageQueueData queue, CancellationToken cancellationToken = default)
         {
             if (queueName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.Storage
             try
             {
                 var response = _queueRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, queueName, queue, cancellationToken);
-                var operation = new QueueCreateOperation(Parent, response);
+                var operation = new StorageQueueCreateOrUpdateOperation(Parent, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.Storage
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="queueName"/> or <paramref name="queue"/> is null. </exception>
-        public async virtual Task<QueueCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string queueName, StorageQueueData queue, CancellationToken cancellationToken = default)
+        public async virtual Task<StorageQueueCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string queueName, StorageQueueData queue, CancellationToken cancellationToken = default)
         {
             if (queueName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.Storage
             try
             {
                 var response = await _queueRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, queueName, queue, cancellationToken).ConfigureAwait(false);
-                var operation = new QueueCreateOperation(Parent, response);
+                var operation = new StorageQueueCreateOrUpdateOperation(Parent, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         internal VirtualNetworkCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _virtualNetworksRestClient = new VirtualNetworksRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(VirtualNetwork.ResourceType, out string apiVersion);
+            _virtualNetworksRestClient = new VirtualNetworksRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -61,7 +62,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="virtualNetworkName"/> is null. </exception>
-        public virtual VirtualNetworkCreateOperation CreateOrUpdate(bool waitForCompletion, string virtualNetworkName, VirtualNetworkData body = null, CancellationToken cancellationToken = default)
+        public virtual VirtualNetworkCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string virtualNetworkName, VirtualNetworkData body = null, CancellationToken cancellationToken = default)
         {
             if (virtualNetworkName == null)
             {
@@ -73,7 +74,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
             try
             {
                 var response = _virtualNetworksRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, virtualNetworkName, body, cancellationToken);
-                var operation = new VirtualNetworkCreateOperation(Parent, _clientDiagnostics, Pipeline, _virtualNetworksRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualNetworkName, body).Request, response);
+                var operation = new VirtualNetworkCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualNetworksRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualNetworkName, body).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -94,7 +95,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="virtualNetworkName"/> is null. </exception>
-        public async virtual Task<VirtualNetworkCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string virtualNetworkName, VirtualNetworkData body = null, CancellationToken cancellationToken = default)
+        public async virtual Task<VirtualNetworkCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string virtualNetworkName, VirtualNetworkData body = null, CancellationToken cancellationToken = default)
         {
             if (virtualNetworkName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
             try
             {
                 var response = await _virtualNetworksRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, virtualNetworkName, body, cancellationToken).ConfigureAwait(false);
-                var operation = new VirtualNetworkCreateOperation(Parent, _clientDiagnostics, Pipeline, _virtualNetworksRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualNetworkName, body).Request, response);
+                var operation = new VirtualNetworkCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualNetworksRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualNetworkName, body).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

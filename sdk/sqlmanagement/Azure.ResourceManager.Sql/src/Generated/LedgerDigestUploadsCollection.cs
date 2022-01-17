@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal LedgerDigestUploadsCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _ledgerDigestUploadsRestClient = new LedgerDigestUploadsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(LedgerDigestUploads.ResourceType, out string apiVersion);
+            _ledgerDigestUploadsRestClient = new LedgerDigestUploadsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -59,7 +60,7 @@ namespace Azure.ResourceManager.Sql
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public virtual LedgerDigestUploadCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, LedgerDigestUploadsName ledgerDigestUploads, LedgerDigestUploadsData parameters, CancellationToken cancellationToken = default)
+        public virtual LedgerDigestUploadsCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, LedgerDigestUploadsName ledgerDigestUploads, LedgerDigestUploadsData parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -71,7 +72,7 @@ namespace Azure.ResourceManager.Sql
             try
             {
                 var response = _ledgerDigestUploadsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ledgerDigestUploads, parameters, cancellationToken);
-                var operation = new LedgerDigestUploadCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _ledgerDigestUploadsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ledgerDigestUploads, parameters).Request, response);
+                var operation = new LedgerDigestUploadsCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _ledgerDigestUploadsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ledgerDigestUploads, parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -92,7 +93,7 @@ namespace Azure.ResourceManager.Sql
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<LedgerDigestUploadCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, LedgerDigestUploadsName ledgerDigestUploads, LedgerDigestUploadsData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<LedgerDigestUploadsCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, LedgerDigestUploadsName ledgerDigestUploads, LedgerDigestUploadsData parameters, CancellationToken cancellationToken = default)
         {
             if (parameters == null)
             {
@@ -104,7 +105,7 @@ namespace Azure.ResourceManager.Sql
             try
             {
                 var response = await _ledgerDigestUploadsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ledgerDigestUploads, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new LedgerDigestUploadCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _ledgerDigestUploadsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ledgerDigestUploads, parameters).Request, response);
+                var operation = new LedgerDigestUploadsCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _ledgerDigestUploadsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, ledgerDigestUploads, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

@@ -8,14 +8,14 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> the dimension operator. Only &apos;Equals&apos; and &apos;NotEquals&apos; are supported. &apos;Equals&apos; being equal to any of the values. &apos;NotEquals&apos; being not equal to all of the values. </summary>
     public readonly partial struct ScaleRuleMetricDimensionOperationType : IEquatable<ScaleRuleMetricDimensionOperationType>
     {
         private readonly string _value;
 
-        /// <summary> Determines if two <see cref="ScaleRuleMetricDimensionOperationType"/> values are the same. </summary>
+        /// <summary> Initializes a new instance of <see cref="ScaleRuleMetricDimensionOperationType"/>. </summary>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public ScaleRuleMetricDimensionOperationType(string value)
         {

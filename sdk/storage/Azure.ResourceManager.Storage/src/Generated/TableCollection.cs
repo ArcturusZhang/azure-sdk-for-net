@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Storage
         internal TableCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _tableRestClient = new TableRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(Table.ResourceType, out string apiVersion);
+            _tableRestClient = new TableRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -55,7 +56,7 @@ namespace Azure.ResourceManager.Storage
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="tableName"/> is null. </exception>
-        public virtual TableCreateOperation CreateOrUpdate(bool waitForCompletion, string tableName, CancellationToken cancellationToken = default)
+        public virtual TableCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string tableName, CancellationToken cancellationToken = default)
         {
             if (tableName == null)
             {
@@ -67,7 +68,7 @@ namespace Azure.ResourceManager.Storage
             try
             {
                 var response = _tableRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, tableName, cancellationToken);
-                var operation = new TableCreateOperation(Parent, response);
+                var operation = new TableCreateOrUpdateOperation(Parent, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -84,7 +85,7 @@ namespace Azure.ResourceManager.Storage
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="tableName"/> is null. </exception>
-        public async virtual Task<TableCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string tableName, CancellationToken cancellationToken = default)
+        public async virtual Task<TableCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string tableName, CancellationToken cancellationToken = default)
         {
             if (tableName == null)
             {
@@ -96,7 +97,7 @@ namespace Azure.ResourceManager.Storage
             try
             {
                 var response = await _tableRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, tableName, cancellationToken).ConfigureAwait(false);
-                var operation = new TableCreateOperation(Parent, response);
+                var operation = new TableCreateOrUpdateOperation(Parent, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

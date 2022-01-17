@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal ManagedInstancePrivateEndpointConnectionCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedInstancePrivateEndpointConnectionsRestClient = new ManagedInstancePrivateEndpointConnectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ManagedInstancePrivateEndpointConnection.ResourceType, out string apiVersion);
+            _managedInstancePrivateEndpointConnectionsRestClient = new ManagedInstancePrivateEndpointConnectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

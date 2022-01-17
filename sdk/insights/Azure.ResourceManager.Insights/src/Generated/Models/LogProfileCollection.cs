@@ -8,8 +8,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Insights;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Represents a collection of log profiles. </summary>
     internal partial class LogProfileCollection
@@ -17,7 +18,7 @@ namespace Azure.ResourceManager.Insights.Models
         /// <summary> Initializes a new instance of LogProfileCollection. </summary>
         /// <param name="value"> the values of the log profiles. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
-        internal LogProfileCollection(IEnumerable<LogProfileResource> value)
+        internal LogProfileCollection(IEnumerable<LogProfileResourceData> value)
         {
             if (value == null)
             {
@@ -29,12 +30,12 @@ namespace Azure.ResourceManager.Insights.Models
 
         /// <summary> Initializes a new instance of LogProfileCollection. </summary>
         /// <param name="value"> the values of the log profiles. </param>
-        internal LogProfileCollection(IReadOnlyList<LogProfileResource> value)
+        internal LogProfileCollection(IReadOnlyList<LogProfileResourceData> value)
         {
             Value = value;
         }
 
         /// <summary> the values of the log profiles. </summary>
-        public IReadOnlyList<LogProfileResource> Value { get; }
+        public IReadOnlyList<LogProfileResourceData> Value { get; }
     }
 }

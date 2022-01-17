@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Part of MultiTenantDiagnosticSettings. Specifies the settings for a particular metric. </summary>
     public partial class MetricSettings

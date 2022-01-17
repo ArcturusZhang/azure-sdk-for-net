@@ -33,7 +33,8 @@ namespace Azure.ResourceManager.Sql
         internal ManagedDatabaseRestoreDetailsResultCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedDatabaseRestoreDetailsRestClient = new ManagedDatabaseRestoreDetailsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ManagedDatabaseRestoreDetailsResult.ResourceType, out string apiVersion);
+            _managedDatabaseRestoreDetailsRestClient = new ManagedDatabaseRestoreDetailsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

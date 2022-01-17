@@ -37,8 +37,9 @@ namespace Azure.ResourceManager.Sql
         internal ServerJobAgentJobExecutionCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _jobExecutionsRestClient = new JobExecutionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _jobTargetExecutionsRestClient = new JobTargetExecutionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ServerJobAgentJobExecution.ResourceType, out string apiVersion);
+            _jobExecutionsRestClient = new JobExecutionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _jobTargetExecutionsRestClient = new JobTargetExecutionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -59,14 +60,14 @@ namespace Azure.ResourceManager.Sql
         /// <param name="jobExecutionId"> The job execution id to create the job execution under. </param>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual JobExecutionCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, Guid jobExecutionId, CancellationToken cancellationToken = default)
+        public virtual ServerJobAgentJobExecutionCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, Guid jobExecutionId, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("ServerJobAgentJobExecutionCollection.CreateOrUpdate");
             scope.Start();
             try
             {
                 var response = _jobExecutionsRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, jobExecutionId, cancellationToken);
-                var operation = new JobExecutionCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _jobExecutionsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, jobExecutionId).Request, response);
+                var operation = new ServerJobAgentJobExecutionCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _jobExecutionsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, jobExecutionId).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -85,14 +86,14 @@ namespace Azure.ResourceManager.Sql
         /// <param name="jobExecutionId"> The job execution id to create the job execution under. </param>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<JobExecutionCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, Guid jobExecutionId, CancellationToken cancellationToken = default)
+        public async virtual Task<ServerJobAgentJobExecutionCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, Guid jobExecutionId, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("ServerJobAgentJobExecutionCollection.CreateOrUpdate");
             scope.Start();
             try
             {
                 var response = await _jobExecutionsRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, jobExecutionId, cancellationToken).ConfigureAwait(false);
-                var operation = new JobExecutionCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _jobExecutionsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, jobExecutionId).Request, response);
+                var operation = new ServerJobAgentJobExecutionCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _jobExecutionsRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, jobExecutionId).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

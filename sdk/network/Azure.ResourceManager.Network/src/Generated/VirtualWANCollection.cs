@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal VirtualWANCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _virtualWansRestClient = new VirtualWansRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(VirtualWAN.ResourceType, out string apiVersion);
+            _virtualWansRestClient = new VirtualWansRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -58,7 +59,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="virtualWANName"/> or <paramref name="wANParameters"/> is null. </exception>
-        public virtual VirtualWanCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string virtualWANName, VirtualWANData wANParameters, CancellationToken cancellationToken = default)
+        public virtual VirtualWANCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string virtualWANName, VirtualWANData wANParameters, CancellationToken cancellationToken = default)
         {
             if (virtualWANName == null)
             {
@@ -74,7 +75,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = _virtualWansRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, virtualWANName, wANParameters, cancellationToken);
-                var operation = new VirtualWanCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualWansRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualWANName, wANParameters).Request, response);
+                var operation = new VirtualWANCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualWansRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualWANName, wANParameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -92,7 +93,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="virtualWANName"/> or <paramref name="wANParameters"/> is null. </exception>
-        public async virtual Task<VirtualWanCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string virtualWANName, VirtualWANData wANParameters, CancellationToken cancellationToken = default)
+        public async virtual Task<VirtualWANCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string virtualWANName, VirtualWANData wANParameters, CancellationToken cancellationToken = default)
         {
             if (virtualWANName == null)
             {
@@ -108,7 +109,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = await _virtualWansRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, virtualWANName, wANParameters, cancellationToken).ConfigureAwait(false);
-                var operation = new VirtualWanCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualWansRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualWANName, wANParameters).Request, response);
+                var operation = new VirtualWANCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualWansRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, virtualWANName, wANParameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

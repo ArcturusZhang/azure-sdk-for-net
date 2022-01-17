@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Sql
         internal SqlServerCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _serversRestClient = new ServersRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(SqlServer.ResourceType, out string apiVersion);
+            _serversRestClient = new ServersRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -61,7 +62,7 @@ namespace Azure.ResourceManager.Sql
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="serverName"/> or <paramref name="parameters"/> is null. </exception>
-        public virtual ServerCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string serverName, SqlServerData parameters, CancellationToken cancellationToken = default)
+        public virtual SqlServerCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string serverName, SqlServerData parameters, CancellationToken cancellationToken = default)
         {
             if (serverName == null)
             {
@@ -77,7 +78,7 @@ namespace Azure.ResourceManager.Sql
             try
             {
                 var response = _serversRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, serverName, parameters, cancellationToken);
-                var operation = new ServerCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _serversRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, serverName, parameters).Request, response);
+                var operation = new SqlServerCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _serversRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, serverName, parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -98,7 +99,7 @@ namespace Azure.ResourceManager.Sql
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="serverName"/> or <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<ServerCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string serverName, SqlServerData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<SqlServerCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string serverName, SqlServerData parameters, CancellationToken cancellationToken = default)
         {
             if (serverName == null)
             {
@@ -114,7 +115,7 @@ namespace Azure.ResourceManager.Sql
             try
             {
                 var response = await _serversRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, serverName, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new ServerCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _serversRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, serverName, parameters).Request, response);
+                var operation = new SqlServerCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _serversRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, serverName, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

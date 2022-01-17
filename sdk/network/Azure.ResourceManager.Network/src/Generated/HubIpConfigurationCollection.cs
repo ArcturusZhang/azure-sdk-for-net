@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Network
         internal HubIpConfigurationCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _virtualHubIpConfigurationRestClient = new VirtualHubIpConfigurationRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(HubIpConfiguration.ResourceType, out string apiVersion);
+            _virtualHubIpConfigurationRestClient = new VirtualHubIpConfigurationRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="ipConfigName"/> or <paramref name="parameters"/> is null. </exception>
-        public virtual VirtualHubIpConfigurationCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string ipConfigName, HubIpConfigurationData parameters, CancellationToken cancellationToken = default)
+        public virtual HubIpConfigurationCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string ipConfigName, HubIpConfigurationData parameters, CancellationToken cancellationToken = default)
         {
             if (ipConfigName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = _virtualHubIpConfigurationRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ipConfigName, parameters, cancellationToken);
-                var operation = new VirtualHubIpConfigurationCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualHubIpConfigurationRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ipConfigName, parameters).Request, response);
+                var operation = new HubIpConfigurationCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualHubIpConfigurationRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ipConfigName, parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="ipConfigName"/> or <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<VirtualHubIpConfigurationCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string ipConfigName, HubIpConfigurationData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<HubIpConfigurationCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string ipConfigName, HubIpConfigurationData parameters, CancellationToken cancellationToken = default)
         {
             if (ipConfigName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = await _virtualHubIpConfigurationRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ipConfigName, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new VirtualHubIpConfigurationCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualHubIpConfigurationRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ipConfigName, parameters).Request, response);
+                var operation = new HubIpConfigurationCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _virtualHubIpConfigurationRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, ipConfigName, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal NetworkProfileCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _networkProfilesRestClient = new NetworkProfilesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(NetworkProfile.ResourceType, out string apiVersion);
+            _networkProfilesRestClient = new NetworkProfilesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

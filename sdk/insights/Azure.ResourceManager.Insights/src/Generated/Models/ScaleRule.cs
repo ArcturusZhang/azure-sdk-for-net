@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> A rule that provide the triggers and parameters for the scaling action. </summary>
     public partial class ScaleRule

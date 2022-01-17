@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal ManagedDatabaseCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ManagedDatabase.ResourceType, out string apiVersion);
+            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

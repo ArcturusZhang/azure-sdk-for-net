@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Criterion to filter metrics. </summary>
     public partial class MetricCriteria : MultiMetricCriteria
@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.Insights.Models
         /// <param name="metricNamespace"> Namespace of the metric. </param>
         /// <param name="timeAggregation"> the criteria time aggregation types. </param>
         /// <param name="dimensions"> List of dimension conditions. </param>
-        /// <param name="additionalProperties"> . </param>
+        /// <param name="additionalProperties"> Additional Properties. </param>
         /// <param name="operator"> the criteria operator. </param>
         /// <param name="threshold"> the criteria threshold value that activates the alert. </param>
         internal MetricCriteria(CriterionType criterionType, string name, string metricName, string metricNamespace, AggregationType timeAggregation, IList<MetricDimension> dimensions, IDictionary<string, object> additionalProperties, Operator @operator, double threshold) : base(criterionType, name, metricName, metricNamespace, timeAggregation, dimensions, additionalProperties)

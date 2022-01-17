@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal CustomIpPrefixCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _customIPPrefixesRestClient = new CustomIPPrefixesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(CustomIpPrefix.ResourceType, out string apiVersion);
+            _customIPPrefixesRestClient = new CustomIPPrefixesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -58,7 +59,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="customIpPrefixName"/> or <paramref name="parameters"/> is null. </exception>
-        public virtual CustomIPPrefixCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string customIpPrefixName, CustomIpPrefixData parameters, CancellationToken cancellationToken = default)
+        public virtual CustomIpPrefixCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string customIpPrefixName, CustomIpPrefixData parameters, CancellationToken cancellationToken = default)
         {
             if (customIpPrefixName == null)
             {
@@ -74,7 +75,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = _customIPPrefixesRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, customIpPrefixName, parameters, cancellationToken);
-                var operation = new CustomIPPrefixCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _customIPPrefixesRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, customIpPrefixName, parameters).Request, response);
+                var operation = new CustomIpPrefixCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _customIPPrefixesRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, customIpPrefixName, parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -92,7 +93,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="customIpPrefixName"/> or <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<CustomIPPrefixCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string customIpPrefixName, CustomIpPrefixData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<CustomIpPrefixCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string customIpPrefixName, CustomIpPrefixData parameters, CancellationToken cancellationToken = default)
         {
             if (customIpPrefixName == null)
             {
@@ -108,7 +109,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = await _customIPPrefixesRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, customIpPrefixName, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new CustomIPPrefixCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _customIPPrefixesRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, customIpPrefixName, parameters).Request, response);
+                var operation = new CustomIpPrefixCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _customIPPrefixesRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, customIpPrefixName, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

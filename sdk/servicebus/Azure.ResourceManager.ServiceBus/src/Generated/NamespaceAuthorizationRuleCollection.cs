@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.ServiceBus
         internal NamespaceAuthorizationRuleCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _namespaceAuthorizationRulesRestClient = new NamespaceAuthorizationRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(NamespaceAuthorizationRule.ResourceType, out string apiVersion);
+            _namespaceAuthorizationRulesRestClient = new NamespaceAuthorizationRulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

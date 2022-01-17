@@ -46,8 +46,9 @@ namespace Azure.ResourceManager.Network
             HasData = true;
             _data = data;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _expressRouteCrossConnectionPeeringsRestClient = new ExpressRouteCrossConnectionPeeringsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _expressRouteCrossConnectionsRestClient = new ExpressRouteCrossConnectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _expressRouteCrossConnectionPeeringsRestClient = new ExpressRouteCrossConnectionPeeringsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _expressRouteCrossConnectionsRestClient = new ExpressRouteCrossConnectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -59,8 +60,9 @@ namespace Azure.ResourceManager.Network
         internal ExpressRouteCrossConnectionPeering(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _expressRouteCrossConnectionPeeringsRestClient = new ExpressRouteCrossConnectionPeeringsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _expressRouteCrossConnectionsRestClient = new ExpressRouteCrossConnectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _expressRouteCrossConnectionPeeringsRestClient = new ExpressRouteCrossConnectionPeeringsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _expressRouteCrossConnectionsRestClient = new ExpressRouteCrossConnectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -75,8 +77,9 @@ namespace Azure.ResourceManager.Network
         internal ExpressRouteCrossConnectionPeering(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _expressRouteCrossConnectionPeeringsRestClient = new ExpressRouteCrossConnectionPeeringsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _expressRouteCrossConnectionsRestClient = new ExpressRouteCrossConnectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _expressRouteCrossConnectionPeeringsRestClient = new ExpressRouteCrossConnectionPeeringsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _expressRouteCrossConnectionsRestClient = new ExpressRouteCrossConnectionsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -216,7 +219,7 @@ namespace Azure.ResourceManager.Network
                 var response = _expressRouteCrossConnectionPeeringsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
                 var operation = new ExpressRouteCrossConnectionPeeringDeleteOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionPeeringsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -231,7 +234,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="devicePath"/> is null. </exception>
-        public async virtual Task<ExpressRouteCrossConnectionListArpTableOperation> GetArpTableExpressRouteCrossConnectionAsync(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
+        public async virtual Task<ExpressRouteCrossConnectionPeeringGetArpTableExpressRouteCrossConnectionOperation> GetArpTableExpressRouteCrossConnectionAsync(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
         {
             if (devicePath == null)
             {
@@ -243,7 +246,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = await _expressRouteCrossConnectionsRestClient.ListArpTableAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath, cancellationToken).ConfigureAwait(false);
-                var operation = new ExpressRouteCrossConnectionListArpTableOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListArpTableRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
+                var operation = new ExpressRouteCrossConnectionPeeringGetArpTableExpressRouteCrossConnectionOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListArpTableRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -260,7 +263,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="devicePath"/> is null. </exception>
-        public virtual ExpressRouteCrossConnectionListArpTableOperation GetArpTableExpressRouteCrossConnection(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
+        public virtual ExpressRouteCrossConnectionPeeringGetArpTableExpressRouteCrossConnectionOperation GetArpTableExpressRouteCrossConnection(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
         {
             if (devicePath == null)
             {
@@ -272,7 +275,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = _expressRouteCrossConnectionsRestClient.ListArpTable(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath, cancellationToken);
-                var operation = new ExpressRouteCrossConnectionListArpTableOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListArpTableRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
+                var operation = new ExpressRouteCrossConnectionPeeringGetArpTableExpressRouteCrossConnectionOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListArpTableRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -289,7 +292,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="devicePath"/> is null. </exception>
-        public async virtual Task<ExpressRouteCrossConnectionListRoutesTableSummaryOperation> GetRoutesTableSummaryExpressRouteCrossConnectionAsync(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
+        public async virtual Task<ExpressRouteCrossConnectionPeeringGetRoutesTableSummaryExpressRouteCrossConnectionOperation> GetRoutesTableSummaryExpressRouteCrossConnectionAsync(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
         {
             if (devicePath == null)
             {
@@ -301,7 +304,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = await _expressRouteCrossConnectionsRestClient.ListRoutesTableSummaryAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath, cancellationToken).ConfigureAwait(false);
-                var operation = new ExpressRouteCrossConnectionListRoutesTableSummaryOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListRoutesTableSummaryRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
+                var operation = new ExpressRouteCrossConnectionPeeringGetRoutesTableSummaryExpressRouteCrossConnectionOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListRoutesTableSummaryRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -318,7 +321,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="devicePath"/> is null. </exception>
-        public virtual ExpressRouteCrossConnectionListRoutesTableSummaryOperation GetRoutesTableSummaryExpressRouteCrossConnection(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
+        public virtual ExpressRouteCrossConnectionPeeringGetRoutesTableSummaryExpressRouteCrossConnectionOperation GetRoutesTableSummaryExpressRouteCrossConnection(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
         {
             if (devicePath == null)
             {
@@ -330,7 +333,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = _expressRouteCrossConnectionsRestClient.ListRoutesTableSummary(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath, cancellationToken);
-                var operation = new ExpressRouteCrossConnectionListRoutesTableSummaryOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListRoutesTableSummaryRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
+                var operation = new ExpressRouteCrossConnectionPeeringGetRoutesTableSummaryExpressRouteCrossConnectionOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListRoutesTableSummaryRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -347,7 +350,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="devicePath"/> is null. </exception>
-        public async virtual Task<ExpressRouteCrossConnectionListRoutesTableOperation> GetRoutesTableExpressRouteCrossConnectionAsync(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
+        public async virtual Task<ExpressRouteCrossConnectionPeeringGetRoutesTableExpressRouteCrossConnectionOperation> GetRoutesTableExpressRouteCrossConnectionAsync(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
         {
             if (devicePath == null)
             {
@@ -359,7 +362,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = await _expressRouteCrossConnectionsRestClient.ListRoutesTableAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath, cancellationToken).ConfigureAwait(false);
-                var operation = new ExpressRouteCrossConnectionListRoutesTableOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListRoutesTableRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
+                var operation = new ExpressRouteCrossConnectionPeeringGetRoutesTableExpressRouteCrossConnectionOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListRoutesTableRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -376,7 +379,7 @@ namespace Azure.ResourceManager.Network
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="devicePath"/> is null. </exception>
-        public virtual ExpressRouteCrossConnectionListRoutesTableOperation GetRoutesTableExpressRouteCrossConnection(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
+        public virtual ExpressRouteCrossConnectionPeeringGetRoutesTableExpressRouteCrossConnectionOperation GetRoutesTableExpressRouteCrossConnection(bool waitForCompletion, string devicePath, CancellationToken cancellationToken = default)
         {
             if (devicePath == null)
             {
@@ -388,7 +391,7 @@ namespace Azure.ResourceManager.Network
             try
             {
                 var response = _expressRouteCrossConnectionsRestClient.ListRoutesTable(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath, cancellationToken);
-                var operation = new ExpressRouteCrossConnectionListRoutesTableOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListRoutesTableRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
+                var operation = new ExpressRouteCrossConnectionPeeringGetRoutesTableExpressRouteCrossConnectionOperation(_clientDiagnostics, Pipeline, _expressRouteCrossConnectionsRestClient.CreateListRoutesTableRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, devicePath).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;

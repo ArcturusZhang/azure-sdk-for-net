@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.ServiceBus
         internal ServiceBusRuleCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _rulesRestClient = new RulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ServiceBusRule.ResourceType, out string apiVersion);
+            _rulesRestClient = new RulesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.ServiceBus
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="ruleName"/> or <paramref name="parameters"/> is null. </exception>
-        public virtual RuleCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string ruleName, ServiceBusRuleData parameters, CancellationToken cancellationToken = default)
+        public virtual ServiceBusRuleCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string ruleName, ServiceBusRuleData parameters, CancellationToken cancellationToken = default)
         {
             if (ruleName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.ServiceBus
             try
             {
                 var response = _rulesRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ruleName, parameters, cancellationToken);
-                var operation = new RuleCreateOrUpdateOperation(Parent, response);
+                var operation = new ServiceBusRuleCreateOrUpdateOperation(Parent, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.ServiceBus
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="ruleName"/> or <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<RuleCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string ruleName, ServiceBusRuleData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<ServiceBusRuleCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string ruleName, ServiceBusRuleData parameters, CancellationToken cancellationToken = default)
         {
             if (ruleName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.ServiceBus
             try
             {
                 var response = await _rulesRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Parent.Name, Id.Parent.Name, Id.Name, ruleName, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new RuleCreateOrUpdateOperation(Parent, response);
+                var operation = new ServiceBusRuleCreateOrUpdateOperation(Parent, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

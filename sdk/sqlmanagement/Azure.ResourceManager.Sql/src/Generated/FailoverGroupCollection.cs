@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal FailoverGroupCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _failoverGroupsRestClient = new FailoverGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(FailoverGroup.ResourceType, out string apiVersion);
+            _failoverGroupsRestClient = new FailoverGroupsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

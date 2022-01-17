@@ -5,7 +5,7 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> The fully qualified metric namespace name. </summary>
     public partial class MetricNamespaceName

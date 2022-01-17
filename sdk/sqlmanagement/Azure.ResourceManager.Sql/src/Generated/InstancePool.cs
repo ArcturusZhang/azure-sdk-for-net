@@ -47,9 +47,10 @@ namespace Azure.ResourceManager.Sql
             HasData = true;
             _data = data;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _instancePoolsRestClient = new InstancePoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _usagesRestClient = new UsagesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _instancePoolsRestClient = new InstancePoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _usagesRestClient = new UsagesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -61,9 +62,10 @@ namespace Azure.ResourceManager.Sql
         internal InstancePool(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _instancePoolsRestClient = new InstancePoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _usagesRestClient = new UsagesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _instancePoolsRestClient = new InstancePoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _usagesRestClient = new UsagesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -78,9 +80,10 @@ namespace Azure.ResourceManager.Sql
         internal InstancePool(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _instancePoolsRestClient = new InstancePoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _usagesRestClient = new UsagesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _instancePoolsRestClient = new InstancePoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedInstancesRestClient = new ManagedInstancesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _usagesRestClient = new UsagesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -232,7 +235,7 @@ namespace Azure.ResourceManager.Sql
                 var response = _instancePoolsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 var operation = new InstancePoolDeleteOperation(_clientDiagnostics, Pipeline, _instancePoolsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)

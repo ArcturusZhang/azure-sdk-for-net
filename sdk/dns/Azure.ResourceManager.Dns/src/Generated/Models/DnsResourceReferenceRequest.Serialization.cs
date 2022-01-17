@@ -8,7 +8,7 @@
 using System.Text.Json;
 using Azure.Core;
 
-namespace Azure.ResourceManager.Dns.Models
+namespace DnsManagementClient.Models
 {
     public partial class DnsResourceReferenceRequest : IUtf8JsonSerializable
     {
@@ -23,7 +23,7 @@ namespace Azure.ResourceManager.Dns.Models
                 writer.WriteStartArray();
                 foreach (var item in TargetResources)
                 {
-                    writer.WriteObjectValue(item);
+                    JsonSerializer.Serialize(writer, item);
                 }
                 writer.WriteEndArray();
             }

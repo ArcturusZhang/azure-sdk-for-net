@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using Azure.Core;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> A time series result type. The discriminator value is always TimeSeries in this case. </summary>
     public partial class TimeSeriesElement

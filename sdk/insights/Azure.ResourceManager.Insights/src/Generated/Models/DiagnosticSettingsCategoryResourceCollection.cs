@@ -7,8 +7,9 @@
 
 using System.Collections.Generic;
 using Azure.Core;
+using Insights;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Represents a collection of diagnostic setting category resources. </summary>
     public partial class DiagnosticSettingsCategoryResourceCollection
@@ -16,17 +17,17 @@ namespace Azure.ResourceManager.Insights.Models
         /// <summary> Initializes a new instance of DiagnosticSettingsCategoryResourceCollection. </summary>
         internal DiagnosticSettingsCategoryResourceCollection()
         {
-            Value = new ChangeTrackingList<DiagnosticSettingsCategoryResource>();
+            Value = new ChangeTrackingList<DiagnosticSettingsCategoryResourceData>();
         }
 
         /// <summary> Initializes a new instance of DiagnosticSettingsCategoryResourceCollection. </summary>
         /// <param name="value"> The collection of diagnostic settings category resources. </param>
-        internal DiagnosticSettingsCategoryResourceCollection(IReadOnlyList<DiagnosticSettingsCategoryResource> value)
+        internal DiagnosticSettingsCategoryResourceCollection(IReadOnlyList<DiagnosticSettingsCategoryResourceData> value)
         {
             Value = value;
         }
 
         /// <summary> The collection of diagnostic settings category resources. </summary>
-        public IReadOnlyList<DiagnosticSettingsCategoryResource> Value { get; }
+        public IReadOnlyList<DiagnosticSettingsCategoryResourceData> Value { get; }
     }
 }

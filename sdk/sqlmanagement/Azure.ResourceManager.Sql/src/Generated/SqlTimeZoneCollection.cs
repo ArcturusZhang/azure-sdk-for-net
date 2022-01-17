@@ -18,6 +18,7 @@ using Azure.Core.Pipeline;
 using Azure.ResourceManager;
 using Azure.ResourceManager.Core;
 using Azure.ResourceManager.Resources;
+using Azure.ResourceManager.Sql.Models;
 
 namespace Azure.ResourceManager.Sql
 {
@@ -40,7 +41,8 @@ namespace Azure.ResourceManager.Sql
         internal SqlTimeZoneCollection(ArmResource parent, string locationName) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _timeZonesRestClient = new TimeZonesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(SqlTimeZone.ResourceType, out string apiVersion);
+            _timeZonesRestClient = new TimeZonesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
             _locationName = locationName;
 #if DEBUG
 			ValidateResourceId(Id);

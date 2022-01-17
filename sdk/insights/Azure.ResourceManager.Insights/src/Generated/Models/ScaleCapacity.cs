@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> The number of instances that can be used during this profile. </summary>
     public partial class ScaleCapacity

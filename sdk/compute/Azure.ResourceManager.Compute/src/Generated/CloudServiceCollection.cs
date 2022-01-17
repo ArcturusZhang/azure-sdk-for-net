@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Compute
         internal CloudServiceCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _cloudServicesRestClient = new CloudServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(CloudService.ResourceType, out string apiVersion);
+            _cloudServicesRestClient = new CloudServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

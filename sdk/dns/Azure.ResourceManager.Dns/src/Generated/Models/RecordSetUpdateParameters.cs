@@ -5,7 +5,9 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager.Dns.Models
+using DnsManagementClient;
+
+namespace DnsManagementClient.Models
 {
     /// <summary> Parameters supplied to update a record set. </summary>
     internal partial class RecordSetUpdateParameters
@@ -16,6 +18,6 @@ namespace Azure.ResourceManager.Dns.Models
         }
 
         /// <summary> Specifies information about the record set being updated. </summary>
-        public RecordSet RecordSet { get; }
+        public RecordSetData RecordSet { get; }
     }
 }

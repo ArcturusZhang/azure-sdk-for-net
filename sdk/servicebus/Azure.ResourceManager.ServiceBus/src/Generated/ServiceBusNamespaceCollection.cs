@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.ServiceBus
         internal ServiceBusNamespaceCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _namespacesRestClient = new NamespacesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ServiceBusNamespace.ResourceType, out string apiVersion);
+            _namespacesRestClient = new NamespacesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -58,7 +59,7 @@ namespace Azure.ResourceManager.ServiceBus
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="namespaceName"/> or <paramref name="parameters"/> is null. </exception>
-        public virtual NamespaceCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string namespaceName, ServiceBusNamespaceData parameters, CancellationToken cancellationToken = default)
+        public virtual ServiceBusNamespaceCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string namespaceName, ServiceBusNamespaceData parameters, CancellationToken cancellationToken = default)
         {
             if (namespaceName == null)
             {
@@ -74,7 +75,7 @@ namespace Azure.ResourceManager.ServiceBus
             try
             {
                 var response = _namespacesRestClient.CreateOrUpdate(Id.SubscriptionId, Id.ResourceGroupName, namespaceName, parameters, cancellationToken);
-                var operation = new NamespaceCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _namespacesRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, namespaceName, parameters).Request, response);
+                var operation = new ServiceBusNamespaceCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _namespacesRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, namespaceName, parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -92,7 +93,7 @@ namespace Azure.ResourceManager.ServiceBus
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="namespaceName"/> or <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<NamespaceCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string namespaceName, ServiceBusNamespaceData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<ServiceBusNamespaceCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string namespaceName, ServiceBusNamespaceData parameters, CancellationToken cancellationToken = default)
         {
             if (namespaceName == null)
             {
@@ -108,7 +109,7 @@ namespace Azure.ResourceManager.ServiceBus
             try
             {
                 var response = await _namespacesRestClient.CreateOrUpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, namespaceName, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new NamespaceCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _namespacesRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, namespaceName, parameters).Request, response);
+                var operation = new ServiceBusNamespaceCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _namespacesRestClient.CreateCreateOrUpdateRequest(Id.SubscriptionId, Id.ResourceGroupName, namespaceName, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

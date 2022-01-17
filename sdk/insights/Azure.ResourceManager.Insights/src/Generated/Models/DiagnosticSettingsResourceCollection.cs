@@ -7,8 +7,9 @@
 
 using System.Collections.Generic;
 using Azure.Core;
+using Insights;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Represents a collection of alert rule resources. </summary>
     public partial class DiagnosticSettingsResourceCollection
@@ -16,17 +17,17 @@ namespace Azure.ResourceManager.Insights.Models
         /// <summary> Initializes a new instance of DiagnosticSettingsResourceCollection. </summary>
         internal DiagnosticSettingsResourceCollection()
         {
-            Value = new ChangeTrackingList<DiagnosticSettingsResource>();
+            Value = new ChangeTrackingList<DiagnosticSettingsResourceData>();
         }
 
         /// <summary> Initializes a new instance of DiagnosticSettingsResourceCollection. </summary>
         /// <param name="value"> The collection of diagnostic settings resources;. </param>
-        internal DiagnosticSettingsResourceCollection(IReadOnlyList<DiagnosticSettingsResource> value)
+        internal DiagnosticSettingsResourceCollection(IReadOnlyList<DiagnosticSettingsResourceData> value)
         {
             Value = value;
         }
 
         /// <summary> The collection of diagnostic settings resources;. </summary>
-        public IReadOnlyList<DiagnosticSettingsResource> Value { get; }
+        public IReadOnlyList<DiagnosticSettingsResourceData> Value { get; }
     }
 }

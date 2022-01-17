@@ -7,8 +7,9 @@
 
 using System.Collections.Generic;
 using Azure.Core;
+using Insights;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> A list of activity log alerts. </summary>
     internal partial class ActivityLogAlertList
@@ -16,20 +17,20 @@ namespace Azure.ResourceManager.Insights.Models
         /// <summary> Initializes a new instance of ActivityLogAlertList. </summary>
         internal ActivityLogAlertList()
         {
-            Value = new ChangeTrackingList<ActivityLogAlertResource>();
+            Value = new ChangeTrackingList<ActivityLogAlertResourceData>();
         }
 
         /// <summary> Initializes a new instance of ActivityLogAlertList. </summary>
         /// <param name="value"> The list of activity log alerts. </param>
         /// <param name="nextLink"> Provides the link to retrieve the next set of elements. </param>
-        internal ActivityLogAlertList(IReadOnlyList<ActivityLogAlertResource> value, string nextLink)
+        internal ActivityLogAlertList(IReadOnlyList<ActivityLogAlertResourceData> value, string nextLink)
         {
             Value = value;
             NextLink = nextLink;
         }
 
         /// <summary> The list of activity log alerts. </summary>
-        public IReadOnlyList<ActivityLogAlertResource> Value { get; }
+        public IReadOnlyList<ActivityLogAlertResourceData> Value { get; }
         /// <summary> Provides the link to retrieve the next set of elements. </summary>
         public string NextLink { get; }
     }

@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> How the data that is collected should be combined over time. </summary>
     public partial class ManagementEventAggregationCondition

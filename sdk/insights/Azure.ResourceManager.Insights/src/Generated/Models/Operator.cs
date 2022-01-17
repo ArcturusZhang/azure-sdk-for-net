@@ -8,14 +8,14 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> the criteria operator. </summary>
     public readonly partial struct Operator : IEquatable<Operator>
     {
         private readonly string _value;
 
-        /// <summary> Determines if two <see cref="Operator"/> values are the same. </summary>
+        /// <summary> Initializes a new instance of <see cref="Operator"/>. </summary>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public Operator(string value)
         {

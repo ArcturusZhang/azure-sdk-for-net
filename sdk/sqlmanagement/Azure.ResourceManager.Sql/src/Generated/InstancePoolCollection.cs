@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Sql
         internal InstancePoolCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _instancePoolsRestClient = new InstancePoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(InstancePool.ResourceType, out string apiVersion);
+            _instancePoolsRestClient = new InstancePoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

@@ -49,11 +49,12 @@ namespace Azure.ResourceManager.Sql
             HasData = true;
             _data = data;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _elasticPoolsRestClient = new ElasticPoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _databasesRestClient = new DatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _elasticPoolActivitiesRestClient = new ElasticPoolActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _elasticPoolDatabaseActivitiesRestClient = new ElasticPoolDatabaseActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _elasticPoolOperationsRestClient = new ElasticPoolRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _elasticPoolsRestClient = new ElasticPoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _databasesRestClient = new DatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _elasticPoolActivitiesRestClient = new ElasticPoolActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _elasticPoolDatabaseActivitiesRestClient = new ElasticPoolDatabaseActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _elasticPoolOperationsRestClient = new ElasticPoolRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -65,11 +66,12 @@ namespace Azure.ResourceManager.Sql
         internal ElasticPool(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _elasticPoolsRestClient = new ElasticPoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _databasesRestClient = new DatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _elasticPoolActivitiesRestClient = new ElasticPoolActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _elasticPoolDatabaseActivitiesRestClient = new ElasticPoolDatabaseActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _elasticPoolOperationsRestClient = new ElasticPoolRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _elasticPoolsRestClient = new ElasticPoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _databasesRestClient = new DatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _elasticPoolActivitiesRestClient = new ElasticPoolActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _elasticPoolDatabaseActivitiesRestClient = new ElasticPoolDatabaseActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _elasticPoolOperationsRestClient = new ElasticPoolRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -84,11 +86,12 @@ namespace Azure.ResourceManager.Sql
         internal ElasticPool(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _elasticPoolsRestClient = new ElasticPoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _databasesRestClient = new DatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _elasticPoolActivitiesRestClient = new ElasticPoolActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _elasticPoolDatabaseActivitiesRestClient = new ElasticPoolDatabaseActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _elasticPoolOperationsRestClient = new ElasticPoolRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _elasticPoolsRestClient = new ElasticPoolsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _databasesRestClient = new DatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _elasticPoolActivitiesRestClient = new ElasticPoolActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _elasticPoolDatabaseActivitiesRestClient = new ElasticPoolDatabaseActivitiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _elasticPoolOperationsRestClient = new ElasticPoolRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -240,7 +243,7 @@ namespace Azure.ResourceManager.Sql
                 var response = _elasticPoolsRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
                 var operation = new ElasticPoolDeleteOperation(_clientDiagnostics, Pipeline, _elasticPoolsRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -726,7 +729,7 @@ namespace Azure.ResourceManager.Sql
                 var response = _elasticPoolsRestClient.Failover(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
                 var operation = new ElasticPoolFailoverOperation(_clientDiagnostics, Pipeline, _elasticPoolsRestClient.CreateFailoverRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)

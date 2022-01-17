@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> A rule condition based on a metric crossing a threshold. </summary>
     public partial class ThresholdRuleCondition : RuleCondition

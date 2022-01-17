@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal ManagedInstanceEncryptionProtectorCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedInstanceEncryptionProtectorsRestClient = new ManagedInstanceEncryptionProtectorsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ManagedInstanceEncryptionProtector.ResourceType, out string apiVersion);
+            _managedInstanceEncryptionProtectorsRestClient = new ManagedInstanceEncryptionProtectorsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

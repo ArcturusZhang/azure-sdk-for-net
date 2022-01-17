@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using Azure.Core;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Specifies the metric alert criteria for multiple resource that has multiple metric criteria. </summary>
     public partial class MetricAlertMultipleResourceMultipleMetricCriteria : MetricAlertCriteria
@@ -22,7 +22,7 @@ namespace Azure.ResourceManager.Insights.Models
 
         /// <summary> Initializes a new instance of MetricAlertMultipleResourceMultipleMetricCriteria. </summary>
         /// <param name="odataType"> specifies the type of the alert criteria. </param>
-        /// <param name="additionalProperties"> . </param>
+        /// <param name="additionalProperties"> Additional Properties. </param>
         /// <param name="allOf"> the list of multiple metric criteria for this &apos;all of&apos; operation. </param>
         internal MetricAlertMultipleResourceMultipleMetricCriteria(Odatatype odataType, IDictionary<string, object> additionalProperties, IList<MultiMetricCriteria> allOf) : base(odataType, additionalProperties)
         {

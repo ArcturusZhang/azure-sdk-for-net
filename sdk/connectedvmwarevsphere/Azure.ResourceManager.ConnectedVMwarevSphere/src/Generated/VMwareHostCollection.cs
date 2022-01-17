@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         internal VMwareHostCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _hostsRestClient = new HostsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(VMwareHost.ResourceType, out string apiVersion);
+            _hostsRestClient = new HostsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -61,7 +62,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="hostName"/> is null. </exception>
-        public virtual HostCreateOperation CreateOrUpdate(bool waitForCompletion, string hostName, VMwareHostData body = null, CancellationToken cancellationToken = default)
+        public virtual VMwareHostCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string hostName, VMwareHostData body = null, CancellationToken cancellationToken = default)
         {
             if (hostName == null)
             {
@@ -73,7 +74,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
             try
             {
                 var response = _hostsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, hostName, body, cancellationToken);
-                var operation = new HostCreateOperation(Parent, _clientDiagnostics, Pipeline, _hostsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, hostName, body).Request, response);
+                var operation = new VMwareHostCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _hostsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, hostName, body).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -94,7 +95,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="hostName"/> is null. </exception>
-        public async virtual Task<HostCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string hostName, VMwareHostData body = null, CancellationToken cancellationToken = default)
+        public async virtual Task<VMwareHostCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string hostName, VMwareHostData body = null, CancellationToken cancellationToken = default)
         {
             if (hostName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.ConnectedVMwarevSphere
             try
             {
                 var response = await _hostsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, hostName, body, cancellationToken).ConfigureAwait(false);
-                var operation = new HostCreateOperation(Parent, _clientDiagnostics, Pipeline, _hostsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, hostName, body).Request, response);
+                var operation = new VMwareHostCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _hostsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, hostName, body).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

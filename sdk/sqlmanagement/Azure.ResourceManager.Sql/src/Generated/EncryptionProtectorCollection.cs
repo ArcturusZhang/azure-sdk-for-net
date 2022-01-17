@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal EncryptionProtectorCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _encryptionProtectorsRestClient = new EncryptionProtectorsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(EncryptionProtector.ResourceType, out string apiVersion);
+            _encryptionProtectorsRestClient = new EncryptionProtectorsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

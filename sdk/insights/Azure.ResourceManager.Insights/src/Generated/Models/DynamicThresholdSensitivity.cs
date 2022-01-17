@@ -8,14 +8,14 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> The extent of deviation required to trigger an alert. This will affect how tight the threshold is to the metric series pattern. </summary>
     public readonly partial struct DynamicThresholdSensitivity : IEquatable<DynamicThresholdSensitivity>
     {
         private readonly string _value;
 
-        /// <summary> Determines if two <see cref="DynamicThresholdSensitivity"/> values are the same. </summary>
+        /// <summary> Initializes a new instance of <see cref="DynamicThresholdSensitivity"/>. </summary>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public DynamicThresholdSensitivity(string value)
         {

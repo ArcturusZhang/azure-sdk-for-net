@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Network
         internal HubRouteTableCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _hubRouteTablesRestClient = new HubRouteTablesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(HubRouteTable.ResourceType, out string apiVersion);
+            _hubRouteTablesRestClient = new HubRouteTablesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

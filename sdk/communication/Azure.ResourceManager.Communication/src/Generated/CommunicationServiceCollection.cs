@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Communication
         internal CommunicationServiceCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _communicationServiceRestClient = new CommunicationServiceRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(CommunicationService.ResourceType, out string apiVersion);
+            _communicationServiceRestClient = new CommunicationServiceRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

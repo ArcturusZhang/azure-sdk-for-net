@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> The Azure Automation Runbook notification receiver. </summary>
     public partial class AutomationRunbookReceiver

@@ -6,14 +6,13 @@
 #nullable disable
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using Azure.Core;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> The types of conditions for a multi resource alert. </summary>
-    public partial class MultiMetricCriteria : IDictionary<string, object>
+    public partial class MultiMetricCriteria
     {
         /// <summary> Initializes a new instance of MultiMetricCriteria. </summary>
         /// <param name="name"> Name of the criteria. </param>
@@ -46,7 +45,7 @@ namespace Azure.ResourceManager.Insights.Models
         /// <param name="metricNamespace"> Namespace of the metric. </param>
         /// <param name="timeAggregation"> the criteria time aggregation types. </param>
         /// <param name="dimensions"> List of dimension conditions. </param>
-        /// <param name="additionalProperties"> . </param>
+        /// <param name="additionalProperties"> Additional Properties. </param>
         internal MultiMetricCriteria(CriterionType criterionType, string name, string metricName, string metricNamespace, AggregationType timeAggregation, IList<MetricDimension> dimensions, IDictionary<string, object> additionalProperties)
         {
             CriterionType = criterionType;
@@ -70,42 +69,7 @@ namespace Azure.ResourceManager.Insights.Models
         public AggregationType TimeAggregation { get; set; }
         /// <summary> List of dimension conditions. </summary>
         public IList<MetricDimension> Dimensions { get; }
-        internal IDictionary<string, object> AdditionalProperties { get; }
-        /// <inheritdoc />
-        public IEnumerator<KeyValuePair<string, object>> GetEnumerator() => AdditionalProperties.GetEnumerator();
-        /// <inheritdoc />
-        IEnumerator IEnumerable.GetEnumerator() => AdditionalProperties.GetEnumerator();
-        /// <inheritdoc />
-        public bool TryGetValue(string key, out object value) => AdditionalProperties.TryGetValue(key, out value);
-        /// <inheritdoc />
-        public bool ContainsKey(string key) => AdditionalProperties.ContainsKey(key);
-        /// <inheritdoc />
-        public ICollection<string> Keys => AdditionalProperties.Keys;
-        /// <inheritdoc />
-        public ICollection<object> Values => AdditionalProperties.Values;
-        /// <inheritdoc cref="ICollection{T}.Count"/>
-        int ICollection<KeyValuePair<string, object>>.Count => AdditionalProperties.Count;
-        /// <inheritdoc />
-        public void Add(string key, object value) => AdditionalProperties.Add(key, value);
-        /// <inheritdoc />
-        public bool Remove(string key) => AdditionalProperties.Remove(key);
-        /// <inheritdoc cref="ICollection{T}.IsReadOnly"/>
-        bool ICollection<KeyValuePair<string, object>>.IsReadOnly => AdditionalProperties.IsReadOnly;
-        /// <inheritdoc cref="ICollection{T}.Add"/>
-        void ICollection<KeyValuePair<string, object>>.Add(KeyValuePair<string, object> value) => AdditionalProperties.Add(value);
-        /// <inheritdoc cref="ICollection{T}.Remove"/>
-        bool ICollection<KeyValuePair<string, object>>.Remove(KeyValuePair<string, object> value) => AdditionalProperties.Remove(value);
-        /// <inheritdoc cref="ICollection{T}.Contains"/>
-        bool ICollection<KeyValuePair<string, object>>.Contains(KeyValuePair<string, object> value) => AdditionalProperties.Contains(value);
-        /// <inheritdoc cref="ICollection{T}.CopyTo"/>
-        void ICollection<KeyValuePair<string, object>>.CopyTo(KeyValuePair<string, object>[] destination, int offset) => AdditionalProperties.CopyTo(destination, offset);
-        /// <inheritdoc cref="ICollection{T}.Clear"/>
-        void ICollection<KeyValuePair<string, object>>.Clear() => AdditionalProperties.Clear();
-        /// <inheritdoc />
-        public object this[string key]
-        {
-            get => AdditionalProperties[key];
-            set => AdditionalProperties[key] = value;
-        }
+        /// <summary> Additional Properties. </summary>
+        public IDictionary<string, object> AdditionalProperties { get; }
     }
 }

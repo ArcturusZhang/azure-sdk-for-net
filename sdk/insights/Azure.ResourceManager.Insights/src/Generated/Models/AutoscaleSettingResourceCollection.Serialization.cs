@@ -8,23 +8,24 @@
 using System.Collections.Generic;
 using System.Text.Json;
 using Azure.Core;
+using Insights;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     internal partial class AutoscaleSettingResourceCollection
     {
         internal static AutoscaleSettingResourceCollection DeserializeAutoscaleSettingResourceCollection(JsonElement element)
         {
-            IReadOnlyList<AutoscaleSettingResource> value = default;
+            IReadOnlyList<AutoscaleSettingResourceData> value = default;
             Optional<string> nextLink = default;
             foreach (var property in element.EnumerateObject())
             {
                 if (property.NameEquals("value"))
                 {
-                    List<AutoscaleSettingResource> array = new List<AutoscaleSettingResource>();
+                    List<AutoscaleSettingResourceData> array = new List<AutoscaleSettingResourceData>();
                     foreach (var item in property.Value.EnumerateArray())
                     {
-                        array.Add(AutoscaleSettingResource.DeserializeAutoscaleSettingResource(item));
+                        array.Add(AutoscaleSettingResourceData.DeserializeAutoscaleSettingResourceData(item));
                     }
                     value = array;
                     continue;

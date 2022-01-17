@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal BastionHostCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _bastionHostsRestClient = new BastionHostsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(BastionHost.ResourceType, out string apiVersion);
+            _bastionHostsRestClient = new BastionHostsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

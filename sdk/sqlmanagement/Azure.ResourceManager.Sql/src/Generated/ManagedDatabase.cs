@@ -49,11 +49,12 @@ namespace Azure.ResourceManager.Sql
             HasData = true;
             _data = data;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseColumnsRestClient = new ManagedDatabaseColumnsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseQueriesRestClient = new ManagedDatabaseQueriesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseSecurityEventsRestClient = new ManagedDatabaseSecurityEventsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseSensitivityLabelsRestClient = new ManagedDatabaseSensitivityLabelsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseColumnsRestClient = new ManagedDatabaseColumnsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseQueriesRestClient = new ManagedDatabaseQueriesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseSecurityEventsRestClient = new ManagedDatabaseSecurityEventsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseSensitivityLabelsRestClient = new ManagedDatabaseSensitivityLabelsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -65,11 +66,12 @@ namespace Azure.ResourceManager.Sql
         internal ManagedDatabase(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseColumnsRestClient = new ManagedDatabaseColumnsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseQueriesRestClient = new ManagedDatabaseQueriesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseSecurityEventsRestClient = new ManagedDatabaseSecurityEventsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseSensitivityLabelsRestClient = new ManagedDatabaseSensitivityLabelsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseColumnsRestClient = new ManagedDatabaseColumnsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseQueriesRestClient = new ManagedDatabaseQueriesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseSecurityEventsRestClient = new ManagedDatabaseSecurityEventsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseSensitivityLabelsRestClient = new ManagedDatabaseSensitivityLabelsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -84,11 +86,12 @@ namespace Azure.ResourceManager.Sql
         internal ManagedDatabase(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseColumnsRestClient = new ManagedDatabaseColumnsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseQueriesRestClient = new ManagedDatabaseQueriesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseSecurityEventsRestClient = new ManagedDatabaseSecurityEventsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _managedDatabaseSensitivityLabelsRestClient = new ManagedDatabaseSensitivityLabelsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _managedDatabasesRestClient = new ManagedDatabasesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseColumnsRestClient = new ManagedDatabaseColumnsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseQueriesRestClient = new ManagedDatabaseQueriesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseSecurityEventsRestClient = new ManagedDatabaseSecurityEventsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _managedDatabaseSensitivityLabelsRestClient = new ManagedDatabaseSensitivityLabelsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -240,7 +243,7 @@ namespace Azure.ResourceManager.Sql
                 var response = _managedDatabasesRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, cancellationToken);
                 var operation = new ManagedDatabaseDeleteOperation(_clientDiagnostics, Pipeline, _managedDatabasesRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -790,7 +793,7 @@ namespace Azure.ResourceManager.Sql
                 var response = _managedDatabasesRestClient.CompleteRestore(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, parameters, cancellationToken);
                 var operation = new ManagedDatabaseCompleteRestoreOperation(_clientDiagnostics, Pipeline, _managedDatabasesRestClient.CreateCompleteRestoreRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, parameters).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)

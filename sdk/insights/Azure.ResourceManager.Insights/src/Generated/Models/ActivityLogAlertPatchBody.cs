@@ -8,7 +8,7 @@
 using System.Collections.Generic;
 using Azure.Core;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> An activity log alert object for the body of patch operations. </summary>
     public partial class ActivityLogAlertPatchBody

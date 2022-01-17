@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal ManagedServerSecurityAlertPolicyCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _managedServerSecurityAlertPoliciesRestClient = new ManagedServerSecurityAlertPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ManagedServerSecurityAlertPolicy.ResourceType, out string apiVersion);
+            _managedServerSecurityAlertPoliciesRestClient = new ManagedServerSecurityAlertPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

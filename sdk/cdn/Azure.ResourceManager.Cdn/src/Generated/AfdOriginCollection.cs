@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Cdn
         internal AfdOriginCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _afdOriginsRestClient = new AfdOriginsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(AfdOrigin.ResourceType, out string apiVersion);
+            _afdOriginsRestClient = new AfdOriginsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -56,7 +57,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="originName"/> or <paramref name="origin"/> is null. </exception>
-        public virtual AfdOriginCreateOperation CreateOrUpdate(bool waitForCompletion, string originName, AfdOriginData origin, CancellationToken cancellationToken = default)
+        public virtual AfdOriginCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string originName, AfdOriginData origin, CancellationToken cancellationToken = default)
         {
             if (originName == null)
             {
@@ -72,7 +73,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = _afdOriginsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin, cancellationToken);
-                var operation = new AfdOriginCreateOperation(Parent, _clientDiagnostics, Pipeline, _afdOriginsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin).Request, response);
+                var operation = new AfdOriginCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _afdOriginsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -90,7 +91,7 @@ namespace Azure.ResourceManager.Cdn
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="originName"/> or <paramref name="origin"/> is null. </exception>
-        public async virtual Task<AfdOriginCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string originName, AfdOriginData origin, CancellationToken cancellationToken = default)
+        public async virtual Task<AfdOriginCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string originName, AfdOriginData origin, CancellationToken cancellationToken = default)
         {
             if (originName == null)
             {
@@ -106,7 +107,7 @@ namespace Azure.ResourceManager.Cdn
             try
             {
                 var response = await _afdOriginsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin, cancellationToken).ConfigureAwait(false);
-                var operation = new AfdOriginCreateOperation(Parent, _clientDiagnostics, Pipeline, _afdOriginsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin).Request, response);
+                var operation = new AfdOriginCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _afdOriginsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, originName, origin).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;

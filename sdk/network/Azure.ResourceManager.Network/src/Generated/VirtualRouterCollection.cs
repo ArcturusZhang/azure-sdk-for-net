@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal VirtualRouterCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _virtualRoutersRestClient = new VirtualRoutersRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(VirtualRouter.ResourceType, out string apiVersion);
+            _virtualRoutersRestClient = new VirtualRoutersRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

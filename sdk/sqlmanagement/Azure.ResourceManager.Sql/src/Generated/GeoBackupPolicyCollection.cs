@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal GeoBackupPolicyCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _geoBackupPoliciesRestClient = new GeoBackupPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(GeoBackupPolicy.ResourceType, out string apiVersion);
+            _geoBackupPoliciesRestClient = new GeoBackupPoliciesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

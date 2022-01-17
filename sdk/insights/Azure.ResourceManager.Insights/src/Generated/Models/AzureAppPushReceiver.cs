@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> The Azure mobile App push notification receiver. </summary>
     public partial class AzureAppPushReceiver

@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.Sql
         internal ServerAzureADAdministratorCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _serverAzureADAdministratorsRestClient = new ServerAzureADAdministratorsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ServerAzureADAdministrator.ResourceType, out string apiVersion);
+            _serverAzureADAdministratorsRestClient = new ServerAzureADAdministratorsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

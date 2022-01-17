@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Compute
         internal DiskCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _disksRestClient = new DisksRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(Disk.ResourceType, out string apiVersion);
+            _disksRestClient = new DisksRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

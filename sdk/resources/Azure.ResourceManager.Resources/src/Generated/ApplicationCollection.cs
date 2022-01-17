@@ -37,7 +37,8 @@ namespace Azure.ResourceManager.Resources
         internal ApplicationCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _applicationsRestClient = new ApplicationsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(Application.ResourceType, out string apiVersion);
+            _applicationsRestClient = new ApplicationsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

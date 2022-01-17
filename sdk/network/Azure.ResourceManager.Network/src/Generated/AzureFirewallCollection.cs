@@ -38,7 +38,8 @@ namespace Azure.ResourceManager.Network
         internal AzureFirewallCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _azureFirewallsRestClient = new AzureFirewallsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(AzureFirewall.ResourceType, out string apiVersion);
+            _azureFirewallsRestClient = new AzureFirewallsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

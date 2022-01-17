@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Metric availability specifies the time grain (aggregation interval or frequency) and the retention period for that time grain. </summary>
     public partial class MetricAvailability

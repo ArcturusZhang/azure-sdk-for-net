@@ -8,14 +8,14 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> The flag which indicates whether the Log Search rule is enabled. Value should be true or false. </summary>
     public readonly partial struct Enabled : IEquatable<Enabled>
     {
         private readonly string _value;
 
-        /// <summary> Determines if two <see cref="Enabled"/> values are the same. </summary>
+        /// <summary> Initializes a new instance of <see cref="Enabled"/>. </summary>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public Enabled(string value)
         {

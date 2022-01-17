@@ -36,7 +36,8 @@ namespace Azure.ResourceManager.DeviceUpdate
         internal PrivateEndpointConnectionProxyCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _privateEndpointConnectionProxiesRestClient = new PrivateEndpointConnectionProxiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(PrivateEndpointConnectionProxy.ResourceType, out string apiVersion);
+            _privateEndpointConnectionProxiesRestClient = new PrivateEndpointConnectionProxiesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif

@@ -8,14 +8,14 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> Result Condition Evaluation criteria. Supported Values - &apos;GreaterThan&apos; or &apos;LessThan&apos; or &apos;Equal&apos;. </summary>
     public readonly partial struct ConditionalOperator : IEquatable<ConditionalOperator>
     {
         private readonly string _value;
 
-        /// <summary> Determines if two <see cref="ConditionalOperator"/> values are the same. </summary>
+        /// <summary> Initializes a new instance of <see cref="ConditionalOperator"/>. </summary>
         /// <exception cref="ArgumentNullException"> <paramref name="value"/> is null. </exception>
         public ConditionalOperator(string value)
         {

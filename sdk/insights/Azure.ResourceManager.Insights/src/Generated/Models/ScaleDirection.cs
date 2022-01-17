@@ -5,7 +5,7 @@
 
 #nullable disable
 
-namespace Azure.ResourceManager.Insights.Models
+namespace Insights.Models
 {
     /// <summary> the scale direction. Whether the scaling action increases or decreases the number of instances. </summary>
     public enum ScaleDirection

@@ -46,8 +46,9 @@ namespace Azure.ResourceManager.Compute
             HasData = true;
             _data = data;
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _cloudServicesRestClient = new CloudServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _cloudServicesUpdateDomainRestClient = new CloudServicesUpdateDomainRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _cloudServicesRestClient = new CloudServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _cloudServicesUpdateDomainRestClient = new CloudServicesUpdateDomainRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -59,8 +60,9 @@ namespace Azure.ResourceManager.Compute
         internal CloudService(ArmResource options, ResourceIdentifier id) : base(options, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _cloudServicesRestClient = new CloudServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _cloudServicesUpdateDomainRestClient = new CloudServicesUpdateDomainRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _cloudServicesRestClient = new CloudServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _cloudServicesUpdateDomainRestClient = new CloudServicesUpdateDomainRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -75,8 +77,9 @@ namespace Azure.ResourceManager.Compute
         internal CloudService(ArmClientOptions clientOptions, TokenCredential credential, Uri uri, HttpPipeline pipeline, ResourceIdentifier id) : base(clientOptions, credential, uri, pipeline, id)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _cloudServicesRestClient = new CloudServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
-            _cloudServicesUpdateDomainRestClient = new CloudServicesUpdateDomainRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(ResourceType, out string apiVersion);
+            _cloudServicesRestClient = new CloudServicesRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
+            _cloudServicesUpdateDomainRestClient = new CloudServicesUpdateDomainRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -216,7 +219,7 @@ namespace Azure.ResourceManager.Compute
                 var response = _cloudServicesRestClient.Delete(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 var operation = new CloudServiceDeleteOperation(_clientDiagnostics, Pipeline, _cloudServicesRestClient.CreateDeleteRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -483,14 +486,14 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Starts the cloud service. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<CloudServiceStartOperation> PowerOnAsync(bool waitForCompletion, CancellationToken cancellationToken = default)
+        public async virtual Task<CloudServicePowerOnOperation> PowerOnAsync(bool waitForCompletion, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("CloudService.PowerOn");
             scope.Start();
             try
             {
                 var response = await _cloudServicesRestClient.StartAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken).ConfigureAwait(false);
-                var operation = new CloudServiceStartOperation(_clientDiagnostics, Pipeline, _cloudServicesRestClient.CreateStartRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
+                var operation = new CloudServicePowerOnOperation(_clientDiagnostics, Pipeline, _cloudServicesRestClient.CreateStartRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -505,16 +508,16 @@ namespace Azure.ResourceManager.Compute
         /// <summary> Starts the cloud service. </summary>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual CloudServiceStartOperation PowerOn(bool waitForCompletion, CancellationToken cancellationToken = default)
+        public virtual CloudServicePowerOnOperation PowerOn(bool waitForCompletion, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("CloudService.PowerOn");
             scope.Start();
             try
             {
                 var response = _cloudServicesRestClient.Start(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
-                var operation = new CloudServiceStartOperation(_clientDiagnostics, Pipeline, _cloudServicesRestClient.CreateStartRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
+                var operation = new CloudServicePowerOnOperation(_clientDiagnostics, Pipeline, _cloudServicesRestClient.CreateStartRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -558,7 +561,7 @@ namespace Azure.ResourceManager.Compute
                 var response = _cloudServicesRestClient.PowerOff(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, cancellationToken);
                 var operation = new CloudServicePowerOffOperation(_clientDiagnostics, Pipeline, _cloudServicesRestClient.CreatePowerOffRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -604,7 +607,7 @@ namespace Azure.ResourceManager.Compute
                 var response = _cloudServicesRestClient.Restart(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters, cancellationToken);
                 var operation = new CloudServiceRestartOperation(_clientDiagnostics, Pipeline, _cloudServicesRestClient.CreateRestartRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -650,7 +653,7 @@ namespace Azure.ResourceManager.Compute
                 var response = _cloudServicesRestClient.Reimage(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters, cancellationToken);
                 var operation = new CloudServiceReimageOperation(_clientDiagnostics, Pipeline, _cloudServicesRestClient.CreateReimageRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -696,7 +699,7 @@ namespace Azure.ResourceManager.Compute
                 var response = _cloudServicesRestClient.Rebuild(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters, cancellationToken);
                 var operation = new CloudServiceRebuildOperation(_clientDiagnostics, Pipeline, _cloudServicesRestClient.CreateRebuildRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -742,7 +745,7 @@ namespace Azure.ResourceManager.Compute
                 var response = _cloudServicesRestClient.DeleteInstances(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters, cancellationToken);
                 var operation = new CloudServiceDeleteInstancesOperation(_clientDiagnostics, Pipeline, _cloudServicesRestClient.CreateDeleteInstancesRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)
@@ -757,14 +760,14 @@ namespace Azure.ResourceManager.Compute
         /// <param name="parameters"> The update domain object. </param>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<CloudServicesUpdateDomainWalkUpdateDomainOperation> WalkUpdateDomainCloudServicesUpdateDomainAsync(bool waitForCompletion, int updateDomain, UpdateDomain parameters = null, CancellationToken cancellationToken = default)
+        public async virtual Task<CloudServiceWalkUpdateDomainCloudServicesUpdateDomainOperation> WalkUpdateDomainCloudServicesUpdateDomainAsync(bool waitForCompletion, int updateDomain, UpdateDomain parameters = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("CloudService.WalkUpdateDomainCloudServicesUpdateDomain");
             scope.Start();
             try
             {
                 var response = await _cloudServicesUpdateDomainRestClient.WalkUpdateDomainAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, updateDomain, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new CloudServicesUpdateDomainWalkUpdateDomainOperation(_clientDiagnostics, Pipeline, _cloudServicesUpdateDomainRestClient.CreateWalkUpdateDomainRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, updateDomain, parameters).Request, response);
+                var operation = new CloudServiceWalkUpdateDomainCloudServicesUpdateDomainOperation(_clientDiagnostics, Pipeline, _cloudServicesUpdateDomainRestClient.CreateWalkUpdateDomainRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, updateDomain, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionResponseAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
@@ -781,16 +784,16 @@ namespace Azure.ResourceManager.Compute
         /// <param name="parameters"> The update domain object. </param>
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual CloudServicesUpdateDomainWalkUpdateDomainOperation WalkUpdateDomainCloudServicesUpdateDomain(bool waitForCompletion, int updateDomain, UpdateDomain parameters = null, CancellationToken cancellationToken = default)
+        public virtual CloudServiceWalkUpdateDomainCloudServicesUpdateDomainOperation WalkUpdateDomainCloudServicesUpdateDomain(bool waitForCompletion, int updateDomain, UpdateDomain parameters = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("CloudService.WalkUpdateDomainCloudServicesUpdateDomain");
             scope.Start();
             try
             {
                 var response = _cloudServicesUpdateDomainRestClient.WalkUpdateDomain(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, updateDomain, parameters, cancellationToken);
-                var operation = new CloudServicesUpdateDomainWalkUpdateDomainOperation(_clientDiagnostics, Pipeline, _cloudServicesUpdateDomainRestClient.CreateWalkUpdateDomainRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, updateDomain, parameters).Request, response);
+                var operation = new CloudServiceWalkUpdateDomainCloudServicesUpdateDomainOperation(_clientDiagnostics, Pipeline, _cloudServicesUpdateDomainRestClient.CreateWalkUpdateDomainRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, updateDomain, parameters).Request, response);
                 if (waitForCompletion)
-                    operation.WaitForCompletion(cancellationToken);
+                    operation.WaitForCompletionResponse(cancellationToken);
                 return operation;
             }
             catch (Exception e)

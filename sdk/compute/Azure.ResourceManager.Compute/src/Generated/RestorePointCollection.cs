@@ -33,7 +33,8 @@ namespace Azure.ResourceManager.Compute
         internal RestorePointCollection(ArmResource parent) : base(parent)
         {
             _clientDiagnostics = new ClientDiagnostics(ClientOptions);
-            _restorePointsRestClient = new RestorePointsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri);
+            ClientOptions.TryGetApiVersion(RestorePoint.ResourceType, out string apiVersion);
+            _restorePointsRestClient = new RestorePointsRestOperations(_clientDiagnostics, Pipeline, ClientOptions, BaseUri, apiVersion);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -53,7 +54,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="restorePointName"/> or <paramref name="parameters"/> is null. </exception>
-        public virtual RestorePointCreateOperation CreateOrUpdate(bool waitForCompletion, string restorePointName, RestorePointData parameters, CancellationToken cancellationToken = default)
+        public virtual RestorePointCreateOrUpdateOperation CreateOrUpdate(bool waitForCompletion, string restorePointName, RestorePointData parameters, CancellationToken cancellationToken = default)
         {
             if (restorePointName == null)
             {
@@ -69,7 +70,7 @@ namespace Azure.ResourceManager.Compute
             try
             {
                 var response = _restorePointsRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, restorePointName, parameters, cancellationToken);
-                var operation = new RestorePointCreateOperation(Parent, _clientDiagnostics, Pipeline, _restorePointsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, restorePointName, parameters).Request, response);
+                var operation = new RestorePointCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _restorePointsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, restorePointName, parameters).Request, response);
                 if (waitForCompletion)
                     operation.WaitForCompletion(cancellationToken);
                 return operation;
@@ -87,7 +88,7 @@ namespace Azure.ResourceManager.Compute
         /// <param name="waitForCompletion"> Waits for the completion of the long running operations. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="restorePointName"/> or <paramref name="parameters"/> is null. </exception>
-        public async virtual Task<RestorePointCreateOperation> CreateOrUpdateAsync(bool waitForCompletion, string restorePointName, RestorePointData parameters, CancellationToken cancellationToken = default)
+        public async virtual Task<RestorePointCreateOrUpdateOperation> CreateOrUpdateAsync(bool waitForCompletion, string restorePointName, RestorePointData parameters, CancellationToken cancellationToken = default)
         {
             if (restorePointName == null)
             {
@@ -103,7 +104,7 @@ namespace Azure.ResourceManager.Compute
             try
             {
                 var response = await _restorePointsRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, restorePointName, parameters, cancellationToken).ConfigureAwait(false);
-                var operation = new RestorePointCreateOperation(Parent, _clientDiagnostics, Pipeline, _restorePointsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, restorePointName, parameters).Request, response);
+                var operation = new RestorePointCreateOrUpdateOperation(Parent, _clientDiagnostics, Pipeline, _restorePointsRestClient.CreateCreateRequest(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, restorePointName, parameters).Request, response);
                 if (waitForCompletion)
                     await operation.WaitForCompletionAsync(cancellationToken).ConfigureAwait(false);
                 return operation;
