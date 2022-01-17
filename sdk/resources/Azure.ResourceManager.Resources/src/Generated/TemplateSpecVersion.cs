@@ -226,15 +226,15 @@ namespace Azure.ResourceManager.Resources
         }
 
         /// <summary> Updates Template Spec Version tags with specified values. </summary>
-        /// <param name="tags"> Resource tags. </param>
+        /// <param name="templateSpecVersionUpdateModel"> Template Spec Version resource with the tags to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<Response<TemplateSpecVersion>> UpdateAsync(IDictionary<string, string> tags = null, CancellationToken cancellationToken = default)
+        public async virtual Task<Response<TemplateSpecVersion>> UpdateAsync(TemplateSpecVersionUpdateModel templateSpecVersionUpdateModel = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("TemplateSpecVersion.Update");
             scope.Start();
             try
             {
-                var response = await _templateSpecVersionsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tags, cancellationToken).ConfigureAwait(false);
+                var response = await _templateSpecVersionsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, templateSpecVersionUpdateModel, cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(new TemplateSpecVersion(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -245,15 +245,15 @@ namespace Azure.ResourceManager.Resources
         }
 
         /// <summary> Updates Template Spec Version tags with specified values. </summary>
-        /// <param name="tags"> Resource tags. </param>
+        /// <param name="templateSpecVersionUpdateModel"> Template Spec Version resource with the tags to be updated. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<TemplateSpecVersion> Update(IDictionary<string, string> tags = null, CancellationToken cancellationToken = default)
+        public virtual Response<TemplateSpecVersion> Update(TemplateSpecVersionUpdateModel templateSpecVersionUpdateModel = null, CancellationToken cancellationToken = default)
         {
             using var scope = _clientDiagnostics.CreateScope("TemplateSpecVersion.Update");
             scope.Start();
             try
             {
-                var response = _templateSpecVersionsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, tags, cancellationToken);
+                var response = _templateSpecVersionsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, templateSpecVersionUpdateModel, cancellationToken);
                 return Response.FromValue(new TemplateSpecVersion(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)

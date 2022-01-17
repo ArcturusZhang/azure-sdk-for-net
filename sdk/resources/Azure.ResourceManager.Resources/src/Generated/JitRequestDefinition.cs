@@ -398,15 +398,21 @@ namespace Azure.ResourceManager.Resources
         }
 
         /// <summary> Updates the JIT request. </summary>
-        /// <param name="tags"> Jit request tags. </param>
+        /// <param name="parameters"> Parameters supplied to the update JIT request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public async virtual Task<Response<JitRequestDefinition>> UpdateAsync(IDictionary<string, string> tags = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
+        public async virtual Task<Response<JitRequestDefinition>> UpdateAsync(JitRequestPatchable parameters, CancellationToken cancellationToken = default)
         {
+            if (parameters == null)
+            {
+                throw new ArgumentNullException(nameof(parameters));
+            }
+
             using var scope = _clientDiagnostics.CreateScope("JitRequestDefinition.Update");
             scope.Start();
             try
             {
-                var response = await _jitRequestsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, tags, cancellationToken).ConfigureAwait(false);
+                var response = await _jitRequestsRestClient.UpdateAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters, cancellationToken).ConfigureAwait(false);
                 return Response.FromValue(new JitRequestDefinition(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
@@ -417,15 +423,21 @@ namespace Azure.ResourceManager.Resources
         }
 
         /// <summary> Updates the JIT request. </summary>
-        /// <param name="tags"> Jit request tags. </param>
+        /// <param name="parameters"> Parameters supplied to the update JIT request. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<JitRequestDefinition> Update(IDictionary<string, string> tags = null, CancellationToken cancellationToken = default)
+        /// <exception cref="ArgumentNullException"> <paramref name="parameters"/> is null. </exception>
+        public virtual Response<JitRequestDefinition> Update(JitRequestPatchable parameters, CancellationToken cancellationToken = default)
         {
+            if (parameters == null)
+            {
+                throw new ArgumentNullException(nameof(parameters));
+            }
+
             using var scope = _clientDiagnostics.CreateScope("JitRequestDefinition.Update");
             scope.Start();
             try
             {
-                var response = _jitRequestsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, tags, cancellationToken);
+                var response = _jitRequestsRestClient.Update(Id.SubscriptionId, Id.ResourceGroupName, Id.Name, parameters, cancellationToken);
                 return Response.FromValue(new JitRequestDefinition(this, response.Value), response.GetRawResponse());
             }
             catch (Exception e)
