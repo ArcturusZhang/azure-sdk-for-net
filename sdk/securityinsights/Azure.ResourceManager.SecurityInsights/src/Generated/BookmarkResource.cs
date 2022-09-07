@@ -35,6 +35,8 @@ namespace Azure.ResourceManager.SecurityInsights
 
         private readonly ClientDiagnostics _bookmarkClientDiagnostics;
         private readonly BookmarksRestOperations _bookmarkRestClient;
+        private readonly ClientDiagnostics _bookmarkClientDiagnostics0;
+        private readonly BookmarkRestOperations _bookmarkRestClient0;
         private readonly BookmarkData _data;
 
         /// <summary> Initializes a new instance of the <see cref="BookmarkResource"/> class for mocking. </summary>
@@ -59,6 +61,8 @@ namespace Azure.ResourceManager.SecurityInsights
             _bookmarkClientDiagnostics = new ClientDiagnostics("Azure.ResourceManager.SecurityInsights", ResourceType.Namespace, Diagnostics);
             TryGetApiVersion(ResourceType, out string bookmarkApiVersion);
             _bookmarkRestClient = new BookmarksRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, bookmarkApiVersion);
+            _bookmarkClientDiagnostics0 = new ClientDiagnostics("Azure.ResourceManager.SecurityInsights", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+            _bookmarkRestClient0 = new BookmarkRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 #if DEBUG
 			ValidateResourceId(Id);
 #endif
@@ -288,20 +292,20 @@ namespace Azure.ResourceManager.SecurityInsights
         /// <summary>
         /// Expand an bookmark
         /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/bookmarks/{bookmarkId}/expand
-        /// Operation Id: Bookmarks_Expand
+        /// Operation Id: Bookmark_Expand
         /// </summary>
         /// <param name="content"> The parameters required to execute an expand operation on the given bookmark. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual async Task<Response<BookmarkExpandResponse>> ExpandAsync(BookmarkExpandContent content, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<BookmarkExpandResponse>> ExpandBookmarkAsync(BookmarkExpandContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = _bookmarkClientDiagnostics.CreateScope("BookmarkResource.Expand");
+            using var scope = _bookmarkClientDiagnostics0.CreateScope("BookmarkResource.ExpandBookmark");
             scope.Start();
             try
             {
-                var response = await _bookmarkRestClient.ExpandAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken).ConfigureAwait(false);
+                var response = await _bookmarkRestClient0.ExpandAsync(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -314,20 +318,20 @@ namespace Azure.ResourceManager.SecurityInsights
         /// <summary>
         /// Expand an bookmark
         /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/bookmarks/{bookmarkId}/expand
-        /// Operation Id: Bookmarks_Expand
+        /// Operation Id: Bookmark_Expand
         /// </summary>
         /// <param name="content"> The parameters required to execute an expand operation on the given bookmark. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <exception cref="ArgumentNullException"> <paramref name="content"/> is null. </exception>
-        public virtual Response<BookmarkExpandResponse> Expand(BookmarkExpandContent content, CancellationToken cancellationToken = default)
+        public virtual Response<BookmarkExpandResponse> ExpandBookmark(BookmarkExpandContent content, CancellationToken cancellationToken = default)
         {
             Argument.AssertNotNull(content, nameof(content));
 
-            using var scope = _bookmarkClientDiagnostics.CreateScope("BookmarkResource.Expand");
+            using var scope = _bookmarkClientDiagnostics0.CreateScope("BookmarkResource.ExpandBookmark");
             scope.Start();
             try
             {
-                var response = _bookmarkRestClient.Expand(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken);
+                var response = _bookmarkRestClient0.Expand(Id.SubscriptionId, Id.ResourceGroupName, Id.Parent.Name, Id.Name, content, cancellationToken);
                 return response;
             }
             catch (Exception e)

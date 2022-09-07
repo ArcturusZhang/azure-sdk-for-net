@@ -26,7 +26,9 @@ namespace Azure.ResourceManager.SecurityInsights
         private ClientDiagnostics _sourceControlClientDiagnostics;
         private SourceControlRestOperations _sourceControlRestClient;
         private ClientDiagnostics _threatIntelligenceIndicatorClientDiagnostics;
-        private ThreatIntelligenceIndicatorsRestOperations _threatIntelligenceIndicatorRestClient;
+        private ThreatIntelligenceIndicatorRestOperations _threatIntelligenceIndicatorRestClient;
+        private ClientDiagnostics _threatIntelligenceIndicatorMetricsClientDiagnostics;
+        private ThreatIntelligenceIndicatorMetricsRestOperations _threatIntelligenceIndicatorMetricsRestClient;
         private ClientDiagnostics _dataConnectorsCheckRequirementsClientDiagnostics;
         private DataConnectorsCheckRequirementsRestOperations _dataConnectorsCheckRequirementsRestClient;
 
@@ -49,7 +51,9 @@ namespace Azure.ResourceManager.SecurityInsights
         private ClientDiagnostics SourceControlClientDiagnostics => _sourceControlClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SecurityInsights", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private SourceControlRestOperations SourceControlRestClient => _sourceControlRestClient ??= new SourceControlRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics ThreatIntelligenceIndicatorClientDiagnostics => _threatIntelligenceIndicatorClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SecurityInsights", ThreatIntelligenceIndicatorResource.ResourceType.Namespace, Diagnostics);
-        private ThreatIntelligenceIndicatorsRestOperations ThreatIntelligenceIndicatorRestClient => _threatIntelligenceIndicatorRestClient ??= new ThreatIntelligenceIndicatorsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(ThreatIntelligenceIndicatorResource.ResourceType));
+        private ThreatIntelligenceIndicatorRestOperations ThreatIntelligenceIndicatorRestClient => _threatIntelligenceIndicatorRestClient ??= new ThreatIntelligenceIndicatorRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint, GetApiVersionOrNull(ThreatIntelligenceIndicatorResource.ResourceType));
+        private ClientDiagnostics ThreatIntelligenceIndicatorMetricsClientDiagnostics => _threatIntelligenceIndicatorMetricsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SecurityInsights", ProviderConstants.DefaultProviderNamespace, Diagnostics);
+        private ThreatIntelligenceIndicatorMetricsRestOperations ThreatIntelligenceIndicatorMetricsRestClient => _threatIntelligenceIndicatorMetricsRestClient ??= new ThreatIntelligenceIndicatorMetricsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
         private ClientDiagnostics DataConnectorsCheckRequirementsClientDiagnostics => _dataConnectorsCheckRequirementsClientDiagnostics ??= new ClientDiagnostics("Azure.ResourceManager.SecurityInsights", ProviderConstants.DefaultProviderNamespace, Diagnostics);
         private DataConnectorsCheckRequirementsRestOperations DataConnectorsCheckRequirementsRestClient => _dataConnectorsCheckRequirementsRestClient ??= new DataConnectorsCheckRequirementsRestOperations(Pipeline, Diagnostics.ApplicationId, Endpoint);
 
@@ -385,18 +389,18 @@ namespace Azure.ResourceManager.SecurityInsights
         /// <summary>
         /// Create a new threat intelligence indicator.
         /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/createIndicator
-        /// Operation Id: ThreatIntelligenceIndicators_Create
+        /// Operation Id: ThreatIntelligenceIndicator_CreateIndicator
         /// </summary>
         /// <param name="workspaceName"> The name of the workspace. </param>
         /// <param name="data"> Properties of threat intelligence indicators to create and update. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual async Task<Response<ThreatIntelligenceInformation>> CreateThreatIntelligenceIndicatorAsync(string workspaceName, ThreatIntelligenceIndicatorData data, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<ThreatIntelligenceInformation>> CreateIndicatorThreatIntelligenceIndicatorAsync(string workspaceName, ThreatIntelligenceIndicatorData data, CancellationToken cancellationToken = default)
         {
-            using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.CreateThreatIntelligenceIndicator");
+            using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.CreateIndicatorThreatIntelligenceIndicator");
             scope.Start();
             try
             {
-                var response = await ThreatIntelligenceIndicatorRestClient.CreateAsync(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, data, cancellationToken).ConfigureAwait(false);
+                var response = await ThreatIntelligenceIndicatorRestClient.CreateIndicatorAsync(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, data, cancellationToken).ConfigureAwait(false);
                 return response;
             }
             catch (Exception e)
@@ -409,18 +413,18 @@ namespace Azure.ResourceManager.SecurityInsights
         /// <summary>
         /// Create a new threat intelligence indicator.
         /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/createIndicator
-        /// Operation Id: ThreatIntelligenceIndicators_Create
+        /// Operation Id: ThreatIntelligenceIndicator_CreateIndicator
         /// </summary>
         /// <param name="workspaceName"> The name of the workspace. </param>
         /// <param name="data"> Properties of threat intelligence indicators to create and update. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
-        public virtual Response<ThreatIntelligenceInformation> CreateThreatIntelligenceIndicator(string workspaceName, ThreatIntelligenceIndicatorData data, CancellationToken cancellationToken = default)
+        public virtual Response<ThreatIntelligenceInformation> CreateIndicatorThreatIntelligenceIndicator(string workspaceName, ThreatIntelligenceIndicatorData data, CancellationToken cancellationToken = default)
         {
-            using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.CreateThreatIntelligenceIndicator");
+            using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.CreateIndicatorThreatIntelligenceIndicator");
             scope.Start();
             try
             {
-                var response = ThreatIntelligenceIndicatorRestClient.Create(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, data, cancellationToken);
+                var response = ThreatIntelligenceIndicatorRestClient.CreateIndicator(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, data, cancellationToken);
                 return response;
             }
             catch (Exception e)
@@ -433,21 +437,21 @@ namespace Azure.ResourceManager.SecurityInsights
         /// <summary>
         /// Query threat intelligence indicators as per filtering criteria.
         /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators
-        /// Operation Id: ThreatIntelligenceIndicators_Query
+        /// Operation Id: ThreatIntelligenceIndicator_QueryIndicators
         /// </summary>
         /// <param name="workspaceName"> The name of the workspace. </param>
         /// <param name="threatIntelligenceFilteringCriteria"> Filtering criteria for querying threat intelligence indicators. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="ThreatIntelligenceInformation" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<ThreatIntelligenceInformation> QueryThreatIntelligenceIndicatorsAsync(string workspaceName, ThreatIntelligenceFilteringCriteria threatIntelligenceFilteringCriteria, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<ThreatIntelligenceInformation> QueryIndicatorsThreatIntelligenceIndicatorsAsync(string workspaceName, ThreatIntelligenceFilteringCriteria threatIntelligenceFilteringCriteria, CancellationToken cancellationToken = default)
         {
             async Task<Page<ThreatIntelligenceInformation>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.QueryThreatIntelligenceIndicators");
+                using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.QueryIndicatorsThreatIntelligenceIndicators");
                 scope.Start();
                 try
                 {
-                    var response = await ThreatIntelligenceIndicatorRestClient.QueryAsync(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, threatIntelligenceFilteringCriteria, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    var response = await ThreatIntelligenceIndicatorRestClient.QueryIndicatorsAsync(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, threatIntelligenceFilteringCriteria, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return Page.FromValues(response.Value.Value, response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -458,11 +462,11 @@ namespace Azure.ResourceManager.SecurityInsights
             }
             async Task<Page<ThreatIntelligenceInformation>> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.QueryThreatIntelligenceIndicators");
+                using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.QueryIndicatorsThreatIntelligenceIndicators");
                 scope.Start();
                 try
                 {
-                    var response = await ThreatIntelligenceIndicatorRestClient.QueryNextPageAsync(nextLink, Id.SubscriptionId, Id.ResourceGroupName, workspaceName, threatIntelligenceFilteringCriteria, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    var response = await ThreatIntelligenceIndicatorRestClient.QueryIndicatorsNextPageAsync(nextLink, Id.SubscriptionId, Id.ResourceGroupName, workspaceName, threatIntelligenceFilteringCriteria, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return Page.FromValues(response.Value.Value, response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -477,21 +481,21 @@ namespace Azure.ResourceManager.SecurityInsights
         /// <summary>
         /// Query threat intelligence indicators as per filtering criteria.
         /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/queryIndicators
-        /// Operation Id: ThreatIntelligenceIndicators_Query
+        /// Operation Id: ThreatIntelligenceIndicator_QueryIndicators
         /// </summary>
         /// <param name="workspaceName"> The name of the workspace. </param>
         /// <param name="threatIntelligenceFilteringCriteria"> Filtering criteria for querying threat intelligence indicators. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="ThreatIntelligenceInformation" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<ThreatIntelligenceInformation> QueryThreatIntelligenceIndicators(string workspaceName, ThreatIntelligenceFilteringCriteria threatIntelligenceFilteringCriteria, CancellationToken cancellationToken = default)
+        public virtual Pageable<ThreatIntelligenceInformation> QueryIndicatorsThreatIntelligenceIndicators(string workspaceName, ThreatIntelligenceFilteringCriteria threatIntelligenceFilteringCriteria, CancellationToken cancellationToken = default)
         {
             Page<ThreatIntelligenceInformation> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.QueryThreatIntelligenceIndicators");
+                using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.QueryIndicatorsThreatIntelligenceIndicators");
                 scope.Start();
                 try
                 {
-                    var response = ThreatIntelligenceIndicatorRestClient.Query(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, threatIntelligenceFilteringCriteria, cancellationToken: cancellationToken);
+                    var response = ThreatIntelligenceIndicatorRestClient.QueryIndicators(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, threatIntelligenceFilteringCriteria, cancellationToken: cancellationToken);
                     return Page.FromValues(response.Value.Value, response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -502,11 +506,11 @@ namespace Azure.ResourceManager.SecurityInsights
             }
             Page<ThreatIntelligenceInformation> NextPageFunc(string nextLink, int? pageSizeHint)
             {
-                using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.QueryThreatIntelligenceIndicators");
+                using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.QueryIndicatorsThreatIntelligenceIndicators");
                 scope.Start();
                 try
                 {
-                    var response = ThreatIntelligenceIndicatorRestClient.QueryNextPage(nextLink, Id.SubscriptionId, Id.ResourceGroupName, workspaceName, threatIntelligenceFilteringCriteria, cancellationToken: cancellationToken);
+                    var response = ThreatIntelligenceIndicatorRestClient.QueryIndicatorsNextPage(nextLink, Id.SubscriptionId, Id.ResourceGroupName, workspaceName, threatIntelligenceFilteringCriteria, cancellationToken: cancellationToken);
                     return Page.FromValues(response.Value.Value, response.Value.NextLink, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -521,20 +525,20 @@ namespace Azure.ResourceManager.SecurityInsights
         /// <summary>
         /// Get threat intelligence indicators metrics (Indicators counts by Type, Threat Type, Source).
         /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/metrics
-        /// Operation Id: ThreatIntelligenceIndicators_ListMetrics
+        /// Operation Id: ThreatIntelligenceIndicatorMetrics_List
         /// </summary>
         /// <param name="workspaceName"> The name of the workspace. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> An async collection of <see cref="ThreatIntelligenceMetrics" /> that may take multiple service requests to iterate over. </returns>
-        public virtual AsyncPageable<ThreatIntelligenceMetrics> GetMetricsThreatIntelligenceIndicatorsAsync(string workspaceName, CancellationToken cancellationToken = default)
+        public virtual AsyncPageable<ThreatIntelligenceMetrics> GetThreatIntelligenceIndicatorMetricsAsync(string workspaceName, CancellationToken cancellationToken = default)
         {
             async Task<Page<ThreatIntelligenceMetrics>> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.GetMetricsThreatIntelligenceIndicators");
+                using var scope = ThreatIntelligenceIndicatorMetricsClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.GetThreatIntelligenceIndicatorMetrics");
                 scope.Start();
                 try
                 {
-                    var response = await ThreatIntelligenceIndicatorRestClient.ListMetricsAsync(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, cancellationToken: cancellationToken).ConfigureAwait(false);
+                    var response = await ThreatIntelligenceIndicatorMetricsRestClient.ListAsync(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, cancellationToken: cancellationToken).ConfigureAwait(false);
                     return Page.FromValues(response.Value.Value, null, response.GetRawResponse());
                 }
                 catch (Exception e)
@@ -549,20 +553,20 @@ namespace Azure.ResourceManager.SecurityInsights
         /// <summary>
         /// Get threat intelligence indicators metrics (Indicators counts by Type, Threat Type, Source).
         /// Request Path: /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/Microsoft.OperationalInsights/workspaces/{workspaceName}/providers/Microsoft.SecurityInsights/threatIntelligence/main/metrics
-        /// Operation Id: ThreatIntelligenceIndicators_ListMetrics
+        /// Operation Id: ThreatIntelligenceIndicatorMetrics_List
         /// </summary>
         /// <param name="workspaceName"> The name of the workspace. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         /// <returns> A collection of <see cref="ThreatIntelligenceMetrics" /> that may take multiple service requests to iterate over. </returns>
-        public virtual Pageable<ThreatIntelligenceMetrics> GetMetricsThreatIntelligenceIndicators(string workspaceName, CancellationToken cancellationToken = default)
+        public virtual Pageable<ThreatIntelligenceMetrics> GetThreatIntelligenceIndicatorMetrics(string workspaceName, CancellationToken cancellationToken = default)
         {
             Page<ThreatIntelligenceMetrics> FirstPageFunc(int? pageSizeHint)
             {
-                using var scope = ThreatIntelligenceIndicatorClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.GetMetricsThreatIntelligenceIndicators");
+                using var scope = ThreatIntelligenceIndicatorMetricsClientDiagnostics.CreateScope("ResourceGroupResourceExtensionClient.GetThreatIntelligenceIndicatorMetrics");
                 scope.Start();
                 try
                 {
-                    var response = ThreatIntelligenceIndicatorRestClient.ListMetrics(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, cancellationToken: cancellationToken);
+                    var response = ThreatIntelligenceIndicatorMetricsRestClient.List(Id.SubscriptionId, Id.ResourceGroupName, workspaceName, cancellationToken: cancellationToken);
                     return Page.FromValues(response.Value.Value, null, response.GetRawResponse());
                 }
                 catch (Exception e)
