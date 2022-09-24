@@ -15,7 +15,7 @@ using Azure.ResourceManager.Resources;
 
 namespace Azure.ResourceManager.ApiManagement
 {
-    /// <summary> TODO. </summary>
+    /// <summary> This is the base client representation of the following resources <see "cref"="ApiIssueResource" /> ... </summary>
     public abstract partial class IssueContractResource : ArmResource
     {
         internal static IssueContractResource GetResource(ArmClient client, IssueContractData data)
@@ -104,27 +104,9 @@ namespace Azure.ResourceManager.ApiManagement
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         protected abstract Task<Response<IssueContractResource>> GetCoreAsync(bool? expandCommentsAttachments = null, CancellationToken cancellationToken = default);
 
-        /// <summary> The default implementation for operation Get. </summary>
-        /// <param name="expandCommentsAttachments"> Expand the comment attachments. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        [ForwardsClientCalls]
-        public async Task<Response<IssueContractResource>> GetAsync(bool? expandCommentsAttachments = null, CancellationToken cancellationToken = default)
-        {
-            return await GetCoreAsync(expandCommentsAttachments, cancellationToken).ConfigureAwait(false);
-        }
-
         /// <summary> The core implementation for operation Get. </summary>
         /// <param name="expandCommentsAttachments"> Expand the comment attachments. </param>
         /// <param name="cancellationToken"> The cancellation token to use. </param>
         protected abstract Response<IssueContractResource> GetCore(bool? expandCommentsAttachments = null, CancellationToken cancellationToken = default);
-
-        /// <summary> The default implementation for operation Get. </summary>
-        /// <param name="expandCommentsAttachments"> Expand the comment attachments. </param>
-        /// <param name="cancellationToken"> The cancellation token to use. </param>
-        [ForwardsClientCalls]
-        public Response<IssueContractResource> Get(bool? expandCommentsAttachments = null, CancellationToken cancellationToken = default)
-        {
-            return GetCore(expandCommentsAttachments, cancellationToken);
-        }
     }
 }
