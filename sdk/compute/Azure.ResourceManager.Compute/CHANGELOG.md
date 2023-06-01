@@ -1,6 +1,6 @@
 # Release History
 
-## 1.2.0-beta.1 (Unreleased)
+## 1.2.0-beta.1 (2023-06-01)
 
 ### Features Added
 
@@ -21,8 +21,6 @@
 ### Breaking Changes
 
 - Class `VirtualMachineScaleSetNetworkConfiguration` and `VirtualMachineScaleSetIPConfiguration` no longer have the property `Id`
-
-### Bugs Fixed
 
 ### Other Changes
 
