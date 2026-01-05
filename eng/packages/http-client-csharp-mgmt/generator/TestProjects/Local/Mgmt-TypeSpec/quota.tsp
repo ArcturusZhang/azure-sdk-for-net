@@ -31,7 +31,8 @@ interface GroupQuotaSubscriptionRequestStatuses {
    */
   get is Extension.Read<
     Extension.ManagementGroup<"managementGroupId">,
-    GroupQuotaSubscriptionRequestStatus
+    GroupQuotaSubscriptionRequestStatus,
+    OverrideResourceName = "GroupQuotaSubscriptionRequestStatus"
   >;
 }
 
@@ -170,7 +171,8 @@ alias GroupQuotaLimitListsOps = Azure.ResourceManager.Legacy.ExtensionOperations
     @minLength(1)
     @segment("groupQuotaLimits")
     location: Azure.Core.azureLocation;
-  }
+  },
+  ResourceName = "GroupQuotaLimitList"
 >;
 
 @armResourceOperations
@@ -236,65 +238,65 @@ model SubscriptionQuotaAllocationsListProperties {
   nextLink?: string;
 }
 
-alias SubscriptionQuotaAllocationsListsOps = Azure.ResourceManager.Legacy.ExtensionOperations<
-  {
-    ...ApiVersionParameter;
+// alias SubscriptionQuotaAllocationsListsOps = Azure.ResourceManager.Legacy.ExtensionOperations<
+//   {
+//     ...ApiVersionParameter;
 
-    /** the provider namespace */
-    @path
-    @segment("providers")
-    @key
-    providerNamespace: "Microsoft.Management";
+//     /** the provider namespace */
+//     @path
+//     @segment("providers")
+//     @key
+//     providerNamespace: "Microsoft.Management";
 
-    /**
-     * The management group ID.
-     */
-    @path
-    @segment("managementGroups")
-    @minLength(3)
-    @maxLength(63)
-    managementGroupId: string;
+//     /**
+//      * The management group ID.
+//      */
+//     @path
+//     @segment("managementGroups")
+//     @minLength(3)
+//     @maxLength(63)
+//     managementGroupId: string;
 
-    ...SubscriptionIdParameter;
-  },
-  {
-    ...Extension.ExtensionProviderNamespace<SubscriptionQuotaAllocationsList>;
-  },
-  {
-    ...Extension.ExtensionProviderNamespace<SubscriptionQuotaAllocationsList>;
+//     ...SubscriptionIdParameter;
+//   },
+//   {
+//     ...Extension.ExtensionProviderNamespace<SubscriptionQuotaAllocationsList>;
+//   },
+//   {
+//     ...Extension.ExtensionProviderNamespace<SubscriptionQuotaAllocationsList>;
 
-    /**
-     * The GroupQuota name. The name should be unique for the provided context tenantId/MgId.
-     */
-    @path
-    @segment("groupQuotas")
-    @minLength(3)
-    @maxLength(63)
-    @pattern("^[a-z][a-z0-9]*$")
-    groupQuotaName: string;
+//     /**
+//      * The GroupQuota name. The name should be unique for the provided context tenantId/MgId.
+//      */
+//     @path
+//     @segment("groupQuotas")
+//     @minLength(3)
+//     @maxLength(63)
+//     @pattern("^[a-z][a-z0-9]*$")
+//     groupQuotaName: string;
 
-    /**
-     * The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource provider supports this API.
-     */
-    @path
-    @segment("resourceProviders")
-    @pattern("^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\\.)+[a-zA-Z]{2,63}$")
-    resourceProviderName: string;
+//     /**
+//      * The resource provider name, such as - Microsoft.Compute. Currently only Microsoft.Compute resource provider supports this API.
+//      */
+//     @path
+//     @segment("resourceProviders")
+//     @pattern("^((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\\.)+[a-zA-Z]{2,63}$")
+//     resourceProviderName: string;
 
-    /**
-     * The name of the Azure region.
-     */
-    @path
-    @segment("quotaAllocations")
-    @minLength(1)
-    location: Azure.Core.azureLocation;
-  }
->;
+//     /**
+//      * The name of the Azure region.
+//      */
+//     @path
+//     @segment("quotaAllocations")
+//     @minLength(1)
+//     location: Azure.Core.azureLocation;
+//   }
+// >;
 
-@armResourceOperations
-interface SubscriptionQuotaAllocationsLists {
-  /**
-   * Gets all the quota allocated to a subscription for the specified resource provider and location for resource names passed in $filter=resourceName eq {SKU}. This will include the GroupQuota and total quota allocated to the subscription. Only the Group quota allocated to the subscription can be allocated back to the MG Group Quota.
-   */
-  get is SubscriptionQuotaAllocationsListsOps.Read<SubscriptionQuotaAllocationsList>;
-}
+// @armResourceOperations
+// interface SubscriptionQuotaAllocationsLists {
+//   /**
+//    * Gets all the quota allocated to a subscription for the specified resource provider and location for resource names passed in $filter=resourceName eq {SKU}. This will include the GroupQuota and total quota allocated to the subscription. Only the Group quota allocated to the subscription can be allocated back to the MG Group Quota.
+//    */
+//   get is SubscriptionQuotaAllocationsListsOps.Read<SubscriptionQuotaAllocationsList>;
+// }

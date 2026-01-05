@@ -42,7 +42,7 @@ interface Bars {
   update is ArmCustomPatchSync<Bar, Bar>;
 }
 
-@singleton("current")
+@singleton//("current")
 @parentResource(Bar)
 model BarSettingsResource is ProxyResource<BarSettingsProperties> {
   ...ResourceNameParameter<BarSettingsResource, SegmentName = "settings">;
@@ -121,7 +121,7 @@ union QuotaName {
 @armResourceOperations
 interface BarSettingsOperations {
   createOrUpdate is ArmResourceCreateOrUpdateAsync<BarSettingsResource>;
-  
+
   get is ArmResourceRead<BarSettingsResource>;
 }
 

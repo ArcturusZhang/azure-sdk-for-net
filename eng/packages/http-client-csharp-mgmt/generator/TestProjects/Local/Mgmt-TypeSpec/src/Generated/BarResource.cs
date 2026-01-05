@@ -754,7 +754,7 @@ namespace Azure.Generator.MgmtTypeSpec.Tests
         /// <returns> Returns a <see cref="BarSettingsResource"/> object. </returns>
         public virtual BarSettingsResource GetBarSettingsResource()
         {
-            return new BarSettingsResource(Client, Id.AppendChildResource("settings", "current"));
+            return new BarSettingsResource(Client, Id.AppendChildResource("settings", "default"));
         }
 
         /// <summary> Gets a collection of BarQuotaResources in the <see cref="BarResource"/>. </summary>

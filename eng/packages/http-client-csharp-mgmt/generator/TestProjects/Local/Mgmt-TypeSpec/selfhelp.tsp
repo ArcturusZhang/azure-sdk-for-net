@@ -27,7 +27,7 @@ model SelfHelpResourceProperties {
 #suppress "@azure-tools/typespec-azure-resource-manager/no-resource-delete-operation" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
 @armResourceOperations
 interface SolutionResources {
-  get is Extension.Read<Extension.ScopeParameter, SelfHelpResource>;
+  get is Extension.Read<Extension.ScopeParameter, SelfHelpResource, OverrideResourceName = "SelfHelpResource">;
 }
 
 #suppress "@azure-tools/typespec-azure-resource-manager/arm-resource-interface-requires-decorator" "FIXME: Update justification, follow aka.ms/tsp/conversion-fix for details"
