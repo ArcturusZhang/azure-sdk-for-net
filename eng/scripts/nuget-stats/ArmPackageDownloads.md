@@ -1,6 +1,6 @@
 # Azure.ResourceManager.* NuGet Package Downloads
 
-> Auto-generated on **2026-04-10 08:11 UTC**
+> Auto-generated on **2026-04-17 12:26 UTC**
 > Source: [NuGet.org](https://www.nuget.org/)
 
 | # | Package | Version (Stable / Latest) | Total Downloads | Provisioning Library | Prov. Version (Stable / Latest) |
@@ -13,7 +13,7 @@
 | 6 | [Azure.ResourceManager.AppService](https://www.nuget.org/packages/Azure.ResourceManager.AppService) | 1.4.1 | 5,134,338 | [Azure.Provisioning.AppService](https://www.nuget.org/packages/Azure.Provisioning.AppService) | 1.3.1 / 1.4.0-beta.2 |
 | 7 | [Azure.ResourceManager.Sql](https://www.nuget.org/packages/Azure.ResourceManager.Sql) | 1.4.0 | 5,043,319 | [Azure.Provisioning.Sql](https://www.nuget.org/packages/Azure.Provisioning.Sql) | 1.1.0 / 1.2.0-beta.1 |
 | 8 | [Azure.ResourceManager.Compute](https://www.nuget.org/packages/Azure.ResourceManager.Compute) | 1.14.0 | 4,921,432 | [Azure.Provisioning.Compute](https://www.nuget.org/packages/Azure.Provisioning.Compute) | — / 1.0.0-beta.1 |
-| 9 | [Azure.ResourceManager.Network](https://www.nuget.org/packages/Azure.ResourceManager.Network) | 1.15.0 | 4,799,610 | [Azure.Provisioning.Network](https://www.nuget.org/packages/Azure.Provisioning.Network) | 1.0.0 / 1.1.0-beta.2 |
+| 9 | [Azure.ResourceManager.Network](https://www.nuget.org/packages/Azure.ResourceManager.Network) | 1.15.0 | 4,799,610 | [Azure.Provisioning.Network](https://www.nuget.org/packages/Azure.Provisioning.Network) | 1.1.0 |
 | 10 | [Azure.ResourceManager.ServiceBus](https://www.nuget.org/packages/Azure.ResourceManager.ServiceBus) | 1.1.0 / 1.2.0-beta.1 | 4,245,169 | [Azure.Provisioning.ServiceBus](https://www.nuget.org/packages/Azure.Provisioning.ServiceBus) | 1.1.0 |
 | 11 | [Azure.ResourceManager.CosmosDB](https://www.nuget.org/packages/Azure.ResourceManager.CosmosDB) | 1.4.0 | 4,075,304 | [Azure.Provisioning.CosmosDB](https://www.nuget.org/packages/Azure.Provisioning.CosmosDB) | 1.0.0 / 1.1.0-beta.1 |
 | 12 | [Azure.ResourceManager.ContainerService](https://www.nuget.org/packages/Azure.ResourceManager.ContainerService) | 1.4.0 / 1.5.0-beta.1 | 2,630,338 | [Azure.Provisioning.ContainerService](https://www.nuget.org/packages/Azure.Provisioning.ContainerService) | — / 1.0.0-beta.6 |
@@ -25,8 +25,8 @@
 | 18 | [Azure.ResourceManager.EventHubs](https://www.nuget.org/packages/Azure.ResourceManager.EventHubs) | 1.2.1 / 1.3.0-beta.1 | 1,902,568 | [Azure.Provisioning.EventHubs](https://www.nuget.org/packages/Azure.Provisioning.EventHubs) | 1.1.0 |
 | 19 | [Azure.ResourceManager.ApiManagement](https://www.nuget.org/packages/Azure.ResourceManager.ApiManagement) | 1.3.0 | 1,839,848 | [Azure.Provisioning.ApiManagement](https://www.nuget.org/packages/Azure.Provisioning.ApiManagement) | — / 1.0.0-beta.1 |
 | 20 | [Azure.ResourceManager.Monitor](https://www.nuget.org/packages/Azure.ResourceManager.Monitor) | 1.3.1 / 1.4.0-beta.4 | 1,799,711 | [Azure.Provisioning.Monitor](https://www.nuget.org/packages/Azure.Provisioning.Monitor) | — / 1.0.0-beta.1 |
-| 21 | [Azure.ResourceManager.ResourceGraph](https://www.nuget.org/packages/Azure.ResourceManager.ResourceGraph) | 1.1.0 | 1,794,268 | — | — |
-| 22 | [Azure.ResourceManager.Dns](https://www.nuget.org/packages/Azure.ResourceManager.Dns) | 1.1.1 / 1.2.0-beta.2 | 1,730,966 | [Azure.Provisioning.Dns](https://www.nuget.org/packages/Azure.Provisioning.Dns) | — / 1.0.0-beta.2 |
+| 21 | [Azure.ResourceManager.ResourceGraph](https://www.nuget.org/packages/Azure.ResourceManager.ResourceGraph) | 1.1.0 | 1,794,268 | [Azure.Provisioning.ResourceGraph](https://www.nuget.org/packages/Azure.Provisioning.ResourceGraph) | — / 1.0.0-beta.1 |
+| 22 | [Azure.ResourceManager.Dns](https://www.nuget.org/packages/Azure.ResourceManager.Dns) | 1.1.1 / 1.2.0-beta.3 | 1,730,966 | [Azure.Provisioning.Dns](https://www.nuget.org/packages/Azure.Provisioning.Dns) | — / 1.0.0-beta.2 |
 | 23 | [Azure.ResourceManager.Cdn](https://www.nuget.org/packages/Azure.ResourceManager.Cdn) | 1.5.1 | 1,723,369 | [Azure.Provisioning.Cdn](https://www.nuget.org/packages/Azure.Provisioning.Cdn) | — / 1.0.0-beta.1 |
 | 24 | [Azure.ResourceManager.CognitiveServices](https://www.nuget.org/packages/Azure.ResourceManager.CognitiveServices) | 1.5.2 | 1,596,641 | [Azure.Provisioning.CognitiveServices](https://www.nuget.org/packages/Azure.Provisioning.CognitiveServices) | 1.2.0 |
 | 25 | [Azure.ResourceManager.Kusto](https://www.nuget.org/packages/Azure.ResourceManager.Kusto) | 1.6.2 | 1,309,883 | [Azure.Provisioning.Kusto](https://www.nuget.org/packages/Azure.Provisioning.Kusto) | — / 1.0.0-beta.2 |
@@ -146,7 +146,7 @@
 | 139 | [Azure.ResourceManager.DeploymentManager](https://www.nuget.org/packages/Azure.ResourceManager.DeploymentManager) | — / 1.0.0-beta.3 | 45,044 | — | — |
 | 140 | [Azure.ResourceManager.HybridCompute](https://www.nuget.org/packages/Azure.ResourceManager.HybridCompute) | 1.0.0 / 1.1.0-beta.1 | 43,274 | — | — |
 | 141 | [Azure.ResourceManager.IotFirmwareDefense](https://www.nuget.org/packages/Azure.ResourceManager.IotFirmwareDefense) | 1.1.0 | 40,662 | — | — |
-| 142 | [Azure.ResourceManager.ContainerServiceFleet](https://www.nuget.org/packages/Azure.ResourceManager.ContainerServiceFleet) | 1.1.0 / 1.2.0-beta.2 | 35,491 | — | — |
+| 142 | [Azure.ResourceManager.ContainerServiceFleet](https://www.nuget.org/packages/Azure.ResourceManager.ContainerServiceFleet) | 1.1.0 / 1.2.0-beta.3 | 35,491 | — | — |
 | 143 | [Azure.ResourceManager.PowerBIDedicated](https://www.nuget.org/packages/Azure.ResourceManager.PowerBIDedicated) | — / 1.0.0-beta.5 | 35,001 | — | — |
 | 144 | [Azure.ResourceManager.AppComplianceAutomation](https://www.nuget.org/packages/Azure.ResourceManager.AppComplianceAutomation) | 1.0.1 | 34,674 | — | — |
 | 145 | [Azure.ResourceManager.Sphere](https://www.nuget.org/packages/Azure.ResourceManager.Sphere) | 1.0.1 | 33,262 | — | — |
