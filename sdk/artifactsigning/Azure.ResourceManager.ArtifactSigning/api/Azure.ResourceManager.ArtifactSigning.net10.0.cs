@@ -88,7 +88,7 @@ namespace Azure.ResourceManager.ArtifactSigning
         public bool? IncludePostalCode { get { throw null; } set { } }
         public bool? IncludeState { get { throw null; } set { } }
         public bool? IncludeStreetAddress { get { throw null; } set { } }
-        public Azure.ResourceManager.ArtifactSigning.Models.CertificateProfileType ProfileType { get { throw null; } set { } }
+        public Azure.ResourceManager.ArtifactSigning.Models.CertificateProfileType? ProfileType { get { throw null; } set { } }
         public Azure.ResourceManager.ArtifactSigning.Models.ArtifactSigningProvisioningState? ProvisioningState { get { throw null; } }
         public Azure.ResourceManager.ArtifactSigning.Models.CertificateProfileStatus? Status { get { throw null; } }
         protected virtual Azure.ResourceManager.Models.ResourceData JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }

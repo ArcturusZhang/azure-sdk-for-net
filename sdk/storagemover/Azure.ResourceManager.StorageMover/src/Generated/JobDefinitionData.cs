@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.StorageMover
                 {
                     Properties = new JobDefinitionProperties();
                 }
-                Properties.JobType = value.Value;
+                Properties.JobType = value;
             }
         }
 
@@ -273,7 +273,7 @@ namespace Azure.ResourceManager.StorageMover
                 {
                     Properties = new JobDefinitionProperties();
                 }
-                Properties.DataIntegrityValidation = value.Value;
+                Properties.DataIntegrityValidation = value;
             }
         }
 

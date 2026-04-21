@@ -147,7 +147,7 @@ namespace Azure.ResourceManager.Hci.Vm.Models
             subnets ??= new ChangeTrackingList<HciVmNetworkingSubnet>();
 
             return new HciVmLogicalNetworkProperties(
-                dhcpOptionsDnsServers is null ? default : new HciVmLogicalNetworkDhcpOptions((dhcpOptionsDnsServers ?? new ChangeTrackingList<string>()).ToList(), null),
+                new HciVmLogicalNetworkDhcpOptions((dhcpOptionsDnsServers ?? new ChangeTrackingList<string>()).ToList(), null),
                 fabricNetworkResourceId is null ? default : new ManagedNetworkFabricArmReference(fabricNetworkResourceId, null),
                 subnets.ToList(),
                 provisioningState,
@@ -164,7 +164,7 @@ namespace Azure.ResourceManager.Hci.Vm.Models
         /// <returns> A new <see cref="Models.HciVmNetworkingRouteTable"/> instance for mocking. </returns>
         public static HciVmNetworkingRouteTable HciVmNetworkingRouteTable(string etag = default, string name = default, string @type = default, IEnumerable<HciVmNetworkingRoute> routes = default)
         {
-            return new HciVmNetworkingRouteTable(etag, name, @type, routes is null ? default : new RouteTableProperties((routes ?? new ChangeTrackingList<HciVmNetworkingRoute>()).ToList(), null), additionalBinaryDataProperties: null);
+            return new HciVmNetworkingRouteTable(etag, name, @type, new RouteTableProperties((routes ?? new ChangeTrackingList<HciVmNetworkingRoute>()).ToList(), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> IP Pool info. </summary>
@@ -372,7 +372,7 @@ namespace Azure.ResourceManager.Hci.Vm.Models
             return new HciVmNetworkInterfaceProperties(
                 ipConfigurations.ToList(),
                 macAddress,
-                dnsServers is null ? default : new HciVmInterfaceDnsSettings((dnsServers ?? new ChangeTrackingList<string>()).ToList(), null),
+                new HciVmInterfaceDnsSettings((dnsServers ?? new ChangeTrackingList<string>()).ToList(), null),
                 createFromLocal,
                 provisioningState,
                 status,
@@ -813,7 +813,7 @@ namespace Azure.ResourceManager.Hci.Vm.Models
             return new HciVmInstanceProperties(
                 hardwareProfile,
                 placementProfile,
-                networkInterfaces is null ? default : new VirtualMachineInstancePropertiesNetworkProfile((networkInterfaces ?? new ChangeTrackingList<HciVmNetworkInterfaceArmReference>()).ToList(), null),
+                new VirtualMachineInstancePropertiesNetworkProfile((networkInterfaces ?? new ChangeTrackingList<HciVmNetworkInterfaceArmReference>()).ToList(), null),
                 osProfile,
                 securityProfile,
                 storageProfile,
@@ -1096,7 +1096,7 @@ namespace Azure.ResourceManager.Hci.Vm.Models
         /// <returns> A new <see cref="Models.HciVmVirtualNetworkProperties"/> instance for mocking. </returns>
         public static HciVmVirtualNetworkProperties HciVmVirtualNetworkProperties(IEnumerable<string> addressPrefixes = default, IEnumerable<string> dhcpOptionsDnsServers = default, HciVmProvisioningState? provisioningState = default, HciVmVirtualNetworkStatus status = default)
         {
-            return new HciVmVirtualNetworkProperties(addressPrefixes is null ? default : new HciVmVirtualNetworkAddressSpace((addressPrefixes ?? new ChangeTrackingList<string>()).ToList(), null), dhcpOptionsDnsServers is null ? default : new HciVmVirtualNetworkDhcpOptions((dhcpOptionsDnsServers ?? new ChangeTrackingList<string>()).ToList(), null), provisioningState, status, additionalBinaryDataProperties: null);
+            return new HciVmVirtualNetworkProperties(new HciVmVirtualNetworkAddressSpace((addressPrefixes ?? new ChangeTrackingList<string>()).ToList(), null), new HciVmVirtualNetworkDhcpOptions((dhcpOptionsDnsServers ?? new ChangeTrackingList<string>()).ToList(), null), provisioningState, status, additionalBinaryDataProperties: null);
         }
 
         /// <summary> The type used for updating tags in VirtualNetwork resources. </summary>

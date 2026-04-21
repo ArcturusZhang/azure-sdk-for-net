@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.ServiceBus.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                rights is null ? default : new SBAuthorizationRuleProperties((rights ?? new ChangeTrackingList<ServiceBusAccessRight>()).ToList(), null),
+                new SBAuthorizationRuleProperties((rights ?? new ChangeTrackingList<ServiceBusAccessRight>()).ToList(), null),
                 location);
         }
 
@@ -299,7 +299,7 @@ namespace Azure.ResourceManager.ServiceBus.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && provisioningIssues is null && networkSecurityPerimeter is null && resourceAssociation is null && profile is null && isBackingResource is null && applicableFeatures is null && parentAssociationName is null && sourceResourceId is null ? default : new NetworkSecurityPerimeterConfigurationProperties(
+                provisioningState is null && networkSecurityPerimeter is null && resourceAssociation is null && profile is null && isBackingResource is null && parentAssociationName is null && sourceResourceId is null ? default : new NetworkSecurityPerimeterConfigurationProperties(
                     provisioningState,
                     (provisioningIssues ?? new ChangeTrackingList<ServiceBusNspConfigurationProvisioningIssue>()).ToList(),
                     networkSecurityPerimeter,
@@ -423,7 +423,7 @@ namespace Azure.ResourceManager.ServiceBus.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && pendingReplicationOperationsCount is null && targetServiceBusNamespace is null && postMigrationName is null && migrationState is null ? default : new MigrationConfigPropertiesProperties(
+                provisioningState is null && pendingReplicationOperationsCount is null && migrationState is null ? default : new MigrationConfigPropertiesProperties(
                     provisioningState,
                     pendingReplicationOperationsCount,
                     targetServiceBusNamespace,
@@ -522,7 +522,7 @@ namespace Azure.ResourceManager.ServiceBus.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                minimumTlsVersion is null && provisioningState is null && status is null && createdOn is null && updatedOn is null && serviceBusEndpoint is null && metricId is null && isZoneRedundant is null && encryption is null && privateEndpointConnections is null && disableLocalAuth is null && alternateName is null && publicNetworkAccess is null && premiumMessagingPartitions is null && geoDataReplication is null && platformCapabilitiesConfidentialComputeMode is null ? default : new SBNamespaceProperties(
+                minimumTlsVersion is null && provisioningState is null && status is null && createdOn is null && updatedOn is null && serviceBusEndpoint is null && metricId is null && isZoneRedundant is null && encryption is null && disableLocalAuth is null && alternateName is null && publicNetworkAccess is null && premiumMessagingPartitions is null && geoDataReplication is null && platformCapabilitiesConfidentialComputeMode is null ? default : new SBNamespaceProperties(
                     minimumTlsVersion,
                     provisioningState,
                     status,
@@ -598,7 +598,7 @@ namespace Azure.ResourceManager.ServiceBus.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                provisioningState is null && status is null && createdOn is null && updatedOn is null && serviceBusEndpoint is null && metricId is null && encryption is null && privateEndpointConnections is null && disableLocalAuth is null && alternateName is null ? default : new SBNamespaceUpdateProperties(
+                provisioningState is null && status is null && createdOn is null && updatedOn is null && serviceBusEndpoint is null && metricId is null && encryption is null && disableLocalAuth is null && alternateName is null ? default : new SBNamespaceUpdateProperties(
                     provisioningState,
                     status,
                     createdOn,
@@ -633,7 +633,7 @@ namespace Azure.ResourceManager.ServiceBus.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                isTrustedServiceAccessEnabled is null && defaultAction is null && virtualNetworkRules is null && ipRules is null && publicNetworkAccess is null ? default : new NetworkRuleSetProperties(
+                isTrustedServiceAccessEnabled is null && defaultAction is null && publicNetworkAccess is null ? default : new NetworkRuleSetProperties(
                     isTrustedServiceAccessEnabled,
                     defaultAction,
                     (virtualNetworkRules ?? new ChangeTrackingList<ServiceBusNetworkRuleSetVirtualNetworkRules>()).ToList(),
@@ -659,7 +659,7 @@ namespace Azure.ResourceManager.ServiceBus.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupId is null && requiredMembers is null && requiredZoneNames is null ? default : new ServiceBusPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
+                groupId is null ? default : new ServiceBusPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>

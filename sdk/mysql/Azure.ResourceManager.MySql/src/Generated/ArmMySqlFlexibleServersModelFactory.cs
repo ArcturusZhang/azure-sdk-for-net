@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                administratorLogin is null && administratorLoginPassword is null && version is null && fullVersion is null && availabilityZone is null && createMode is null && sourceServerResourceId is null && restorePointInOn is null && replicationRole is null && replicaCapacity is null && dataEncryption is null && state is null && fullyQualifiedDomainName is null && databasePort is null && storage is null && backup is null && highAvailability is null && network is null && serverPrivateEndpointConnections is null && maintenanceWindow is null && importSourceProperties is null && maintenancePatchStrategy is null ? default : new ServerProperties(
+                administratorLogin is null && administratorLoginPassword is null && version is null && fullVersion is null && availabilityZone is null && createMode is null && sourceServerResourceId is null && restorePointInOn is null && replicationRole is null && replicaCapacity is null && dataEncryption is null && state is null && fullyQualifiedDomainName is null && databasePort is null && storage is null && backup is null && highAvailability is null && network is null && maintenanceWindow is null && importSourceProperties is null && maintenancePatchStrategy is null ? default : new ServerProperties(
                     administratorLogin,
                     administratorLoginPassword,
                     version,
@@ -177,7 +177,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupIds is null && privateLinkServiceConnectionState is null && provisioningState is null && privateEndpointId is null ? default : new PrivateEndpointConnectionProperties((groupIds ?? new ChangeTrackingList<string>()).ToList(), new PrivateEndpoint(privateEndpointId, null), privateLinkServiceConnectionState, provisioningState, null));
+                provisioningState is null && privateEndpointId is null ? default : new PrivateEndpointConnectionProperties((groupIds ?? new ChangeTrackingList<string>()).ToList(), new PrivateEndpoint(privateEndpointId, null), privateLinkServiceConnectionState, provisioningState, null));
         }
 
         /// <param name="identity"> The cmk identity for the server. </param>
@@ -461,7 +461,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                startIPAddress is null && endIPAddress is null ? default : new FirewallRuleProperties(startIPAddress, endIPAddress, null));
+                new FirewallRuleProperties(startIPAddress, endIPAddress, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -500,7 +500,7 @@ namespace Azure.ResourceManager.MySql.FlexibleServers.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                supportedGeoBackupRegions is null && supportedFlexibleServerEditions is null && supportedServerVersions is null && supportedFeatures is null ? default : new CapabilityPropertiesV2((supportedGeoBackupRegions ?? new ChangeTrackingList<string>()).ToList(), (supportedFlexibleServerEditions ?? new ChangeTrackingList<ServerEditionCapabilityV2>()).ToList(), (supportedServerVersions ?? new ChangeTrackingList<ServerVersionCapabilityV2>()).ToList(), (supportedFeatures ?? new ChangeTrackingList<MySqlFlexibleServerFeatureProperty>()).ToList(), null));
+                new CapabilityPropertiesV2((supportedGeoBackupRegions ?? new ChangeTrackingList<string>()).ToList(), (supportedFlexibleServerEditions ?? new ChangeTrackingList<ServerEditionCapabilityV2>()).ToList(), (supportedServerVersions ?? new ChangeTrackingList<ServerVersionCapabilityV2>()).ToList(), (supportedFeatures ?? new ChangeTrackingList<MySqlFlexibleServerFeatureProperty>()).ToList(), null));
         }
 
         /// <summary> Server edition capabilities. </summary>

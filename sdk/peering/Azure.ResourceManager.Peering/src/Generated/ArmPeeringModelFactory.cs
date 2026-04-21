@@ -39,7 +39,7 @@ namespace Azure.ResourceManager.Peering.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                peerAsn is null && peerContactDetail is null && peerName is null && validationState is null && errorMessage is null ? default : new PeerAsnProperties(
+                peerAsn is null && peerName is null && validationState is null && errorMessage is null ? default : new PeerAsnProperties(
                     peerAsn,
                     (peerContactDetail ?? new ChangeTrackingList<PeerAsnContactDetail>()).ToList(),
                     peerName,
@@ -74,7 +74,7 @@ namespace Azure.ResourceManager.Peering.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                direct is null && exchange is null && connectivityProbes is null && peeringLocation is null && provisioningState is null ? default : new PeeringProperties(
+                direct is null && exchange is null && peeringLocation is null && provisioningState is null ? default : new PeeringProperties(
                     direct,
                     exchange,
                     (connectivityProbes ?? new ChangeTrackingList<PeeringConnectivityProbe>()).ToList(),
@@ -247,7 +247,7 @@ namespace Azure.ResourceManager.Peering.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                sourceAgent is null && destination is null && destinationPort is null && testFrequencyInSec is null && isTestSuccessful is null && path is null && provisioningState is null ? default : new ConnectionMonitorTestProperties(
+                sourceAgent is null && destination is null && destinationPort is null && testFrequencyInSec is null && isTestSuccessful is null && provisioningState is null ? default : new ConnectionMonitorTestProperties(
                     sourceAgent,
                     destination,
                     destinationPort,
@@ -368,7 +368,7 @@ namespace Azure.ResourceManager.Peering.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                prefix is null && prefixValidationState is null && learnedType is null && errorMessage is null && events is null && peeringServicePrefixKey is null && provisioningState is null ? default : new PeeringServicePrefixProperties(
+                prefix is null && prefixValidationState is null && learnedType is null && errorMessage is null && peeringServicePrefixKey is null && provisioningState is null ? default : new PeeringServicePrefixProperties(
                     prefix,
                     prefixValidationState,
                     learnedType,
@@ -490,7 +490,7 @@ namespace Azure.ResourceManager.Peering.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                serviceProviderName is null && peeringLocations is null ? default : new PeeringServiceProviderProperties(serviceProviderName, (peeringLocations ?? new ChangeTrackingList<string>()).ToList(), null));
+                serviceProviderName is null ? default : new PeeringServiceProviderProperties(serviceProviderName, (peeringLocations ?? new ChangeTrackingList<string>()).ToList(), null));
         }
 
         /// <summary> Initializes a new instance of <see cref="Peering.PeeringData"/>. </summary>

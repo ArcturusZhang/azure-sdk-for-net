@@ -83,7 +83,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                rights is null ? default : new AuthorizationRuleProperties((rights ?? new ChangeTrackingList<EventHubsAccessRight>()).ToList(), null),
+                new AuthorizationRuleProperties((rights ?? new ChangeTrackingList<EventHubsAccessRight>()).ToList(), null),
                 location);
         }
 
@@ -182,7 +182,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                partitionIds is null && createdOn is null && updatedOn is null && messageRetentionInDays is null && partitionCount is null && status is null && captureDescription is null && retentionDescription is null && identifier is null && userMetadata is null && messageTimestampType is null ? default : new EventhubProperties(
+                createdOn is null && updatedOn is null && messageRetentionInDays is null && partitionCount is null && status is null && captureDescription is null && retentionDescription is null && identifier is null && userMetadata is null && messageTimestampType is null ? default : new EventhubProperties(
                     (partitionIds ?? new ChangeTrackingList<string>()).ToList(),
                     createdOn,
                     updatedOn,
@@ -221,7 +221,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && provisioningIssues is null && networkSecurityPerimeter is null && resourceAssociation is null && profile is null && isBackingResource is null && applicableFeatures is null && parentAssociationName is null && sourceResourceId is null ? default : new NetworkSecurityPerimeterConfigurationProperties(
+                provisioningState is null && networkSecurityPerimeter is null && resourceAssociation is null && profile is null && isBackingResource is null && parentAssociationName is null && sourceResourceId is null ? default : new NetworkSecurityPerimeterConfigurationProperties(
                     provisioningState,
                     (provisioningIssues ?? new ChangeTrackingList<EventHubsProvisioningIssue>()).ToList(),
                     networkSecurityPerimeter,
@@ -394,7 +394,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 resourceType,
                 additionalBinaryDataProperties: null,
                 location,
-                minimumTlsVersion is null && provisioningState is null && status is null && createdOn is null && updatedOn is null && serviceBusEndpoint is null && clusterArmId is null && metricId is null && isAutoInflateEnabled is null && publicNetworkAccess is null && maximumThroughputUnits is null && kafkaEnabled is null && zoneRedundant is null && encryption is null && privateEndpointConnections is null && disableLocalAuth is null && alternateName is null && geoDataReplication is null && platformCapabilitiesConfidentialComputeMode is null ? default : new EHNamespaceProperties(
+                minimumTlsVersion is null && provisioningState is null && status is null && createdOn is null && updatedOn is null && serviceBusEndpoint is null && clusterArmId is null && metricId is null && isAutoInflateEnabled is null && publicNetworkAccess is null && maximumThroughputUnits is null && kafkaEnabled is null && zoneRedundant is null && encryption is null && disableLocalAuth is null && alternateName is null && geoDataReplication is null && platformCapabilitiesConfidentialComputeMode is null ? default : new EHNamespaceProperties(
                     minimumTlsVersion,
                     provisioningState,
                     status,
@@ -474,7 +474,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                trustedServiceAccessEnabled is null && defaultAction is null && virtualNetworkRules is null && ipRules is null && publicNetworkAccess is null ? default : new NetworkRuleSetProperties(
+                trustedServiceAccessEnabled is null && defaultAction is null && publicNetworkAccess is null ? default : new NetworkRuleSetProperties(
                     trustedServiceAccessEnabled,
                     defaultAction,
                     (virtualNetworkRules ?? new ChangeTrackingList<EventHubsNetworkRuleSetVirtualNetworkRules>()).ToList(),
@@ -500,7 +500,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupId is null && requiredMembers is null && requiredZoneNames is null ? default : new EventHubsPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
+                groupId is null ? default : new EventHubsPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -523,7 +523,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                updatedAtUtc is null && createdAtUtc is null && etag is null && groupProperties is null && schemaCompatibility is null && schemaType is null ? default : new SchemaGroupProperties(
+                updatedAtUtc is null && createdAtUtc is null && etag is null && schemaCompatibility is null && schemaType is null ? default : new SchemaGroupProperties(
                     updatedAtUtc,
                     createdAtUtc,
                     etag,
@@ -551,7 +551,7 @@ namespace Azure.ResourceManager.EventHubs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                isEnabled is null && clientAppGroupIdentifier is null && policies is null ? default : new ApplicationGroupProperties(isEnabled, clientAppGroupIdentifier, (policies ?? new ChangeTrackingList<EventHubsApplicationGroupPolicy>()).ToList(), null),
+                isEnabled is null ? default : new ApplicationGroupProperties(isEnabled, clientAppGroupIdentifier, (policies ?? new ChangeTrackingList<EventHubsApplicationGroupPolicy>()).ToList(), null),
                 location);
         }
 

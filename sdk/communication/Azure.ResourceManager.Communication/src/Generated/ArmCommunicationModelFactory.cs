@@ -29,7 +29,7 @@ namespace Azure.ResourceManager.Communication.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new CommunicationServiceResourcePatch(tags, additionalBinaryDataProperties: null, linkedDomains is null && publicNetworkAccess is null && disableLocalAuth is null ? default : new CommunicationServiceUpdateProperties((linkedDomains ?? new ChangeTrackingList<string>()).ToList(), publicNetworkAccess, disableLocalAuth, null), identity);
+            return new CommunicationServiceResourcePatch(tags, additionalBinaryDataProperties: null, publicNetworkAccess is null && disableLocalAuth is null ? default : new CommunicationServiceUpdateProperties((linkedDomains ?? new ChangeTrackingList<string>()).ToList(), publicNetworkAccess, disableLocalAuth, null), identity);
         }
 
         /// <summary> An ARM resource with that can accept tags. </summary>
@@ -112,7 +112,7 @@ namespace Azure.ResourceManager.Communication.Models
                     dataLocation,
                     fromSenderDomain,
                     mailFromSenderDomain,
-                    domainManagement.Value,
+                    domainManagement.GetValueOrDefault(),
                     verificationStates,
                     verificationRecords,
                     userEngagementTracking,
@@ -214,7 +214,7 @@ namespace Azure.ResourceManager.Communication.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                provisioningState is null && dataLocation is null ? default : new EmailServiceProperties(provisioningState, dataLocation, null));
+                provisioningState is null ? default : new EmailServiceProperties(provisioningState, dataLocation, null));
         }
 
         /// <summary> A class representing update parameters for EmailService resource. </summary>
@@ -244,7 +244,7 @@ namespace Azure.ResourceManager.Communication.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                dataLocation is null && username is null && displayName is null && provisioningState is null ? default : new SenderUsernameProperties(dataLocation, username, displayName, provisioningState, null));
+                dataLocation is null && displayName is null && provisioningState is null ? default : new SenderUsernameProperties(dataLocation, username, displayName, provisioningState, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -263,7 +263,7 @@ namespace Azure.ResourceManager.Communication.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                username is null && entraApplicationId is null && tenantId is null ? default : new SmtpUsernameProperties(username, entraApplicationId, tenantId.Value, null));
+                tenantId is null ? default : new SmtpUsernameProperties(username, entraApplicationId, tenantId.GetValueOrDefault(), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -305,7 +305,7 @@ namespace Azure.ResourceManager.Communication.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                email is null && firstName is null && lastName is null && notes is null && lastModified is null && dataLocation is null ? default : new SuppressionListAddressProperties(
+                firstName is null && lastName is null && notes is null && lastModified is null && dataLocation is null ? default : new SuppressionListAddressProperties(
                     email,
                     firstName,
                     lastName,

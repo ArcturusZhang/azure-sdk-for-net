@@ -189,7 +189,7 @@ namespace Azure.ResourceManager.ApiCenter.Models
                 description,
                 summary,
                 lifecycleStage,
-                termsOfServiceUri is null ? default : new TermsOfService(termsOfServiceUri, null),
+                new TermsOfService(termsOfServiceUri, null),
                 externalDocumentation.ToList(),
                 contacts.ToList(),
                 license,

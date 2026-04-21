@@ -148,9 +148,9 @@ namespace Azure.ResourceManager.ContainerServiceFleet
         public ContainerServiceFleetGateData() { }
         public string DisplayName { get { throw null; } set { } }
         public Azure.ETag? ETag { get { throw null; } }
-        public Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetGateType GateType { get { throw null; } set { } }
+        public Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetGateType? GateType { get { throw null; } set { } }
         public Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetGateProvisioningState? ProvisioningState { get { throw null; } }
-        public Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetGateState State { get { throw null; } set { } }
+        public Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetGateState? State { get { throw null; } set { } }
         public Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetGateTarget Target { get { throw null; } set { } }
         protected virtual Azure.ResourceManager.Models.ResourceData JsonModelCreateCore(ref System.Text.Json.Utf8JsonReader reader, System.ClientModel.Primitives.ModelReaderWriterOptions options) { throw null; }
         protected override void JsonModelWriteCore(System.Text.Json.Utf8JsonWriter writer, System.ClientModel.Primitives.ModelReaderWriterOptions options) { }
@@ -199,8 +199,8 @@ namespace Azure.ResourceManager.ContainerServiceFleet
     public partial class ContainerServiceFleetManagedNamespaceData : Azure.ResourceManager.Models.TrackedResourceData, System.ClientModel.Primitives.IJsonModel<Azure.ResourceManager.ContainerServiceFleet.ContainerServiceFleetManagedNamespaceData>, System.ClientModel.Primitives.IPersistableModel<Azure.ResourceManager.ContainerServiceFleet.ContainerServiceFleetManagedNamespaceData>
     {
         public ContainerServiceFleetManagedNamespaceData(Azure.Core.AzureLocation location) { }
-        public Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetAdoptionPolicy AdoptionPolicy { get { throw null; } set { } }
-        public Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetDeletePolicy DeletePolicy { get { throw null; } set { } }
+        public Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetAdoptionPolicy? AdoptionPolicy { get { throw null; } set { } }
+        public Azure.ResourceManager.ContainerServiceFleet.Models.ContainerServiceFleetDeletePolicy? DeletePolicy { get { throw null; } set { } }
         public Azure.ETag? ETag { get { throw null; } }
         public Azure.ResourceManager.ContainerServiceFleet.Models.ManagedNamespaceProperties ManagedNamespaceProperties { get { throw null; } set { } }
         public string PortalFqdn { get { throw null; } }

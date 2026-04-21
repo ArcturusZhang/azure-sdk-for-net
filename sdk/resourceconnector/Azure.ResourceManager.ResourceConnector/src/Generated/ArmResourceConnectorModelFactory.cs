@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.ResourceConnector.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                distro is null && provisioningState is null && publicKey is null && status is null && version is null && events is null && networkProfile is null && infrastructureConfigProvider is null ? default : new ApplianceProperties(
+                distro is null && provisioningState is null && publicKey is null && status is null && version is null && networkProfile is null && infrastructureConfigProvider is null ? default : new ApplianceProperties(
                     distro,
                     new AppliancePropertiesInfrastructureConfig(infrastructureConfigProvider, null),
                     provisioningState,

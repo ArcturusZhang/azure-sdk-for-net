@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.FileShares.Models
         public FileShareProvisioningRecommendationContent(int? fileShareProvisioningRecommendationInputProvisionedStorageInGiB)
         {
 
-            Properties = fileShareProvisioningRecommendationInputProvisionedStorageInGiB is null ? default : new FileShareProvisioningRecommendationInputProperties(fileShareProvisioningRecommendationInputProvisionedStorageInGiB.Value);
+            Properties = fileShareProvisioningRecommendationInputProvisionedStorageInGiB is null ? default : new FileShareProvisioningRecommendationInputProperties(fileShareProvisioningRecommendationInputProvisionedStorageInGiB.GetValueOrDefault());
         }
 
         /// <summary> Initializes a new instance of <see cref="FileShareProvisioningRecommendationContent"/>. </summary>

@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                networkAdapters is null ? default : new NetworkSettingsProperties((networkAdapters ?? new ChangeTrackingList<DataBoxEdgeNetworkAdapter>()).ToList(), null));
+                new NetworkSettingsProperties((networkAdapters ?? new ChangeTrackingList<DataBoxEdgeNetworkAdapter>()).ToList(), null));
         }
 
         /// <summary> Represents the networkAdapter on a device. </summary>
@@ -148,7 +148,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                dataBoxEdgeSystemData is null && dataBoxEdgeDeviceStatus is null && serialNumber is null && description is null && modelDescription is null && deviceType is null && friendlyName is null && culture is null && deviceModel is null && deviceSoftwareVersion is null && deviceLocalCapacity is null && timeZone is null && deviceHcsVersion is null && configuredRoleTypes is null && nodeCount is null && resourceMoveDetails is null && kubernetesWorkloadProfile is null && edgeSubscription is null && residencyType is null ? default : new DataBoxEdgeDeviceProperties(
+                dataBoxEdgeSystemData is null && dataBoxEdgeDeviceStatus is null && serialNumber is null && description is null && modelDescription is null && deviceType is null && friendlyName is null && culture is null && deviceModel is null && deviceSoftwareVersion is null && deviceLocalCapacity is null && timeZone is null && deviceHcsVersion is null && nodeCount is null && resourceMoveDetails is null && kubernetesWorkloadProfile is null && edgeSubscription is null && residencyType is null ? default : new DataBoxEdgeDeviceProperties(
                     dataBoxEdgeSystemData,
                     dataBoxEdgeDeviceStatus,
                     serialNumber,
@@ -203,7 +203,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 state,
                 registrationDate,
                 subscriptionId,
-                tenantId is null && locationPlacementId is null && quotaId is null && serializedDetails is null && registeredFeatures is null ? default : new SubscriptionProperties(
+                tenantId is null && locationPlacementId is null && quotaId is null && serializedDetails is null ? default : new SubscriptionProperties(
                     tenantId,
                     locationPlacementId,
                     quotaId,
@@ -263,7 +263,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                deviceAdminPassword is null ? default : new SecuritySettingsProperties(deviceAdminPassword, null));
+                new SecuritySettingsProperties(deviceAdminPassword, null));
         }
 
         /// <summary> The upload registration certificate response. </summary>
@@ -328,7 +328,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                deviceVersionNumber is null && friendlyDeviceVersionName is null && deviceLastScannedOn is null && lastCompletedScanJobOn is null && lastSuccessfulScanJobOn is null && lastCompletedDownloadJobOn is null && lastCompletedDownloadJobId is null && lastDownloadJobStatus is null && lastSuccessfulInstallJobOn is null && lastCompletedInstallJobOn is null && lastCompletedInstallJobId is null && lastInstallJobStatus is null && totalNumberOfUpdatesAvailable is null && totalNumberOfUpdatesPendingDownload is null && totalNumberOfUpdatesPendingInstall is null && rebootBehavior is null && ongoingUpdateOperation is null && inProgressDownloadJobId is null && inProgressInstallJobId is null && inProgressDownloadJobStartedOn is null && inProgressInstallJobStartedOn is null && updateTitles is null && updates is null && totalUpdateSizeInBytes is null && totalTimeInMinutes is null ? default : new UpdateSummaryProperties(
+                deviceVersionNumber is null && friendlyDeviceVersionName is null && deviceLastScannedOn is null && lastCompletedScanJobOn is null && lastSuccessfulScanJobOn is null && lastCompletedDownloadJobOn is null && lastCompletedDownloadJobId is null && lastDownloadJobStatus is null && lastSuccessfulInstallJobOn is null && lastCompletedInstallJobOn is null && lastCompletedInstallJobId is null && lastInstallJobStatus is null && totalNumberOfUpdatesAvailable is null && totalNumberOfUpdatesPendingDownload is null && totalNumberOfUpdatesPendingInstall is null && rebootBehavior is null && ongoingUpdateOperation is null && inProgressDownloadJobId is null && inProgressInstallJobId is null && inProgressDownloadJobStartedOn is null && inProgressInstallJobStartedOn is null && totalUpdateSizeInBytes is null && totalTimeInMinutes is null ? default : new UpdateSummaryProperties(
                     deviceVersionNumber,
                     friendlyDeviceVersionName,
                     deviceLastScannedOn,
@@ -377,7 +377,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                title is null && alertType is null && appearedOn is null && recommendation is null && severity is null && errorDetails is null && detailedInformation is null ? default : new AlertProperties(
+                title is null && alertType is null && appearedOn is null && recommendation is null && severity is null && errorDetails is null ? default : new AlertProperties(
                     title,
                     alertType,
                     appearedOn,
@@ -412,7 +412,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                remoteSupportSettingsList is null ? default : new DiagnosticRemoteSupportSettingsProperties((remoteSupportSettingsList ?? new ChangeTrackingList<EdgeRemoteSupportSettings>()).ToList(), null));
+                new DiagnosticRemoteSupportSettingsProperties((remoteSupportSettingsList ?? new ChangeTrackingList<EdgeRemoteSupportSettings>()).ToList(), null));
         }
 
         /// <summary> Details about the download progress of update. </summary>
@@ -563,7 +563,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 systemData,
                 additionalBinaryDataProperties: null,
                 DataBoxEdgeRoleType.IoT,
-                hostPlatform is null && iotDeviceDetails is null && iotEdgeDeviceDetails is null && shareMappings is null && iotEdgeAgentInfo is null && hostPlatformType is null && computeResource is null && roleStatus is null ? default : new IoTRoleProperties(
+                hostPlatform is null && iotEdgeAgentInfo is null && hostPlatformType is null && computeResource is null && roleStatus is null ? default : new IoTRoleProperties(
                     hostPlatform,
                     iotDeviceDetails,
                     iotEdgeDeviceDetails,
@@ -613,7 +613,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 systemData,
                 additionalBinaryDataProperties: null,
                 DataBoxEdgeRoleType.Kubernetes,
-                hostPlatform is null && provisioningState is null && hostPlatformType is null && kubernetesClusterInfo is null && kubernetesRoleResources is null && roleStatus is null ? default : new KubernetesRoleProperties(
+                hostPlatform is null && provisioningState is null && hostPlatformType is null && roleStatus is null ? default : new KubernetesRoleProperties(
                     hostPlatform,
                     provisioningState,
                     hostPlatformType,
@@ -798,7 +798,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 systemData,
                 additionalBinaryDataProperties: null,
                 AddonType.IotEdge,
-                iotDeviceDetails is null && iotEdgeDeviceDetails is null && version is null && hostPlatform is null && hostPlatformType is null && provisioningState is null ? default : new IoTAddonProperties(
+                version is null && hostPlatform is null && hostPlatformType is null && provisioningState is null ? default : new IoTAddonProperties(
                     iotDeviceDetails,
                     iotEdgeDeviceDetails,
                     version,
@@ -840,7 +840,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
         /// <returns> A new <see cref="Models.DeviceCapacityRequestContent"/> instance for mocking. </returns>
         public static DeviceCapacityRequestContent DeviceCapacityRequestContent(IEnumerable<IList<string>> vmPlacementQuery = default, IEnumerable<VmPlacementRequestResult> vmPlacementResults = default)
         {
-            return new DeviceCapacityRequestContent(vmPlacementQuery is null && vmPlacementResults is null ? default : new DeviceCapacityRequestInfoProperties((vmPlacementQuery ?? new ChangeTrackingList<IList<string>>()).ToList(), (vmPlacementResults ?? new ChangeTrackingList<VmPlacementRequestResult>()).ToList(), null), additionalBinaryDataProperties: null);
+            return new DeviceCapacityRequestContent(new DeviceCapacityRequestInfoProperties((vmPlacementQuery ?? new ChangeTrackingList<IList<string>>()).ToList(), (vmPlacementResults ?? new ChangeTrackingList<VmPlacementRequestResult>()).ToList(), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> List of VM sizes being checked for creation on appliance along with corresponding result. </summary>
@@ -927,7 +927,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                timeStamp is null && clusterStorageCapacityInfo is null && clusterComputeCapacityInfo is null && nodeCapacityInfos is null ? default : new DeviceCapacityInfoProperties(timeStamp, clusterStorageCapacityInfo, clusterComputeCapacityInfo, nodeCapacityInfos, null));
+                timeStamp is null && clusterStorageCapacityInfo is null && clusterComputeCapacityInfo is null ? default : new DeviceCapacityInfoProperties(timeStamp, clusterStorageCapacityInfo, clusterComputeCapacityInfo, nodeCapacityInfos, null));
         }
 
         /// <summary> Host Capacity Data. </summary>
@@ -993,7 +993,7 @@ namespace Azure.ResourceManager.DataBoxEdge.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                metricConfigurations is null ? default : new MonitoringMetricConfigurationProperties((metricConfigurations ?? new ChangeTrackingList<DataBoxEdgeMetricConfiguration>()).ToList(), null));
+                new MonitoringMetricConfigurationProperties((metricConfigurations ?? new ChangeTrackingList<DataBoxEdgeMetricConfiguration>()).ToList(), null));
         }
 
         /// <summary> Metric configuration. </summary>

@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.Nginx.Models
                 location,
                 properties,
                 identity,
-                skuName is null ? default : new NginxResourceSku(skuName, null));
+                new NginxResourceSku(skuName, null));
         }
 
         /// <param name="provisioningState"> Provisioning State. </param>
@@ -114,7 +114,7 @@ namespace Azure.ResourceManager.Nginx.Models
                 enableDiagnosticsSupport,
                 loggingStorageAccount is null ? default : new NginxLogging(loggingStorageAccount, null),
                 scalingProperties,
-                upgradeChannel is null ? default : new AutoUpgradeProfile(upgradeChannel, null),
+                new AutoUpgradeProfile(upgradeChannel, null),
                 userPreferredEmail is null ? default : new NginxDeploymentUserProfile(userPreferredEmail, null),
                 nginxAppProtect,
                 dataplaneApiEndpoint,
@@ -190,7 +190,7 @@ namespace Azure.ResourceManager.Nginx.Models
             return new NginxDeploymentPatch(
                 identity,
                 tags,
-                skuName is null ? default : new NginxResourceSku(skuName, null),
+                new NginxResourceSku(skuName, null),
                 location,
                 properties,
                 additionalBinaryDataProperties: null);
@@ -530,7 +530,7 @@ namespace Azure.ResourceManager.Nginx.Models
         /// <returns> A new <see cref="Models.NginxDeploymentWafPolicyAnalysisResult"/> instance for mocking. </returns>
         public static NginxDeploymentWafPolicyAnalysisResult NginxDeploymentWafPolicyAnalysisResult(string status = default, IEnumerable<NginxDeploymentWafPolicyError> dataErrors = default)
         {
-            return new NginxDeploymentWafPolicyAnalysisResult(status, dataErrors is null ? default : new NginxDeploymentWafPolicyAnalysisData((dataErrors ?? new ChangeTrackingList<NginxDeploymentWafPolicyError>()).ToList(), null), additionalBinaryDataProperties: null);
+            return new NginxDeploymentWafPolicyAnalysisResult(status, new NginxDeploymentWafPolicyAnalysisData((dataErrors ?? new ChangeTrackingList<NginxDeploymentWafPolicyError>()).ToList(), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> Nginx Deployment Waf Policy Error. </summary>

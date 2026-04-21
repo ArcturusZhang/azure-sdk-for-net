@@ -625,7 +625,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                oracleSystemVersion is null ? default : new OracleSystemVersionProperties(oracleSystemVersion, null));
+                new OracleSystemVersionProperties(oracleSystemVersion, null));
         }
 
         /// <summary> OracleSubscription resource definition. </summary>
@@ -832,7 +832,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                oracleGIVersion is null ? default : new OracleGIVersionProperties(oracleGIVersion, null));
+                new OracleGIVersionProperties(oracleGIVersion, null));
         }
 
         /// <summary> The Oracle Grid Infrastructure (GI) minor version resource definition. </summary>
@@ -2265,7 +2265,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                autonomousDatabaseCharacterSet is null ? default : new AutonomousDatabaseCharacterSetProperties(autonomousDatabaseCharacterSet, null));
+                new AutonomousDatabaseCharacterSetProperties(autonomousDatabaseCharacterSet, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -2282,7 +2282,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                autonomousDatabaseNationalCharacterSet is null ? default : new AutonomousDatabaseNationalCharacterSetProperties(autonomousDatabaseNationalCharacterSet, null));
+                new AutonomousDatabaseNationalCharacterSetProperties(autonomousDatabaseNationalCharacterSet, null));
         }
 
         /// <summary> AutonomousDbVersion resource definition. </summary>
@@ -2414,13 +2414,13 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 systemVersion,
                 timeZone,
                 totalEcpuCount,
-                vmFileSystemStorageTotalSizeInGbs is null ? default : new ExadbVmClusterStorageDetails(vmFileSystemStorageTotalSizeInGbs.Value, null),
+                vmFileSystemStorageTotalSizeInGbs is null ? default : new ExadbVmClusterStorageDetails(vmFileSystemStorageTotalSizeInGbs.GetValueOrDefault(), null),
                 lifecycleDetails,
                 scanDnsName,
                 scanIPIds.ToList(),
                 scanDnsRecordId,
-                snapshotFileSystemStorageTotalSizeInGbs is null ? default : new ExadbVmClusterStorageDetails(snapshotFileSystemStorageTotalSizeInGbs.Value, null),
-                totalSizeInGbs is null ? default : new ExadbVmClusterStorageDetails(totalSizeInGbs.Value, null),
+                snapshotFileSystemStorageTotalSizeInGbs is null ? default : new ExadbVmClusterStorageDetails(snapshotFileSystemStorageTotalSizeInGbs.GetValueOrDefault(), null),
+                totalSizeInGbs is null ? default : new ExadbVmClusterStorageDetails(totalSizeInGbs.GetValueOrDefault(), null),
                 vipIds.ToList(),
                 ociUri,
                 iormConfigCache,
@@ -2570,7 +2570,7 @@ namespace Azure.ResourceManager.OracleDatabase.Models
                 additionalFlashCacheInPercent,
                 description,
                 displayName,
-                highCapacityDatabaseStorageInputTotalSizeInGbs is null ? default : new ExascaleDBStorageInputDetails(highCapacityDatabaseStorageInputTotalSizeInGbs.Value, null),
+                highCapacityDatabaseStorageInputTotalSizeInGbs is null ? default : new ExascaleDBStorageInputDetails(highCapacityDatabaseStorageInputTotalSizeInGbs.GetValueOrDefault(), null),
                 highCapacityDatabaseStorage,
                 timeZone,
                 provisioningState,

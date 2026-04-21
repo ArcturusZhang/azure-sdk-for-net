@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.Attestation.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                trustModel is null && status is null && attestUri is null && publicNetworkAccess is null && privateEndpointConnections is null && tpmAttestationAuthentication is null ? default : new StatusResult(
+                trustModel is null && status is null && attestUri is null && publicNetworkAccess is null && tpmAttestationAuthentication is null ? default : new StatusResult(
                     trustModel,
                     status,
                     attestUri,
@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.Attestation.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                privateLinkServiceConnectionState is null && provisioningState is null && privateEndpointId is null ? default : new PrivateEndpointConnectionProperties(new PrivateEndpoint(privateEndpointId, null), privateLinkServiceConnectionState, provisioningState, null));
+                provisioningState is null && privateEndpointId is null ? default : new PrivateEndpointConnectionProperties(new PrivateEndpoint(privateEndpointId, null), privateLinkServiceConnectionState, provisioningState, null));
         }
 
         /// <summary> Parameters for creating an attestation provider. </summary>

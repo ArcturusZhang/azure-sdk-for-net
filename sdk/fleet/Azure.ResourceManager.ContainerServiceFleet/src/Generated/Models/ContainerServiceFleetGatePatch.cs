@@ -21,7 +21,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
         public ContainerServiceFleetGatePatch(ContainerServiceFleetGateState? gatePatchState)
         {
 
-            Properties = gatePatchState is null ? default : new GatePatchProperties(gatePatchState.Value);
+            Properties = gatePatchState is null ? default : new GatePatchProperties(gatePatchState.GetValueOrDefault());
         }
 
         /// <summary> Initializes a new instance of <see cref="ContainerServiceFleetGatePatch"/>. </summary>

@@ -92,7 +92,7 @@ namespace Azure.ResourceManager.SignalR.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                provisioningState is null && externalIP is null && hostName is null && publicPort is null && serverPort is null && version is null && privateEndpointConnections is null && sharedPrivateLinkResources is null && hostNamePrefix is null && features is null && liveTraceConfiguration is null && serverless is null && networkACLs is null && applicationFirewall is null && publicNetworkAccess is null && disableLocalAuth is null && disableAadAuth is null && regionEndpointEnabled is null && resourceStopped is null && routeSettings is null && isClientCertEnabled is null && resourceLogCategories is null && corsAllowedOrigins is null && upstreamTemplates is null ? default : new SignalRProperties(
+                provisioningState is null && externalIP is null && hostName is null && publicPort is null && serverPort is null && version is null && hostNamePrefix is null && liveTraceConfiguration is null && serverless is null && networkACLs is null && applicationFirewall is null && publicNetworkAccess is null && disableLocalAuth is null && disableAadAuth is null && regionEndpointEnabled is null && resourceStopped is null && routeSettings is null && isClientCertEnabled is null ? default : new SignalRProperties(
                     provisioningState,
                     externalIP,
                     hostName,
@@ -142,7 +142,7 @@ namespace Azure.ResourceManager.SignalR.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupId is null && privateLinkResourceId is null && provisioningState is null && requestMessage is null && fqdns is null && status is null ? default : new SharedPrivateLinkResourceProperties(
+                provisioningState is null && requestMessage is null && status is null ? default : new SharedPrivateLinkResourceProperties(
                     groupId,
                     privateLinkResourceId,
                     provisioningState,
@@ -326,7 +326,7 @@ namespace Azure.ResourceManager.SignalR.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && keyVaultBaseUri is null && keyVaultSecretName is null && keyVaultSecretVersion is null ? default : new CustomCertificateProperties(provisioningState, keyVaultBaseUri, keyVaultSecretName, keyVaultSecretVersion, null));
+                provisioningState is null && keyVaultSecretVersion is null ? default : new CustomCertificateProperties(provisioningState, keyVaultBaseUri, keyVaultSecretName, keyVaultSecretVersion, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -345,7 +345,7 @@ namespace Azure.ResourceManager.SignalR.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && domainName is null && customCertificateId is null ? default : new CustomDomainProperties(provisioningState, domainName, new ResourceReference(customCertificateId, null), null));
+                provisioningState is null && customCertificateId is null ? default : new CustomDomainProperties(provisioningState, domainName, new ResourceReference(customCertificateId, null), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>

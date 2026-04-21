@@ -55,7 +55,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                provisioningState is null && createdOn is null && endpoint is null && privateEndpointConnections is null && publicNetworkAccess is null && disableLocalAuth is null && softDeleteRetentionInDays is null && defaultKeyValueRevisionRetentionPeriodInSeconds is null && enablePurgeProtection is null && dataPlaneProxy is null && createMode is null && encryptionKeyVaultProperties is null && telemetryResourceId is null && managedOnBehalfOfMoboBrokerResources is null && azureFrontDoorResourceId is null ? default : new ConfigurationStoreProperties(
+                provisioningState is null && createdOn is null && endpoint is null && publicNetworkAccess is null && disableLocalAuth is null && softDeleteRetentionInDays is null && defaultKeyValueRevisionRetentionPeriodInSeconds is null && enablePurgeProtection is null && dataPlaneProxy is null && createMode is null && encryptionKeyVaultProperties is null && telemetryResourceId is null && azureFrontDoorResourceId is null ? default : new ConfigurationStoreProperties(
                     provisioningState,
                     createdOn,
                     endpoint,
@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                     new AzureFrontDoorProperties(azureFrontDoorResourceId, null),
                     null),
                 identity,
-                skuName is null ? default : new AppConfigurationSku(skuName, null));
+                new AppConfigurationSku(skuName, null));
         }
 
         /// <summary> The state of a private link service connection. </summary>
@@ -119,7 +119,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 defaultKeyValueRevisionRetentionPeriodInSeconds,
                 new TelemetryProperties(telemetryResourceId, null),
                 new AzureFrontDoorProperties(azureFrontDoorResourceId, null),
-                null), identity, skuName is null ? default : new AppConfigurationSku(skuName, null), tags, additionalBinaryDataProperties: null);
+                null), identity, new AppConfigurationSku(skuName, null), tags, additionalBinaryDataProperties: null);
         }
 
         /// <summary> An API key used for authenticating with a configuration store endpoint. </summary>
@@ -161,7 +161,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                configurationStoreId is null && location is null && deletedOn is null && scheduledPurgeOn is null && tags is null && isPurgeProtectionEnabled is null ? default : new DeletedConfigurationStoreProperties(
+                configurationStoreId is null && location is null && deletedOn is null && scheduledPurgeOn is null && isPurgeProtectionEnabled is null ? default : new DeletedConfigurationStoreProperties(
                     configurationStoreId,
                     location,
                     deletedOn,
@@ -187,7 +187,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupId is null && requiredMembers is null && requiredZoneNames is null ? default : new AppConfigurationPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
+                groupId is null ? default : new AppConfigurationPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -223,7 +223,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                key is null && label is null && value is null && contentType is null && etag is null && lastModifiedOn is null && isLocked is null && tags is null ? default : new KeyValueProperties(
+                key is null && label is null && value is null && contentType is null && etag is null && lastModifiedOn is null && isLocked is null ? default : new KeyValueProperties(
                     key,
                     label,
                     value,
@@ -259,7 +259,7 @@ namespace Azure.ResourceManager.AppConfiguration.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && status is null && filters is null && compositionType is null && createdOn is null && expireOn is null && retentionPeriod is null && size is null && itemsCount is null && tags is null && etag is null ? default : new SnapshotProperties(
+                provisioningState is null && status is null && compositionType is null && createdOn is null && expireOn is null && retentionPeriod is null && size is null && itemsCount is null && etag is null ? default : new SnapshotProperties(
                     provisioningState,
                     status,
                     (filters ?? new ChangeTrackingList<SnapshotKeyValueFilter>()).ToList(),

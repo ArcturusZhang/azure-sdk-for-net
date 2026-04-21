@@ -282,7 +282,7 @@ namespace Azure.ResourceManager.WorkloadOrchestration.Models
         /// <returns> A new <see cref="Models.DeployJobContent"/> instance for mocking. </returns>
         public static DeployJobContent DeployJobContent(ResourceIdentifier parameterSolutionVersionId = default)
         {
-            return new DeployJobContent(EdgeJobType.Deploy, additionalBinaryDataProperties: null, parameterSolutionVersionId is null ? default : new InstallSolutionContent(parameterSolutionVersionId, null));
+            return new DeployJobContent(EdgeJobType.Deploy, additionalBinaryDataProperties: null, new InstallSolutionContent(parameterSolutionVersionId, null));
         }
 
         /// <summary> Job Step. </summary>

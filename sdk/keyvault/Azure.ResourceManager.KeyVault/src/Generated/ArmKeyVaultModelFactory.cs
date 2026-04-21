@@ -203,7 +203,7 @@ namespace Azure.ResourceManager.KeyVault.Models
                 additionalBinaryDataProperties: null,
                 name,
                 location,
-                accessPolicies is null ? default : new KeyVaultAccessPolicyProperties((accessPolicies ?? new ChangeTrackingList<KeyVaultAccessPolicy>()).ToList(), null));
+                new KeyVaultAccessPolicyProperties((accessPolicies ?? new ChangeTrackingList<KeyVaultAccessPolicy>()).ToList(), null));
         }
 
         /// <summary> Properties of the vault access policy. </summary>
@@ -236,7 +236,7 @@ namespace Azure.ResourceManager.KeyVault.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupId is null && requiredMembers is null && requiredZoneNames is null ? default : new KeyVaultPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null),
+                groupId is null ? default : new KeyVaultPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null),
                 location,
                 tags);
         }

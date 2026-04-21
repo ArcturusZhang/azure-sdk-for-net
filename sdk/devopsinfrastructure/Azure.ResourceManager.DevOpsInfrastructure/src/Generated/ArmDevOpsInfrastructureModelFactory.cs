@@ -124,7 +124,7 @@ namespace Azure.ResourceManager.DevOpsInfrastructure.Models
             return new DevOpsVmssFabricProfile(
                 "Vmss",
                 additionalBinaryDataProperties: null,
-                skuName is null ? default : new DevOpsAzureSku(skuName, null),
+                new DevOpsAzureSku(skuName, null),
                 images.ToList(),
                 osProfile,
                 storageProfile,
@@ -406,7 +406,7 @@ namespace Azure.ResourceManager.DevOpsInfrastructure.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                imageVersion is null ? default : new ImageVersionProperties(imageVersion, null));
+                new ImageVersionProperties(imageVersion, null));
         }
     }
 }

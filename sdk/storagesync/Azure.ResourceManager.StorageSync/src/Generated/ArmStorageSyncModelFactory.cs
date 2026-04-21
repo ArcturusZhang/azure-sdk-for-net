@@ -46,7 +46,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                incomingTrafficPolicy is null && storageSyncServiceStatus is null && storageSyncServiceUid is null && provisioningState is null && useIdentity is null && lastWorkflowId is null && lastOperationName is null && privateEndpointConnections is null ? default : new StorageSyncServiceProperties(
+                incomingTrafficPolicy is null && storageSyncServiceStatus is null && storageSyncServiceUid is null && provisioningState is null && useIdentity is null && lastWorkflowId is null && lastOperationName is null ? default : new StorageSyncServiceProperties(
                     incomingTrafficPolicy,
                     storageSyncServiceStatus,
                     storageSyncServiceUid,
@@ -76,7 +76,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupIds is null && connectionState is null && provisioningState is null && privateEndpointId is null ? default : new PrivateEndpointConnectionProperties((groupIds ?? new ChangeTrackingList<string>()).ToList(), new PrivateEndpoint(privateEndpointId, null), connectionState, provisioningState, null));
+                provisioningState is null && privateEndpointId is null ? default : new PrivateEndpointConnectionProperties((groupIds ?? new ChangeTrackingList<string>()).ToList(), new PrivateEndpoint(privateEndpointId, null), connectionState, provisioningState, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -133,7 +133,7 @@ namespace Azure.ResourceManager.StorageSync.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupId is null && requiredMembers is null && requiredZoneNames is null ? default : new StorageSyncPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
+                groupId is null ? default : new StorageSyncPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>

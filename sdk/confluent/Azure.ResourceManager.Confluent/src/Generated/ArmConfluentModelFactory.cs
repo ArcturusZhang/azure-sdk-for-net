@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.Confluent.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                createdOn is null && provisioningState is null && organizationId is null && ssoUri is null && offerDetail is null && userDetail is null && linkOrganizationToken is null ? default : new OrganizationResourceProperties(
+                createdOn is null && provisioningState is null && organizationId is null && ssoUri is null ? default : new OrganizationResourceProperties(
                     createdOn,
                     provisioningState,
                     organizationId,
@@ -718,7 +718,7 @@ namespace Azure.ResourceManager.Confluent.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                kind is null && topicId is null && metadata is null && inputConfigs is null && partitionsCount is null && replicationFactor is null && partitionsRelated is null && configsRelated is null && partitionsReassignmentsRelated is null ? default : new TopicProperties(
+                kind is null && topicId is null && metadata is null && partitionsCount is null && replicationFactor is null && partitionsRelated is null && configsRelated is null && partitionsReassignmentsRelated is null ? default : new TopicProperties(
                     kind,
                     topicId,
                     metadata,

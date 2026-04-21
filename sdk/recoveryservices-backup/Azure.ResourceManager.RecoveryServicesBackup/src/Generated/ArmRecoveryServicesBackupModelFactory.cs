@@ -3197,7 +3197,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
 
             return new MonthlyRetentionSchedule(
                 retentionScheduleFormatType,
-                retentionScheduleDailyDaysOfTheMonth is null ? default : new DailyRetentionFormat((retentionScheduleDailyDaysOfTheMonth ?? new ChangeTrackingList<BackupDay>()).ToList(), null),
+                new DailyRetentionFormat((retentionScheduleDailyDaysOfTheMonth ?? new ChangeTrackingList<BackupDay>()).ToList(), null),
                 retentionScheduleWeekly,
                 retentionTimes.ToList(),
                 retentionDuration,
@@ -3231,7 +3231,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
             return new YearlyRetentionSchedule(
                 retentionScheduleFormatType,
                 monthsOfYear.ToList(),
-                retentionScheduleDailyDaysOfTheMonth is null ? default : new DailyRetentionFormat((retentionScheduleDailyDaysOfTheMonth ?? new ChangeTrackingList<BackupDay>()).ToList(), null),
+                new DailyRetentionFormat((retentionScheduleDailyDaysOfTheMonth ?? new ChangeTrackingList<BackupDay>()).ToList(), null),
                 retentionScheduleWeekly,
                 retentionTimes.ToList(),
                 retentionDuration,
@@ -3786,7 +3786,7 @@ namespace Azure.ResourceManager.RecoveryServicesBackup.Models
                 duration,
                 actionsInfo.ToList(),
                 errorDetails.ToList(),
-                extendedInfoPropertyBag is null ? default : new VaultJobExtendedInfo(extendedInfoPropertyBag, null));
+                new VaultJobExtendedInfo(extendedInfoPropertyBag, null));
         }
 
         /// <summary> Vault Job specific error information. </summary>

@@ -128,7 +128,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                orderItemDetails is null && addressDetails is null && startOn is null && orderId is null && provisioningState is null ? default : new OrderItemProperties(
+                addressDetails is null && startOn is null && provisioningState is null ? default : new OrderItemProperties(
                     orderItemDetails,
                     addressDetails,
                     startOn,
@@ -166,7 +166,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 productDetails,
                 orderItemType,
                 orderItemMode,
-                siteId is null ? default : new SiteDetails(siteId.Value, null),
+                siteId is null ? default : new SiteDetails(siteId.GetValueOrDefault(), null),
                 currentStage,
                 orderItemStageHistory.ToList(),
                 preferences,
@@ -347,7 +347,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
 
             return new OrderItemPreferences(
                 notificationPreferences.ToList(),
-                transportPreferencesPreferredShipmentType is null ? default : new TransportPreferences(transportPreferencesPreferredShipmentType.Value, null),
+                transportPreferencesPreferredShipmentType is null ? default : new TransportPreferences(transportPreferencesPreferredShipmentType.GetValueOrDefault(), null),
                 doubleEncryptionStatus is null ? default : new EncryptionPreferences(doubleEncryptionStatus, null),
                 preferredManagementResourceId is null ? default : new ManagementResourcePreferences(preferredManagementResourceId, null),
                 termCommitmentPreferences,
@@ -424,7 +424,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new EdgeOrderItemPatch(forwardAddress is null && preferences is null && notificationEmailList is null && orderItemDetails is null ? default : new OrderItemUpdateProperties(forwardAddress, preferences, (notificationEmailList ?? new ChangeTrackingList<string>()).ToList(), orderItemDetails, null), tags, identity, additionalBinaryDataProperties: null);
+            return new EdgeOrderItemPatch(forwardAddress is null && preferences is null && orderItemDetails is null ? default : new OrderItemUpdateProperties(forwardAddress, preferences, (notificationEmailList ?? new ChangeTrackingList<string>()).ToList(), orderItemDetails, null), tags, identity, additionalBinaryDataProperties: null);
         }
 
         /// <summary> Reason for cancellation. </summary>
@@ -463,7 +463,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                orderItemIds is null && currentStage is null && orderStageHistory is null && orderMode is null ? default : new OrderProperties((orderItemIds ?? new ChangeTrackingList<ResourceIdentifier>()).ToList(), currentStage, (orderStageHistory ?? new ChangeTrackingList<EdgeOrderStageDetails>()).ToList(), orderMode, null));
+                currentStage is null && orderMode is null ? default : new OrderProperties((orderItemIds ?? new ChangeTrackingList<ResourceIdentifier>()).ToList(), currentStage, (orderStageHistory ?? new ChangeTrackingList<EdgeOrderStageDetails>()).ToList(), orderMode, null));
         }
 
         /// <summary> Configuration filters. </summary>
@@ -530,7 +530,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// <returns> A new <see cref="Models.ProductConfiguration"/> instance for mocking. </returns>
         public static ProductConfiguration ProductConfiguration(string displayName = default, ProductDescription description = default, IEnumerable<EdgeOrderProductImageInformation> imageInformation = default, EdgeOrderProductCostInformation costInformation = default, ProductAvailabilityInformation availabilityInformation = default, HierarchyInformation hierarchyInformation = default, EdgeOrderFulfillmentType? fulfilledBy = default, IEnumerable<FilterableProperty> filterableProperties = default, IEnumerable<ProductSpecification> specifications = default, ProductDimensions dimensions = default, EdgeOrderProvisioningSupport? provisioningSupport = default, IEnumerable<EdgeOrderChildConfigurationType> childConfigurationTypes = default, IEnumerable<EdgeOrderGroupedChildConfigurations> groupedChildConfigurations = default, IEnumerable<TimeSpan> supportedTermCommitmentDurations = default)
         {
-            return new ProductConfiguration(displayName is null && description is null && imageInformation is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null && filterableProperties is null && specifications is null && dimensions is null && provisioningSupport is null && childConfigurationTypes is null && groupedChildConfigurations is null && supportedTermCommitmentDurations is null ? default : new ConfigurationProperties(
+            return new ProductConfiguration(displayName is null && description is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null && dimensions is null && provisioningSupport is null ? default : new ConfigurationProperties(
                 displayName,
                 description,
                 (imageInformation ?? new ChangeTrackingList<EdgeOrderProductImageInformation>()).ToList(),
@@ -633,7 +633,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// <returns> A new <see cref="Models.EdgeOrderChildConfiguration"/> instance for mocking. </returns>
         public static EdgeOrderChildConfiguration EdgeOrderChildConfiguration(EdgeOrderChildConfigurationType? childConfigurationType = default, bool? isPartOfBaseConfiguration = default, int? minimumQuantity = default, int? maximumQuantity = default, IEnumerable<ProductSpecification> specifications = default, ProductDimensions dimensions = default, EdgeOrderProvisioningSupport? provisioningSupport = default, IEnumerable<EdgeOrderChildConfigurationType> childConfigurationTypes = default, IEnumerable<EdgeOrderGroupedChildConfigurations> groupedChildConfigurations = default, IEnumerable<TimeSpan> supportedTermCommitmentDurations = default, IEnumerable<FilterableProperty> filterableProperties = default, string displayName = default, ProductDescription description = default, IEnumerable<EdgeOrderProductImageInformation> imageInformation = default, EdgeOrderProductCostInformation costInformation = default, ProductAvailabilityInformation availabilityInformation = default, HierarchyInformation hierarchyInformation = default, EdgeOrderFulfillmentType? fulfilledBy = default)
         {
-            return new EdgeOrderChildConfiguration(childConfigurationType is null && isPartOfBaseConfiguration is null && minimumQuantity is null && maximumQuantity is null && specifications is null && dimensions is null && provisioningSupport is null && childConfigurationTypes is null && groupedChildConfigurations is null && supportedTermCommitmentDurations is null && filterableProperties is null && displayName is null && description is null && imageInformation is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null ? default : new ChildConfigurationProperties(
+            return new EdgeOrderChildConfiguration(childConfigurationType is null && isPartOfBaseConfiguration is null && minimumQuantity is null && maximumQuantity is null && dimensions is null && provisioningSupport is null && displayName is null && description is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null ? default : new ChildConfigurationProperties(
                 childConfigurationType,
                 isPartOfBaseConfiguration,
                 minimumQuantity,
@@ -802,7 +802,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// <returns> A new <see cref="Models.ProductFamily"/> instance for mocking. </returns>
         public static ProductFamily ProductFamily(string displayName = default, ProductDescription description = default, IEnumerable<EdgeOrderProductImageInformation> imageInformation = default, EdgeOrderProductCostInformation costInformation = default, ProductAvailabilityInformation availabilityInformation = default, HierarchyInformation hierarchyInformation = default, EdgeOrderFulfillmentType? fulfilledBy = default, IEnumerable<FilterableProperty> filterableProperties = default, IEnumerable<ProductLine> productLines = default, IEnumerable<ResourceProviderDetails> resourceProviderDetailsList = default)
         {
-            return new ProductFamily(displayName is null && description is null && imageInformation is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null && filterableProperties is null && productLines is null && resourceProviderDetailsList is null ? default : new ProductFamilyProperties(
+            return new ProductFamily(displayName is null && description is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null ? default : new ProductFamilyProperties(
                 displayName,
                 description,
                 (imageInformation ?? new ChangeTrackingList<EdgeOrderProductImageInformation>()).ToList(),
@@ -828,7 +828,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// <returns> A new <see cref="Models.ProductLine"/> instance for mocking. </returns>
         public static ProductLine ProductLine(string displayName = default, ProductDescription description = default, IEnumerable<EdgeOrderProductImageInformation> imageInformation = default, EdgeOrderProductCostInformation costInformation = default, ProductAvailabilityInformation availabilityInformation = default, HierarchyInformation hierarchyInformation = default, EdgeOrderFulfillmentType? fulfilledBy = default, IEnumerable<FilterableProperty> filterableProperties = default, IEnumerable<EdgeOrderProduct> products = default)
         {
-            return new ProductLine(displayName is null && description is null && imageInformation is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null && filterableProperties is null && products is null ? default : new ProductLineProperties(
+            return new ProductLine(displayName is null && description is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null ? default : new ProductLineProperties(
                 displayName,
                 description,
                 (imageInformation ?? new ChangeTrackingList<EdgeOrderProductImageInformation>()).ToList(),
@@ -853,7 +853,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// <returns> A new <see cref="Models.EdgeOrderProduct"/> instance for mocking. </returns>
         public static EdgeOrderProduct EdgeOrderProduct(string displayName = default, ProductDescription description = default, IEnumerable<EdgeOrderProductImageInformation> imageInformation = default, EdgeOrderProductCostInformation costInformation = default, ProductAvailabilityInformation availabilityInformation = default, HierarchyInformation hierarchyInformation = default, EdgeOrderFulfillmentType? fulfilledBy = default, IEnumerable<FilterableProperty> filterableProperties = default, IEnumerable<ProductConfiguration> configurations = default)
         {
-            return new EdgeOrderProduct(displayName is null && description is null && imageInformation is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null && filterableProperties is null && configurations is null ? default : new ProductProperties(
+            return new EdgeOrderProduct(displayName is null && description is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null ? default : new ProductProperties(
                 displayName,
                 description,
                 (imageInformation ?? new ChangeTrackingList<EdgeOrderProductImageInformation>()).ToList(),
@@ -879,7 +879,7 @@ namespace Azure.ResourceManager.EdgeOrder.Models
         /// <returns> A new <see cref="Models.ProductFamiliesMetadata"/> instance for mocking. </returns>
         public static ProductFamiliesMetadata ProductFamiliesMetadata(string displayName = default, ProductDescription description = default, IEnumerable<EdgeOrderProductImageInformation> imageInformation = default, EdgeOrderProductCostInformation costInformation = default, ProductAvailabilityInformation availabilityInformation = default, HierarchyInformation hierarchyInformation = default, EdgeOrderFulfillmentType? fulfilledBy = default, IEnumerable<FilterableProperty> filterableProperties = default, IEnumerable<ProductLine> productLines = default, IEnumerable<ResourceProviderDetails> resourceProviderDetailsList = default)
         {
-            return new ProductFamiliesMetadata(displayName is null && description is null && imageInformation is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null && filterableProperties is null && productLines is null && resourceProviderDetailsList is null ? default : new ProductFamilyProperties(
+            return new ProductFamiliesMetadata(displayName is null && description is null && costInformation is null && availabilityInformation is null && hierarchyInformation is null && fulfilledBy is null ? default : new ProductFamilyProperties(
                 displayName,
                 description,
                 (imageInformation ?? new ChangeTrackingList<EdgeOrderProductImageInformation>()).ToList(),

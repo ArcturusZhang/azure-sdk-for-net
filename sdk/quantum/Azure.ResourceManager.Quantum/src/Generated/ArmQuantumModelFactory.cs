@@ -77,7 +77,7 @@ namespace Azure.ResourceManager.Quantum.Models
                 workspaceKind,
                 endpointUri,
                 isApiKeyEnabled,
-                managedOnBehalfOfMoboBrokerResources is null ? default : new ManagedOnBehalfOfConfiguration((managedOnBehalfOfMoboBrokerResources ?? new ChangeTrackingList<MoboBrokerInfo>()).ToList(), null),
+                new ManagedOnBehalfOfConfiguration((managedOnBehalfOfMoboBrokerResources ?? new ChangeTrackingList<MoboBrokerInfo>()).ToList(), null),
                 managedStorageAccount,
                 additionalBinaryDataProperties: null);
         }

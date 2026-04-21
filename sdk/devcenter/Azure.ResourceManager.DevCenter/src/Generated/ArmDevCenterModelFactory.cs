@@ -160,7 +160,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                resourcePolicies is null && scopes is null && configurationPolicies is null && provisioningState is null ? default : new ProjectPolicyProperties((resourcePolicies ?? new ChangeTrackingList<DevCenterResourcePolicy>()).ToList(), (scopes ?? new ChangeTrackingList<string>()).ToList(), configurationPolicies, null, provisioningState));
+                configurationPolicies is null && provisioningState is null ? default : new ProjectPolicyProperties((resourcePolicies ?? new ChangeTrackingList<DevCenterResourcePolicy>()).ToList(), (scopes ?? new ChangeTrackingList<string>()).ToList(), configurationPolicies, null, provisioningState));
         }
 
         /// <summary> Feature state. </summary>
@@ -209,7 +209,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                devCenterId is null && description is null && maxDevBoxesPerUser is null && displayName is null && customizationSettings is null && devBoxScheduleDeleteSettings is null && serverlessGpuSessionsSettings is null && assignedGroups is null && catalogItemSyncTypes is null && azureAiServicesMode is null && workspaceStorageMode is null && provisioningState is null && devCenterUri is null ? default : new ProjectProperties(
+                devCenterId is null && description is null && maxDevBoxesPerUser is null && displayName is null && customizationSettings is null && devBoxScheduleDeleteSettings is null && serverlessGpuSessionsSettings is null && azureAiServicesMode is null && workspaceStorageMode is null && provisioningState is null && devCenterUri is null ? default : new ProjectProperties(
                     devCenterId,
                     description,
                     maxDevBoxesPerUser,
@@ -257,7 +257,7 @@ namespace Azure.ResourceManager.DevCenter.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new DevCenterProjectPatch(tags, location, additionalBinaryDataProperties: null, devCenterId is null && description is null && maxDevBoxesPerUser is null && displayName is null && customizationSettings is null && devBoxScheduleDeleteSettings is null && serverlessGpuSessionsSettings is null && assignedGroups is null && catalogItemSyncTypes is null && azureAiServicesMode is null && workspaceStorageMode is null ? default : new ProjectUpdateProperties(
+            return new DevCenterProjectPatch(tags, location, additionalBinaryDataProperties: null, devCenterId is null && description is null && maxDevBoxesPerUser is null && displayName is null && customizationSettings is null && devBoxScheduleDeleteSettings is null && serverlessGpuSessionsSettings is null && azureAiServicesMode is null && workspaceStorageMode is null ? default : new ProjectUpdateProperties(
                 devCenterId,
                 description,
                 maxDevBoxesPerUser,
@@ -370,7 +370,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                gitHub is null && adoGit is null && syncType is null && autoImageBuildEnableStatus is null && tags is null && provisioningState is null && syncState is null && lastSyncStats is null && connectionState is null && lastConnectionOn is null && lastSyncOn is null ? default : new CatalogProperties(
+                gitHub is null && adoGit is null && syncType is null && autoImageBuildEnableStatus is null && provisioningState is null && syncState is null && lastSyncStats is null && connectionState is null && lastConnectionOn is null && lastSyncOn is null ? default : new CatalogProperties(
                     gitHub,
                     adoGit,
                     syncType,
@@ -468,7 +468,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                description is null && parameters is null && templatePath is null && validationStatus is null ? default : new EnvironmentDefinitionProperties(description, (parameters ?? new ChangeTrackingList<DevCenterEnvironmentDefinitionParameterInfo>()).ToList(), templatePath, validationStatus, null));
+                description is null && templatePath is null && validationStatus is null ? default : new EnvironmentDefinitionProperties(description, (parameters ?? new ChangeTrackingList<DevCenterEnvironmentDefinitionParameterInfo>()).ToList(), templatePath, validationStatus, null));
         }
 
         /// <summary> Properties of an Environment Definition parameter. </summary>
@@ -516,7 +516,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && galleryResourceId is null ? default : new GalleryProperties(provisioningState, galleryResourceId, null));
+                provisioningState is null ? default : new GalleryProperties(provisioningState, galleryResourceId, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -605,7 +605,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                deploymentTargetId is null && displayName is null && status is null && userRoleAssignments is null && roles is null && provisioningState is null && environmentCount is null ? default : new ProjectEnvironmentTypeProperties(
+                deploymentTargetId is null && displayName is null && status is null && provisioningState is null && environmentCount is null ? default : new ProjectEnvironmentTypeProperties(
                     deploymentTargetId,
                     displayName,
                     status,
@@ -648,7 +648,7 @@ namespace Azure.ResourceManager.DevCenter.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new DevCenterProjectEnvironmentPatch(deploymentTargetId is null && displayName is null && status is null && userRoleAssignments is null && roles is null ? default : new ProjectEnvironmentTypeUpdateProperties(
+            return new DevCenterProjectEnvironmentPatch(deploymentTargetId is null && displayName is null && status is null ? default : new ProjectEnvironmentTypeUpdateProperties(
                 deploymentTargetId,
                 displayName,
                 status,
@@ -746,7 +746,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                inputs is null && timeout is null && validationStatus is null ? default : new CustomizationTaskProperties(inputs, timeout, validationStatus, null));
+                timeout is null && validationStatus is null ? default : new CustomizationTaskProperties(inputs, timeout, validationStatus, null));
         }
 
         /// <summary> Input for a Task. </summary>
@@ -783,7 +783,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                imageReference is null && fileUri is null && latestBuild is null && imageValidationStatus is null && imageValidationErrorDetails is null && validationStatus is null && activeImageReference is null && autoImageBuild is null && tasks is null && userTasks is null && extends is null ? default : new ImageDefinitionProperties(
+                imageReference is null && fileUri is null && latestBuild is null && imageValidationStatus is null && imageValidationErrorDetails is null && validationStatus is null && activeImageReference is null && autoImageBuild is null && extends is null ? default : new ImageDefinitionProperties(
                     imageReference,
                     fileUri,
                     latestBuild,
@@ -1007,7 +1007,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                devBoxDefinitionType is null && devBoxDefinitionName is null && devBoxDefinition is null && networkConnectionName is null && licenseType is null && localAdministrator is null && stopOnDisconnect is null && stopOnNoConnect is null && singleSignOnStatus is null && displayName is null && virtualNetworkType is null && managedVirtualNetworkRegions is null && activeHoursConfiguration is null && devBoxTunnelEnableStatus is null && healthStatus is null && healthStatusDetails is null && devBoxCount is null && provisioningState is null ? default : new PoolProperties(
+                devBoxDefinitionType is null && devBoxDefinitionName is null && devBoxDefinition is null && networkConnectionName is null && licenseType is null && localAdministrator is null && stopOnDisconnect is null && stopOnNoConnect is null && singleSignOnStatus is null && displayName is null && virtualNetworkType is null && activeHoursConfiguration is null && devBoxTunnelEnableStatus is null && healthStatus is null && devBoxCount is null && provisioningState is null ? default : new PoolProperties(
                     devBoxDefinitionType,
                     devBoxDefinitionName,
                     devBoxDefinition,
@@ -1093,7 +1093,7 @@ namespace Azure.ResourceManager.DevCenter.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new DevCenterPoolPatch(tags, location, additionalBinaryDataProperties: null, devBoxDefinitionType is null && devBoxDefinitionName is null && devBoxDefinition is null && networkConnectionName is null && licenseType is null && localAdministrator is null && stopOnDisconnect is null && stopOnNoConnect is null && singleSignOnStatus is null && displayName is null && virtualNetworkType is null && managedVirtualNetworkRegions is null && activeHoursConfiguration is null && devBoxTunnelEnableStatus is null ? default : new PoolUpdateProperties(
+            return new DevCenterPoolPatch(tags, location, additionalBinaryDataProperties: null, devBoxDefinitionType is null && devBoxDefinitionName is null && devBoxDefinition is null && networkConnectionName is null && licenseType is null && localAdministrator is null && stopOnDisconnect is null && stopOnNoConnect is null && singleSignOnStatus is null && displayName is null && virtualNetworkType is null && activeHoursConfiguration is null && devBoxTunnelEnableStatus is null ? default : new PoolUpdateProperties(
                 devBoxDefinitionType,
                 devBoxDefinitionName,
                 devBoxDefinition,
@@ -1132,7 +1132,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                tags is null && location is null && scheduledType is null && frequency is null && time is null && timeZone is null && state is null && provisioningState is null ? default : new ScheduleProperties(
+                location is null && scheduledType is null && frequency is null && time is null && timeZone is null && state is null && provisioningState is null ? default : new ScheduleProperties(
                     tags,
                     location,
                     scheduledType,
@@ -1203,7 +1203,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                     provisioningState,
                     healthCheckStatus,
                     networkingResourceGroupName,
-                    domainJoinType.Value));
+                    domainJoinType.GetValueOrDefault()));
         }
 
         /// <param name="tags"> Resource tags. </param>
@@ -1274,7 +1274,7 @@ namespace Azure.ResourceManager.DevCenter.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                startOn is null && endOn is null && healthChecks is null ? default : new HealthCheckStatusDetailsProperties(startOn, endOn, (healthChecks ?? new ChangeTrackingList<DevCenterHealthCheck>()).ToList(), null));
+                startOn is null && endOn is null ? default : new HealthCheckStatusDetailsProperties(startOn, endOn, (healthChecks ?? new ChangeTrackingList<DevCenterHealthCheck>()).ToList(), null));
         }
 
         /// <summary> An individual health check item. </summary>

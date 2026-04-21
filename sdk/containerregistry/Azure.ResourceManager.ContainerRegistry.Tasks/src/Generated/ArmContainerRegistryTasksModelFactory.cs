@@ -104,7 +104,7 @@ namespace Azure.ResourceManager.ContainerRegistry.Tasks.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                runId is null && status is null && lastUpdatedOn is null && runType is null && agentPoolName is null && createdOn is null && startOn is null && finishOn is null && outputImages is null && task is null && imageUpdateTrigger is null && sourceTrigger is null && timerTrigger is null && platform is null && sourceRegistryAuth is null && customRegistries is null && runErrorMessage is null && updateTriggerToken is null && logArtifact is null && provisioningState is null && isArchiveEnabled is null && agentCpu is null ? default : new RunProperties(
+                runId is null && status is null && lastUpdatedOn is null && runType is null && agentPoolName is null && createdOn is null && startOn is null && finishOn is null && task is null && imageUpdateTrigger is null && sourceTrigger is null && timerTrigger is null && platform is null && sourceRegistryAuth is null && runErrorMessage is null && updateTriggerToken is null && logArtifact is null && provisioningState is null && isArchiveEnabled is null && agentCpu is null ? default : new RunProperties(
                     runId,
                     status,
                     lastUpdatedOn,

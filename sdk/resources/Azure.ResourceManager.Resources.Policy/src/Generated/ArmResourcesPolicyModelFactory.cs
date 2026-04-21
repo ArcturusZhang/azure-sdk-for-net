@@ -50,7 +50,7 @@ namespace Azure.ResourceManager.Resources.Policy.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                displayName is null && policyDefinitionId is null && definitionVersion is null && latestDefinitionVersion is null && effectiveDefinitionVersion is null && scope is null && notScopes is null && parameters is null && description is null && metadata is null && enforcementMode is null && nonComplianceMessages is null && resourceSelectors is null && overrides is null && assignmentType is null && instanceId is null && selfServeExemptionSettings is null ? default : new PolicyAssignmentProperties(
+                displayName is null && policyDefinitionId is null && definitionVersion is null && latestDefinitionVersion is null && effectiveDefinitionVersion is null && scope is null && description is null && metadata is null && enforcementMode is null && assignmentType is null && instanceId is null && selfServeExemptionSettings is null ? default : new PolicyAssignmentProperties(
                     displayName,
                     policyDefinitionId,
                     definitionVersion,
@@ -163,7 +163,7 @@ namespace Azure.ResourceManager.Resources.Policy.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                namespaces is null && policyMode is null && isBuiltInOnly is null && resourceTypeAliases is null && effects is null && fieldValues is null && standard is null && custom is null ? default : new DataPolicyManifestProperties(
+                policyMode is null && isBuiltInOnly is null ? default : new DataPolicyManifestProperties(
                     (namespaces ?? new ChangeTrackingList<string>()).ToList(),
                     policyMode,
                     isBuiltInOnly,
@@ -284,7 +284,7 @@ namespace Azure.ResourceManager.Resources.Policy.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                policyType is null && mode is null && displayName is null && description is null && policyRule is null && metadata is null && parameters is null && version is null && versions is null && externalEvaluationEnforcementSettings is null ? default : new PolicyDefinitionProperties(
+                policyType is null && mode is null && displayName is null && description is null && policyRule is null && metadata is null && version is null && externalEvaluationEnforcementSettings is null ? default : new PolicyDefinitionProperties(
                     policyType,
                     mode,
                     displayName,
@@ -367,7 +367,7 @@ namespace Azure.ResourceManager.Resources.Policy.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                policyType is null && mode is null && displayName is null && description is null && policyRule is null && metadata is null && parameters is null && version is null && externalEvaluationEnforcementSettings is null ? default : new PolicyDefinitionVersionProperties(
+                policyType is null && mode is null && displayName is null && description is null && policyRule is null && metadata is null && version is null && externalEvaluationEnforcementSettings is null ? default : new PolicyDefinitionVersionProperties(
                     policyType,
                     mode,
                     displayName,
@@ -413,10 +413,10 @@ namespace Azure.ResourceManager.Resources.Policy.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                policyAssignmentId is null && policyDefinitionReferenceIds is null && exemptionCategory is null && expiresOn is null && displayName is null && description is null && metadata is null && resourceSelectors is null && assignmentScopeValidation is null ? default : new PolicyExemptionProperties(
+                exemptionCategory is null && expiresOn is null && displayName is null && description is null && metadata is null && assignmentScopeValidation is null ? default : new PolicyExemptionProperties(
                     policyAssignmentId,
                     (policyDefinitionReferenceIds ?? new ChangeTrackingList<string>()).ToList(),
-                    exemptionCategory.Value,
+                    exemptionCategory.GetValueOrDefault(),
                     expiresOn,
                     displayName,
                     description,
@@ -448,7 +448,7 @@ namespace Azure.ResourceManager.Resources.Policy.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                policyType is null && displayName is null && description is null && metadata is null && parameters is null && policyDefinitions is null && policyDefinitionGroups is null && version is null && versions is null ? default : new PolicySetDefinitionProperties(
+                policyType is null && displayName is null && description is null && metadata is null && version is null ? default : new PolicySetDefinitionProperties(
                     policyType,
                     displayName,
                     description,
@@ -507,7 +507,7 @@ namespace Azure.ResourceManager.Resources.Policy.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                policyType is null && displayName is null && description is null && metadata is null && parameters is null && policyDefinitions is null && policyDefinitionGroups is null && version is null ? default : new PolicySetDefinitionVersionProperties(
+                policyType is null && displayName is null && description is null && metadata is null && version is null ? default : new PolicySetDefinitionVersionProperties(
                     policyType,
                     displayName,
                     description,
@@ -544,7 +544,7 @@ namespace Azure.ResourceManager.Resources.Policy.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                columns is null ? default : new PolicyVariableProperties((columns ?? new ChangeTrackingList<PolicyVariableColumn>()).ToList(), null));
+                new PolicyVariableProperties((columns ?? new ChangeTrackingList<PolicyVariableColumn>()).ToList(), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -561,7 +561,7 @@ namespace Azure.ResourceManager.Resources.Policy.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                values is null ? default : new PolicyVariableValueProperties((values ?? new ChangeTrackingList<PolicyVariableValueColumnValue>()).ToList(), null));
+                new PolicyVariableValueProperties((values ?? new ChangeTrackingList<PolicyVariableValueColumnValue>()).ToList(), null));
         }
 
         /// <summary> The policy token request properties. </summary>

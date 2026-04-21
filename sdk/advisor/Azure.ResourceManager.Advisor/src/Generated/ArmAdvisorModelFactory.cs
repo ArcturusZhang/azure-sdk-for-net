@@ -65,7 +65,7 @@ namespace Azure.ResourceManager.Advisor.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                displayName is null && dependsOn is null && applicableScenarios is null && supportedValues is null ? default : new AdvisorMetadataEntityProperties(displayName, (dependsOn ?? new ChangeTrackingList<string>()).ToList(), (applicableScenarios ?? new ChangeTrackingList<MetadataScenarioType>()).ToList(), (supportedValues ?? new ChangeTrackingList<MetadataSupportedValueDetail>()).ToList(), null));
+                displayName is null ? default : new AdvisorMetadataEntityProperties(displayName, (dependsOn ?? new ChangeTrackingList<string>()).ToList(), (applicableScenarios ?? new ChangeTrackingList<MetadataScenarioType>()).ToList(), (supportedValues ?? new ChangeTrackingList<MetadataSupportedValueDetail>()).ToList(), null));
         }
 
         /// <summary> The metadata supported value detail. </summary>
@@ -116,7 +116,7 @@ namespace Azure.ResourceManager.Advisor.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                category is null && control is null && impact is null && impactedField is null && impactedValue is null && lastUpdatedOn is null && metadata is null && recommendationTypeId is null && risk is null && shortDescription is null && suppressionIds is null && extendedProperties is null && resourceMetadata is null && description is null && label is null && learnMoreLink is null && potentialBenefits is null && actions is null && remediation is null && exposedMetadataProperties is null && isTracked is null && trackedProperties is null && review is null && resourceWorkload is null && sourceSystem is null && notes is null ? default : new AdvisorRecommendationProperties(
+                category is null && control is null && impact is null && impactedField is null && impactedValue is null && lastUpdatedOn is null && recommendationTypeId is null && risk is null && shortDescription is null && resourceMetadata is null && description is null && label is null && learnMoreLink is null && potentialBenefits is null && isTracked is null && trackedProperties is null && review is null && resourceWorkload is null && sourceSystem is null && notes is null ? default : new AdvisorRecommendationProperties(
                     category,
                     control,
                     impact,
@@ -218,7 +218,7 @@ namespace Azure.ResourceManager.Advisor.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                lastRefreshedScore is null && timeSeries is null ? default : new AdvisorScoreEntityProperties(lastRefreshedScore, (timeSeries ?? new ChangeTrackingList<AdvisorTimeSeriesEntity>()).ToList(), null));
+                lastRefreshedScore is null ? default : new AdvisorScoreEntityProperties(lastRefreshedScore, (timeSeries ?? new ChangeTrackingList<AdvisorTimeSeriesEntity>()).ToList(), null));
         }
 
         /// <summary> The details of Advisor Score. </summary>
@@ -341,7 +341,7 @@ namespace Azure.ResourceManager.Advisor.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                reviewId is null && title is null && priority is null && appliesToSubscriptions is null && recommendationStatus is null && updatedOn is null && rejectReason is null && potentialBenefits is null && description is null && notes is null ? default : new AdvisorTriageRecommendationProperties(
+                reviewId is null && title is null && priority is null && recommendationStatus is null && updatedOn is null && rejectReason is null && potentialBenefits is null && description is null && notes is null ? default : new AdvisorTriageRecommendationProperties(
                     reviewId,
                     title,
                     priority,
@@ -403,7 +403,7 @@ namespace Azure.ResourceManager.Advisor.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                isExcluded is null && lowCpuThreshold is null && duration is null && digests is null ? default : new AdvisorConfigurationProperties(isExcluded, lowCpuThreshold, duration, (digests ?? new ChangeTrackingList<AdvisorDigestConfiguration>()).ToList(), null));
+                isExcluded is null && lowCpuThreshold is null && duration is null ? default : new AdvisorConfigurationProperties(isExcluded, lowCpuThreshold, duration, (digests ?? new ChangeTrackingList<AdvisorDigestConfiguration>()).ToList(), null));
         }
 
         /// <summary> Advisor Digest configuration entity. </summary>

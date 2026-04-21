@@ -478,7 +478,7 @@ namespace Azure.ResourceManager.RecoveryServicesDataReplication.Models
                 state,
                 startOn,
                 endOn,
-                customInstanceType is null ? default : new DataReplicationTaskCustomProperties(customInstanceType, null),
+                new DataReplicationTaskCustomProperties(customInstanceType, null),
                 childrenJobs.ToList(),
                 additionalBinaryDataProperties: null);
         }

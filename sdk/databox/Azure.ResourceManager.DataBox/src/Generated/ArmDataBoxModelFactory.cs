@@ -1180,7 +1180,7 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <returns> A new <see cref="Models.RegionConfigurationResult"/> instance for mocking. </returns>
         public static RegionConfigurationResult RegionConfigurationResult(IEnumerable<DateTimeOffset> scheduleAvailabilityResponseAvailableDates = default, IEnumerable<TransportAvailabilityDetails> transportAvailabilityDetails = default, DataCenterAddressResult dataCenterAddressResponse = default, IEnumerable<DeviceCapabilityDetails> deviceCapabilityDetails = default)
         {
-            return new RegionConfigurationResult(scheduleAvailabilityResponseAvailableDates is null ? default : new ScheduleAvailabilityResponse((scheduleAvailabilityResponseAvailableDates ?? new ChangeTrackingList<DateTimeOffset>()).ToList(), null), transportAvailabilityDetails is null ? default : new TransportAvailabilityResponse((transportAvailabilityDetails ?? new ChangeTrackingList<TransportAvailabilityDetails>()).ToList(), null), dataCenterAddressResponse, deviceCapabilityDetails is null ? default : new DeviceCapabilityResponse((deviceCapabilityDetails ?? new ChangeTrackingList<DeviceCapabilityDetails>()).ToList(), null), additionalBinaryDataProperties: null);
+            return new RegionConfigurationResult(new ScheduleAvailabilityResponse((scheduleAvailabilityResponseAvailableDates ?? new ChangeTrackingList<DateTimeOffset>()).ToList(), null), new TransportAvailabilityResponse((transportAvailabilityDetails ?? new ChangeTrackingList<TransportAvailabilityDetails>()).ToList(), null), dataCenterAddressResponse, new DeviceCapabilityResponse((deviceCapabilityDetails ?? new ChangeTrackingList<DeviceCapabilityDetails>()).ToList(), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> Transport options availability details for given region. </summary>
@@ -1381,7 +1381,7 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <returns> A new <see cref="Models.DataBoxValidationResult"/> instance for mocking. </returns>
         public static DataBoxValidationResult DataBoxValidationResult(OverallValidationStatus? status = default, IEnumerable<DataBoxValidationInputResult> individualResponseDetails = default)
         {
-            return new DataBoxValidationResult(status is null && individualResponseDetails is null ? default : new ValidationResponseProperties(status, (individualResponseDetails ?? new ChangeTrackingList<DataBoxValidationInputResult>()).ToList(), null), additionalBinaryDataProperties: null);
+            return new DataBoxValidationResult(status is null ? default : new ValidationResponseProperties(status, (individualResponseDetails ?? new ChangeTrackingList<DataBoxValidationInputResult>()).ToList(), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> The filters for showing the available skus. </summary>
@@ -1410,7 +1410,7 @@ namespace Azure.ResourceManager.DataBox.Models
         /// <returns> A new <see cref="Models.DataBoxSkuInformation"/> instance for mocking. </returns>
         public static DataBoxSkuInformation DataBoxSkuInformation(DataBoxSku sku = default, bool? isEnabled = default, IEnumerable<DataLocationToServiceLocationMap> dataLocationToServiceLocationMap = default, DataBoxSkuCapacity capacity = default, IEnumerable<DataBoxSkuCost> costs = default, IEnumerable<string> apiVersions = default, SkuDisabledReason? disabledReason = default, string disabledReasonMessage = default, string requiredFeature = default, IEnumerable<string> countriesWithinCommerceBoundary = default)
         {
-            return new DataBoxSkuInformation(sku, isEnabled, dataLocationToServiceLocationMap is null && capacity is null && costs is null && apiVersions is null && disabledReason is null && disabledReasonMessage is null && requiredFeature is null && countriesWithinCommerceBoundary is null ? default : new SkuProperties(
+            return new DataBoxSkuInformation(sku, isEnabled, capacity is null && disabledReason is null && disabledReasonMessage is null && requiredFeature is null ? default : new SkuProperties(
                 (dataLocationToServiceLocationMap ?? new ChangeTrackingList<DataLocationToServiceLocationMap>()).ToList(),
                 capacity,
                 (costs ?? new ChangeTrackingList<DataBoxSkuCost>()).ToList(),

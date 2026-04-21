@@ -64,10 +64,10 @@ namespace Azure.ResourceManager.IotOperations.Models
                 description,
                 provisioningState,
                 version,
-                schemaRegistryRefResourceId is null ? default : new SchemaRegistryRef(schemaRegistryRefResourceId, null),
-                defaultSecretProviderClassRefResourceId is null ? default : new SecretProviderClassRef(defaultSecretProviderClassRefResourceId, null),
+                new SchemaRegistryRef(schemaRegistryRefResourceId, null),
+                new SecretProviderClassRef(defaultSecretProviderClassRefResourceId, null),
                 features,
-                adrNamespaceRefResourceId is null ? default : new AzureDeviceRegistryNamespaceRef(adrNamespaceRefResourceId, null),
+                new AzureDeviceRegistryNamespaceRef(adrNamespaceRefResourceId, null),
                 healthState,
                 additionalBinaryDataProperties: null);
         }
@@ -214,7 +214,7 @@ namespace Azure.ResourceManager.IotOperations.Models
         {
             topics ??= new ChangeTrackingList<string>();
 
-            return new BrokerRetainMessagesSettings(topics.ToList(), dynamicMode is null ? default : new BrokerRetainMessagesDynamic(dynamicMode.Value, null), additionalBinaryDataProperties: null);
+            return new BrokerRetainMessagesSettings(topics.ToList(), dynamicMode is null ? default : new BrokerRetainMessagesDynamic(dynamicMode.GetValueOrDefault(), null), additionalBinaryDataProperties: null);
         }
 
         /// <param name="stateStoreResources"> List of key and key type to persist to disk. </param>
@@ -224,7 +224,7 @@ namespace Azure.ResourceManager.IotOperations.Models
         {
             stateStoreResources ??= new ChangeTrackingList<BrokerStateStorePolicyResources>();
 
-            return new BrokerStateStorePolicySettings(stateStoreResources.ToList(), dynamicMode is null ? default : new BrokerStateStoreDynamic(dynamicMode.Value, null), additionalBinaryDataProperties: null);
+            return new BrokerStateStorePolicySettings(stateStoreResources.ToList(), dynamicMode is null ? default : new BrokerStateStoreDynamic(dynamicMode.GetValueOrDefault(), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> Broker State Store Policy Resources properties. </summary>
@@ -245,7 +245,7 @@ namespace Azure.ResourceManager.IotOperations.Models
         {
             subscriberClientIds ??= new ChangeTrackingList<string>();
 
-            return new BrokerSubscriberQueueCustomPolicySettings(subscriberClientIds.ToList(), dynamicMode is null ? default : new BrokerSubscriberQueueDynamic(dynamicMode.Value, null), additionalBinaryDataProperties: null);
+            return new BrokerSubscriberQueueCustomPolicySettings(subscriberClientIds.ToList(), dynamicMode is null ? default : new BrokerSubscriberQueueDynamic(dynamicMode.GetValueOrDefault(), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> Instance broker resource. </summary>
@@ -341,7 +341,7 @@ namespace Azure.ResourceManager.IotOperations.Models
         {
             headers ??= new ChangeTrackingDictionary<string, string>();
 
-            return new BrokerAuthenticatorMethodCustom(authX509SecretRef is null ? default : new BrokerAuthenticatorCustomAuth(new BrokerX509ManualCertificate(authX509SecretRef, null), null), caCertConfigMap, endpoint, headers, additionalBinaryDataProperties: null);
+            return new BrokerAuthenticatorMethodCustom(new BrokerAuthenticatorCustomAuth(new BrokerX509ManualCertificate(authX509SecretRef, null), null), caCertConfigMap, endpoint, headers, additionalBinaryDataProperties: null);
         }
 
         /// <summary> X509 for BrokerAuthentication. </summary>
@@ -679,7 +679,7 @@ namespace Azure.ResourceManager.IotOperations.Models
                 dataLakeStorageSettings,
                 fabricOneLakeSettings,
                 kafkaSettings,
-                localStoragePersistentVolumeClaimRef is null ? default : new DataflowEndpointLocalStorage(localStoragePersistentVolumeClaimRef, null),
+                new DataflowEndpointLocalStorage(localStoragePersistentVolumeClaimRef, null),
                 mqttSettings,
                 openTelemetrySettings,
                 provisioningState,
@@ -876,7 +876,7 @@ namespace Azure.ResourceManager.IotOperations.Models
                 additionalConfiguration,
                 persistentVolumeClaimTemplates.ToList(),
                 secrets.ToList(),
-                trustListSecretRef is null ? default : new AkriConnectorTemplateTrustList(trustListSecretRef, null),
+                new AkriConnectorTemplateTrustList(trustListSecretRef, null),
                 additionalBinaryDataProperties: null);
         }
 
@@ -905,7 +905,7 @@ namespace Azure.ResourceManager.IotOperations.Models
                 additionalConfiguration,
                 persistentVolumeClaimTemplates.ToList(),
                 secrets.ToList(),
-                trustListSecretRef is null ? default : new AkriConnectorTemplateTrustList(trustListSecretRef, null),
+                new AkriConnectorTemplateTrustList(trustListSecretRef, null),
                 additionalBinaryDataProperties: null,
                 imageConfigurationSettings);
         }
@@ -950,7 +950,7 @@ namespace Azure.ResourceManager.IotOperations.Models
                 additionalConfiguration,
                 persistentVolumeClaimTemplates.ToList(),
                 secrets.ToList(),
-                trustListSecretRef is null ? default : new AkriConnectorTemplateTrustList(trustListSecretRef, null),
+                new AkriConnectorTemplateTrustList(trustListSecretRef, null),
                 additionalBinaryDataProperties: null,
                 statefulSetConfigurationSettings);
         }

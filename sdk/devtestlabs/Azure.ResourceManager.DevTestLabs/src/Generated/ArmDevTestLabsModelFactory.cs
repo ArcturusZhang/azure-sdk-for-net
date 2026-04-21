@@ -93,7 +93,7 @@ namespace Azure.ResourceManager.DevTestLabs.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new DevTestLabVmCreationContent(notes is null && ownerObjectId is null && ownerUserPrincipalName is null && createdOn is null && customImageId is null && size is null && userName is null && password is null && sshKey is null && isAuthenticationWithSshKey is null && labSubnetName is null && labVirtualNetworkId is null && disallowPublicIPAddress is null && artifacts is null && galleryImageReference is null && planId is null && networkInterface is null && expireOn is null && allowClaim is null && storageType is null && environmentId is null && dataDiskParameters is null && scheduleParameters is null && bulkCreationParametersInstanceCount is null ? default : new LabVirtualMachineCreationParameterProperties(
+            return new DevTestLabVmCreationContent(notes is null && ownerObjectId is null && ownerUserPrincipalName is null && createdOn is null && customImageId is null && size is null && userName is null && password is null && sshKey is null && isAuthenticationWithSshKey is null && labSubnetName is null && labVirtualNetworkId is null && disallowPublicIPAddress is null && galleryImageReference is null && planId is null && networkInterface is null && expireOn is null && allowClaim is null && storageType is null && environmentId is null && bulkCreationParametersInstanceCount is null ? default : new LabVirtualMachineCreationParameterProperties(
                 new BulkCreationParameters(bulkCreationParametersInstanceCount, null),
                 notes,
                 ownerObjectId,

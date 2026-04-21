@@ -152,7 +152,7 @@ namespace Azure.ResourceManager.DependencyMap.Models
                 error,
                 startOn,
                 endOn,
-                getDependencyViewForAllMachinesResultLayoutFileSasUri is null ? default : new GetDependencyViewForAllMachinesResultProperties(getDependencyViewForAllMachinesResultLayoutFileSasUri, null),
+                new GetDependencyViewForAllMachinesResultProperties(getDependencyViewForAllMachinesResultLayoutFileSasUri, null),
                 additionalBinaryDataProperties: null);
         }
 

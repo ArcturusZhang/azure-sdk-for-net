@@ -80,7 +80,7 @@ namespace Azure.ResourceManager.FileShares.Models
                 includedBurstIOPerSec,
                 maxBurstIOPerSecCredits,
                 nfsProtocolRootSquash is null ? default : new NfsProtocolProperties(nfsProtocolRootSquash, null),
-                publicAccessAllowedSubnets is null ? default : new PublicAccessProperties((publicAccessAllowedSubnets ?? new ChangeTrackingList<string>()).ToList(), null),
+                new PublicAccessProperties((publicAccessAllowedSubnets ?? new ChangeTrackingList<string>()).ToList(), null),
                 provisioningState,
                 publicNetworkAccess,
                 privateEndpointConnections.ToList(),
@@ -172,7 +172,7 @@ namespace Azure.ResourceManager.FileShares.Models
         /// <returns> A new <see cref="Models.FileShareUsageDataResult"/> instance for mocking. </returns>
         public static FileShareUsageDataResult FileShareUsageDataResult(int? liveSharesFileShareCount = default)
         {
-            return new FileShareUsageDataResult(liveSharesFileShareCount is null ? default : new FileShareUsageDataProperties(new LiveSharesUsageData(liveSharesFileShareCount.Value, null), null), additionalBinaryDataProperties: null);
+            return new FileShareUsageDataResult(liveSharesFileShareCount is null ? default : new FileShareUsageDataProperties(new LiveSharesUsageData(liveSharesFileShareCount.GetValueOrDefault(), null), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> Response structure for file share limits API. </summary>
@@ -244,7 +244,7 @@ namespace Azure.ResourceManager.FileShares.Models
         /// <returns> A new <see cref="Models.FileShareProvisioningRecommendationContent"/> instance for mocking. </returns>
         public static FileShareProvisioningRecommendationContent FileShareProvisioningRecommendationContent(int? fileShareProvisioningRecommendationInputProvisionedStorageInGiB = default)
         {
-            return new FileShareProvisioningRecommendationContent(fileShareProvisioningRecommendationInputProvisionedStorageInGiB is null ? default : new FileShareProvisioningRecommendationInputProperties(fileShareProvisioningRecommendationInputProvisionedStorageInGiB.Value, null), additionalBinaryDataProperties: null);
+            return new FileShareProvisioningRecommendationContent(fileShareProvisioningRecommendationInputProvisionedStorageInGiB is null ? default : new FileShareProvisioningRecommendationInputProperties(fileShareProvisioningRecommendationInputProvisionedStorageInGiB.GetValueOrDefault(), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> Response structure for file share provisioning parameters recommendation API. </summary>

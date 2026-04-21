@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
         /// <returns> A new <see cref="Models.TargetResourceEndpointAccess"/> instance for mocking. </returns>
         public static TargetResourceEndpointAccess TargetResourceEndpointAccess(string namespaceName = default, string namespaceNameSuffix = default, string hybridConnectionName = default, string accessKey = default, long? expiresOn = default, string serviceConfigurationToken = default)
         {
-            return new TargetResourceEndpointAccess(namespaceName is null && namespaceNameSuffix is null && hybridConnectionName is null && accessKey is null && expiresOn is null && serviceConfigurationToken is null ? default : new RelayNamespaceAccessProperties(
+            return new TargetResourceEndpointAccess(accessKey is null && expiresOn is null && serviceConfigurationToken is null ? default : new RelayNamespaceAccessProperties(
                 namespaceName,
                 namespaceNameSuffix,
                 hybridConnectionName,
@@ -103,7 +103,7 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                serviceName is null && resourceId is null && port is null && provisioningState is null ? default : new ServiceConfigurationProperties(serviceName.Value, resourceId, port, provisioningState, null));
+                serviceName is null && resourceId is null && port is null && provisioningState is null ? default : new ServiceConfigurationProperties(serviceName.GetValueOrDefault(), resourceId, port, provisioningState, null));
         }
 
         /// <summary> ConnectorId and SolutionTypes and their properties to Generate AWS CFT Template. </summary>
@@ -122,7 +122,7 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
         /// <returns> A new <see cref="Models.PublicCloudConnectorSolutionTypeSettings"/> instance for mocking. </returns>
         public static PublicCloudConnectorSolutionTypeSettings PublicCloudConnectorSolutionTypeSettings(string solutionType = default, IDictionary<string, string> solutionAdditionalProperties = default)
         {
-            return new PublicCloudConnectorSolutionTypeSettings(solutionType, solutionAdditionalProperties is null ? default : new PublicCloudConnectorSolutionSettings(solutionAdditionalProperties, null), additionalBinaryDataProperties: null);
+            return new PublicCloudConnectorSolutionTypeSettings(solutionType, new PublicCloudConnectorSolutionSettings(solutionAdditionalProperties, null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> Solution settings. </summary>
@@ -232,7 +232,7 @@ namespace Azure.ResourceManager.HybridConnectivity.Models
             return new PublicCloudConnectorSolutionConfigurationProperties(
                 provisioningState,
                 solutionType,
-                solutionAdditionalProperties is null ? default : new PublicCloudConnectorSolutionSettings(solutionAdditionalProperties, null),
+                new PublicCloudConnectorSolutionSettings(solutionAdditionalProperties, null),
                 status,
                 statusDetails,
                 lastSyncedOn,

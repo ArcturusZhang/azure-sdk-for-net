@@ -35,7 +35,7 @@ namespace Azure.ResourceManager.Relay.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                rights is null ? default : new AuthorizationRuleProperties((rights ?? new ChangeTrackingList<RelayAccessRight>()).ToList(), null),
+                new AuthorizationRuleProperties((rights ?? new ChangeTrackingList<RelayAccessRight>()).ToList(), null),
                 location);
         }
 
@@ -146,7 +146,7 @@ namespace Azure.ResourceManager.Relay.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupId is null && requiredMembers is null && requiredZoneNames is null ? default : new RelayPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
+                groupId is null ? default : new RelayPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -175,7 +175,7 @@ namespace Azure.ResourceManager.Relay.Models
                 systemData,
                 additionalBinaryDataProperties: null,
                 sku,
-                provisioningState is null && status is null && createdOn is null && updatedOn is null && serviceBusEndpoint is null && metricId is null && privateEndpointConnections is null && publicNetworkAccess is null ? default : new RelayNamespaceProperties(
+                provisioningState is null && status is null && createdOn is null && updatedOn is null && serviceBusEndpoint is null && metricId is null && publicNetworkAccess is null ? default : new RelayNamespaceProperties(
                     provisioningState,
                     status,
                     createdOn,
@@ -205,7 +205,7 @@ namespace Azure.ResourceManager.Relay.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                trustedServiceAccessEnabled is null && defaultAction is null && publicNetworkAccess is null && ipRules is null ? default : new NetworkRuleSetProperties(trustedServiceAccessEnabled, defaultAction, publicNetworkAccess, (ipRules ?? new ChangeTrackingList<RelayNetworkRuleSetIPRule>()).ToList(), null));
+                trustedServiceAccessEnabled is null && defaultAction is null && publicNetworkAccess is null ? default : new NetworkRuleSetProperties(trustedServiceAccessEnabled, defaultAction, publicNetworkAccess, (ipRules ?? new ChangeTrackingList<RelayNetworkRuleSetIPRule>()).ToList(), null));
         }
 
         /// <summary> Description of the check name availability request properties. </summary>

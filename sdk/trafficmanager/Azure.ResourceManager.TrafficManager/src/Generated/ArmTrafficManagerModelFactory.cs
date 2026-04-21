@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.TrafficManager.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                profileStatus is null && trafficRoutingMethod is null && dnsConfig is null && monitorConfig is null && endpoints is null && trafficViewEnrollmentStatus is null && allowedEndpointRecordTypes is null && maxReturn is null ? default : new ProfileProperties(
+                profileStatus is null && trafficRoutingMethod is null && dnsConfig is null && monitorConfig is null && trafficViewEnrollmentStatus is null && maxReturn is null ? default : new ProfileProperties(
                     profileStatus,
                     trafficRoutingMethod,
                     dnsConfig,

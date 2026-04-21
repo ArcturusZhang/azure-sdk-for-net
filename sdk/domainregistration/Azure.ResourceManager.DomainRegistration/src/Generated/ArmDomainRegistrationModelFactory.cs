@@ -59,7 +59,7 @@ namespace Azure.ResourceManager.DomainRegistration.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                contactAdmin is null && contactBilling is null && contactRegistrant is null && contactTech is null && registrationStatus is null && provisioningState is null && nameServers is null && isDomainPrivacyEnabled is null && createdOn is null && expireOn is null && lastRenewedOn is null && isAutoRenew is null && isDnsRecordManagementReady is null && managedHostNames is null && consent is null && domainNotRenewableReasons is null && dnsType is null && dnsZoneId is null && targetDnsType is null && authCode is null ? default : new DomainProperties(
+                registrationStatus is null && provisioningState is null && isDomainPrivacyEnabled is null && createdOn is null && expireOn is null && lastRenewedOn is null && isAutoRenew is null && isDnsRecordManagementReady is null && dnsType is null && dnsZoneId is null && targetDnsType is null && authCode is null ? default : new DomainProperties(
                     contactAdmin,
                     contactBilling,
                     contactRegistrant,
@@ -155,7 +155,7 @@ namespace Azure.ResourceManager.DomainRegistration.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                contactAdmin is null && contactBilling is null && contactRegistrant is null && contactTech is null && registrationStatus is null && provisioningState is null && nameServers is null && isDomainPrivacyEnabled is null && createdOn is null && expireOn is null && lastRenewedOn is null && isAutoRenew is null && isDnsRecordManagementReady is null && managedHostNames is null && consent is null && domainNotRenewableReasons is null && dnsType is null && dnsZoneId is null && targetDnsType is null && authCode is null ? default : new DomainPatchResourceProperties(
+                registrationStatus is null && provisioningState is null && isDomainPrivacyEnabled is null && createdOn is null && expireOn is null && lastRenewedOn is null && isAutoRenew is null && isDnsRecordManagementReady is null && dnsType is null && dnsZoneId is null && targetDnsType is null && authCode is null ? default : new DomainPatchResourceProperties(
                     contactAdmin,
                     contactBilling,
                     contactRegistrant,

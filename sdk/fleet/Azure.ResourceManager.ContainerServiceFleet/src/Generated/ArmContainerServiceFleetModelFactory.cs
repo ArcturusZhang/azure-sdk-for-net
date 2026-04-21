@@ -127,7 +127,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                clusterResourceId is null && @group is null && provisioningState is null && labels is null && status is null ? default : new FleetMemberProperties(
+                @group is null && provisioningState is null && status is null ? default : new FleetMemberProperties(
                     clusterResourceId,
                     @group,
                     provisioningState,
@@ -176,8 +176,8 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
                 provisioningState is null && managedNamespaceProperties is null && adoptionPolicy is null && deletePolicy is null && propagationPolicy is null && status is null && portalFqdn is null ? default : new FleetManagedNamespaceProperties(
                     provisioningState,
                     managedNamespaceProperties,
-                    adoptionPolicy.Value,
-                    deletePolicy.Value,
+                    adoptionPolicy.GetValueOrDefault(),
+                    deletePolicy.GetValueOrDefault(),
                     propagationPolicy,
                     status,
                     portalFqdn,
@@ -209,7 +209,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
             clusterNames ??= new ChangeTrackingList<string>();
             tolerations ??= new ChangeTrackingList<ContainerServiceFleetToleration>();
 
-            return new ContainerServiceFleetPlacementPolicy(placementType, clusterNames.ToList(), affinityRequiredDuringSchedulingIgnoredDuringExecutionClusterSelectorTerms is null ? default : new Affinity(new ContainerServiceFleetClusterAffinity(new ClusterSelector((affinityRequiredDuringSchedulingIgnoredDuringExecutionClusterSelectorTerms ?? new ChangeTrackingList<ContainerServiceFleetClusterSelectorTerm>()).ToList(), null), null), null), tolerations.ToList(), additionalBinaryDataProperties: null);
+            return new ContainerServiceFleetPlacementPolicy(placementType, clusterNames.ToList(), new Affinity(new ContainerServiceFleetClusterAffinity(new ClusterSelector((affinityRequiredDuringSchedulingIgnoredDuringExecutionClusterSelectorTerms ?? new ChangeTrackingList<ContainerServiceFleetClusterSelectorTerm>()).ToList(), null), null), null), tolerations.ToList(), additionalBinaryDataProperties: null);
         }
 
         /// <summary> A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects. </summary>
@@ -286,12 +286,12 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && displayName is null && gateType is null && target is null && state is null ? default : new GateProperties(
+                provisioningState is null && displayName is null && gateType is null && state is null ? default : new GateProperties(
                     provisioningState,
                     displayName,
-                    gateType.Value,
+                    gateType.GetValueOrDefault(),
                     target,
-                    state.Value,
+                    state.GetValueOrDefault(),
                     null),
                 etag);
         }
@@ -311,7 +311,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
         /// <returns> A new <see cref="Models.ContainerServiceFleetGatePatch"/> instance for mocking. </returns>
         public static ContainerServiceFleetGatePatch ContainerServiceFleetGatePatch(ContainerServiceFleetGateState? gatePatchState = default)
         {
-            return new ContainerServiceFleetGatePatch(gatePatchState is null ? default : new GatePatchProperties(gatePatchState.Value, null), additionalBinaryDataProperties: null);
+            return new ContainerServiceFleetGatePatch(gatePatchState is null ? default : new GatePatchProperties(gatePatchState.GetValueOrDefault(), null), additionalBinaryDataProperties: null);
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -342,7 +342,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && updateStrategyId is null && managedClusterUpdate is null && status is null && autoUpgradeProfileId is null && strategyStages is null ? default : new UpdateRunProperties(
+                provisioningState is null && updateStrategyId is null && status is null && autoUpgradeProfileId is null ? default : new UpdateRunProperties(
                     provisioningState,
                     updateStrategyId,
                     new ContainerServiceFleetUpdateRunStrategy((strategyStages ?? new ChangeTrackingList<ContainerServiceFleetUpdateStage>()).ToList(), null),
@@ -448,7 +448,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
         {
             stages ??= new ChangeTrackingList<ContainerServiceFleetUpdateStageStatus>();
 
-            return new ContainerServiceFleetUpdateRunStatus(status, stages.ToList(), selectedNodeImageVersions is null ? default : new NodeImageSelectionStatus((selectedNodeImageVersions ?? new ChangeTrackingList<NodeImageVersion>()).ToList(), null), additionalBinaryDataProperties: null);
+            return new ContainerServiceFleetUpdateRunStatus(status, stages.ToList(), new NodeImageSelectionStatus((selectedNodeImageVersions ?? new ChangeTrackingList<NodeImageVersion>()).ToList(), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> The status for an operation or group of operations. </summary>
@@ -588,7 +588,7 @@ namespace Azure.ResourceManager.ContainerServiceFleet.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && strategyStages is null ? default : new FleetUpdateStrategyProperties(provisioningState, new ContainerServiceFleetUpdateRunStrategy((strategyStages ?? new ChangeTrackingList<ContainerServiceFleetUpdateStage>()).ToList(), null), null),
+                provisioningState is null ? default : new FleetUpdateStrategyProperties(provisioningState, new ContainerServiceFleetUpdateRunStrategy((strategyStages ?? new ChangeTrackingList<ContainerServiceFleetUpdateStage>()).ToList(), null), null),
                 etag);
         }
 

@@ -40,7 +40,7 @@ namespace Azure.ResourceManager.Maps.Models
                 disableLocalAuth,
                 provisioningState,
                 linkedResources.ToList(),
-                corsRules is null ? default : new MapsCorsRules((corsRules ?? new ChangeTrackingList<MapsCorsRule>()).ToList(), null),
+                new MapsCorsRules((corsRules ?? new ChangeTrackingList<MapsCorsRule>()).ToList(), null),
                 encryption,
                 locations.ToList(),
                 privateEndpointConnections.ToList(),
@@ -75,7 +75,7 @@ namespace Azure.ResourceManager.Maps.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupIds is null && privateLinkServiceConnectionState is null && provisioningState is null && privateEndpointId is null ? default : new PrivateEndpointConnectionProperties((groupIds ?? new ChangeTrackingList<string>()).ToList(), new PrivateEndpoint(privateEndpointId, null), privateLinkServiceConnectionState, provisioningState, null));
+                provisioningState is null && privateEndpointId is null ? default : new PrivateEndpointConnectionProperties((groupIds ?? new ChangeTrackingList<string>()).ToList(), new PrivateEndpoint(privateEndpointId, null), privateLinkServiceConnectionState, provisioningState, null));
         }
 
         /// <summary> The SKU of the Maps Account. </summary>
@@ -111,7 +111,7 @@ namespace Azure.ResourceManager.Maps.Models
                 kind,
                 sku,
                 identity,
-                uniqueId is null && disableLocalAuth is null && provisioningState is null && linkedResources is null && encryption is null && locations is null && privateEndpointConnections is null && publicNetworkAccess is null && corsRules is null && corsRulesValue is null ? default : new MapsAccountProperties(
+                uniqueId is null && disableLocalAuth is null && provisioningState is null && encryption is null && publicNetworkAccess is null ? default : new MapsAccountProperties(
                     uniqueId,
                     disableLocalAuth,
                     provisioningState,
@@ -219,7 +219,7 @@ namespace Azure.ResourceManager.Maps.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new MapsCreatorPatch(tags, provisioningState is null && storageUnits is null && totalStorageUnitSizeInBytes is null && consumedStorageUnitSizeInBytes is null ? default : new MapsCreatorProperties(provisioningState, storageUnits.Value, totalStorageUnitSizeInBytes, consumedStorageUnitSizeInBytes, null), additionalBinaryDataProperties: null);
+            return new MapsCreatorPatch(tags, provisioningState is null && storageUnits is null && totalStorageUnitSizeInBytes is null && consumedStorageUnitSizeInBytes is null ? default : new MapsCreatorProperties(provisioningState, storageUnits.GetValueOrDefault(), totalStorageUnitSizeInBytes, consumedStorageUnitSizeInBytes, null), additionalBinaryDataProperties: null);
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -238,7 +238,7 @@ namespace Azure.ResourceManager.Maps.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupId is null && requiredMembers is null && requiredZoneNames is null ? default : new MapsPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
+                groupId is null ? default : new MapsPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
         }
 
         /// <summary> Initializes a new instance of <see cref="Maps.MapsAccountData"/>. </summary>

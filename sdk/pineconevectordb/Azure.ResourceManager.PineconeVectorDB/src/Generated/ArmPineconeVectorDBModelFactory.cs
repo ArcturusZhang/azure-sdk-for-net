@@ -57,7 +57,7 @@ namespace Azure.ResourceManager.PineconeVectorDB.Models
                 marketplace,
                 user,
                 provisioningState,
-                partnerDisplayName is null ? default : new PineconeVectorDBPartnerProperties(partnerDisplayName, null),
+                new PineconeVectorDBPartnerProperties(partnerDisplayName, null),
                 singleSignOnProperties,
                 additionalBinaryDataProperties: null);
         }

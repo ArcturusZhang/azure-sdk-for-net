@@ -516,7 +516,7 @@ namespace Azure.ResourceManager.ConnectedCache.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                mccCacheNodeBgpCidrs is null ? default : new MccCacheNodeBgpCidrsConfiguration((mccCacheNodeBgpCidrs ?? new ChangeTrackingList<string>()).ToList(), null));
+                new MccCacheNodeBgpCidrsConfiguration((mccCacheNodeBgpCidrs ?? new ChangeTrackingList<string>()).ToList(), null));
         }
 
         /// <summary> Mcc cache node resource all install details. </summary>

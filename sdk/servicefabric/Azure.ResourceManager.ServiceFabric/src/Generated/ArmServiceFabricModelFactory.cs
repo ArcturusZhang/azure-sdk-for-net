@@ -79,7 +79,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                addOnFeatures is null && availableClusterVersions is null && azureActiveDirectory is null && certificate is null && certificateCommonNames is null && clientCertificateCommonNames is null && clientCertificateThumbprints is null && clusterCodeVersion is null && clusterEndpoint is null && clusterId is null && clusterState is null && diagnosticsStorageAccountConfig is null && isEventStoreServiceEnabled is null && fabricSettings is null && managementEndpoint is null && nodeTypes is null && provisioningState is null && reliabilityLevel is null && reverseProxyCertificate is null && reverseProxyCertificateCommonNames is null && upgradeDescription is null && upgradeMode is null && vmImage is null && serviceFabricZonalUpgradeMode is null && vmssZonalUpgradeMode is null && isInfrastructureServiceManagerEnabled is null && upgradeWave is null && upgradePauseStartOn is null && upgradePauseEndOn is null && isWaveUpgradePaused is null && notifications is null && isHttpGatewayExclusiveAuthModeEnabled is null && maxUnusedVersionsToKeep is null ? default : new ClusterProperties(
+                azureActiveDirectory is null && certificate is null && certificateCommonNames is null && clusterCodeVersion is null && clusterEndpoint is null && clusterId is null && clusterState is null && diagnosticsStorageAccountConfig is null && isEventStoreServiceEnabled is null && provisioningState is null && reliabilityLevel is null && reverseProxyCertificate is null && reverseProxyCertificateCommonNames is null && upgradeDescription is null && upgradeMode is null && vmImage is null && serviceFabricZonalUpgradeMode is null && vmssZonalUpgradeMode is null && isInfrastructureServiceManagerEnabled is null && upgradeWave is null && upgradePauseStartOn is null && upgradePauseEndOn is null && isWaveUpgradePaused is null && isHttpGatewayExclusiveAuthModeEnabled is null && maxUnusedVersionsToKeep is null ? default : new ClusterProperties(
                     (addOnFeatures ?? new ChangeTrackingList<ClusterAddOnFeature>()).ToList(),
                     (availableClusterVersions ?? new ChangeTrackingList<ClusterVersionDetails>()).ToList(),
                     azureActiveDirectory,
@@ -102,7 +102,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                     reverseProxyCertificateCommonNames,
                     upgradeDescription,
                     upgradeMode,
-                    new ApplicationTypeVersionsCleanupPolicy(maxUnusedVersionsToKeep.Value, null),
+                    new ApplicationTypeVersionsCleanupPolicy(maxUnusedVersionsToKeep.GetValueOrDefault(), null),
                     vmImage,
                     serviceFabricZonalUpgradeMode,
                     vmssZonalUpgradeMode,
@@ -321,7 +321,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new ServiceFabricClusterPatch(addOnFeatures is null && certificate is null && certificateCommonNames is null && clientCertificateCommonNames is null && clientCertificateThumbprints is null && clusterCodeVersion is null && isEventStoreServiceEnabled is null && fabricSettings is null && nodeTypes is null && reliabilityLevel is null && reverseProxyCertificate is null && upgradeDescription is null && upgradeMode is null && sfZonalUpgradeMode is null && vmssZonalUpgradeMode is null && isInfrastructureServiceManagerEnabled is null && upgradeWave is null && upgradePauseStartOn is null && upgradePauseEndOn is null && isWaveUpgradePaused is null && notifications is null && isHttpGatewayExclusiveAuthModeEnabled is null && maxUnusedVersionsToKeep is null ? default : new ClusterPropertiesUpdateParameters(
+            return new ServiceFabricClusterPatch(certificate is null && certificateCommonNames is null && clusterCodeVersion is null && isEventStoreServiceEnabled is null && reliabilityLevel is null && reverseProxyCertificate is null && upgradeDescription is null && upgradeMode is null && sfZonalUpgradeMode is null && vmssZonalUpgradeMode is null && isInfrastructureServiceManagerEnabled is null && upgradeWave is null && upgradePauseStartOn is null && upgradePauseEndOn is null && isWaveUpgradePaused is null && isHttpGatewayExclusiveAuthModeEnabled is null && maxUnusedVersionsToKeep is null ? default : new ClusterPropertiesUpdateParameters(
                 (addOnFeatures ?? new ChangeTrackingList<ClusterAddOnFeature>()).ToList(),
                 certificate,
                 certificateCommonNames,
@@ -334,7 +334,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 reliabilityLevel,
                 reverseProxyCertificate,
                 upgradeDescription,
-                new ApplicationTypeVersionsCleanupPolicy(maxUnusedVersionsToKeep.Value, null),
+                new ApplicationTypeVersionsCleanupPolicy(maxUnusedVersionsToKeep.GetValueOrDefault(), null),
                 upgradeMode,
                 sfZonalUpgradeMode,
                 vmssZonalUpgradeMode,
@@ -428,7 +428,7 @@ namespace Azure.ResourceManager.ServiceFabric.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                typeVersion is null && parameters is null && upgradePolicy is null && minimumNodes is null && maximumNodes is null && removeApplicationCapacity is null && metrics is null && managedIdentities is null ? default : new ApplicationResourceUpdateProperties(
+                typeVersion is null && upgradePolicy is null && minimumNodes is null && maximumNodes is null && removeApplicationCapacity is null ? default : new ApplicationResourceUpdateProperties(
                     typeVersion,
                     parameters,
                     upgradePolicy,

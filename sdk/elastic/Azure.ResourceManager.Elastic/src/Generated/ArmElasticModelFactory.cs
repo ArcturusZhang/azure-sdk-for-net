@@ -44,7 +44,7 @@ namespace Azure.ResourceManager.Elastic.Models
                 location,
                 properties,
                 kind,
-                skuName is null ? default : new ElasticSku(skuName, null),
+                new ElasticSku(skuName, null),
                 identity);
         }
 

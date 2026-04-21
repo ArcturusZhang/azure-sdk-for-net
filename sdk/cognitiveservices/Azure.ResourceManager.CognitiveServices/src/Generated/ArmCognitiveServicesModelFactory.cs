@@ -832,7 +832,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
         {
             projectScopes ??= new ChangeTrackingList<RaiToolLabelPropertiesProjectScopesItem>();
 
-            return new RaiToolLabelProperties(toolConnectionName, accountScopeLabelValues is null ? default : new RaiToolLabelPropertiesAccountScope(accountScopeLabelValues, null), projectScopes.ToList(), additionalBinaryDataProperties: null);
+            return new RaiToolLabelProperties(toolConnectionName, new RaiToolLabelPropertiesAccountScope(accountScopeLabelValues, null), projectScopes.ToList(), additionalBinaryDataProperties: null);
         }
 
         /// <summary> The RaiToolLabelPropertiesProjectScopesItem. </summary>
@@ -1415,7 +1415,7 @@ namespace Azure.ResourceManager.CognitiveServices.Models
                 target,
                 useWorkspaceManagedIdentity,
                 additionalBinaryDataProperties: null,
-                credentialsKeys is null ? default : new CustomKeys(credentialsKeys, null));
+                new CustomKeys(credentialsKeys, null));
         }
 
         /// <summary> The OAuth2AuthTypeConnectionProperties. </summary>

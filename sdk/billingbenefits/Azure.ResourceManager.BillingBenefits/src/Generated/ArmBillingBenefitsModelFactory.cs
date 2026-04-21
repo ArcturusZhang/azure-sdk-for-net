@@ -497,10 +497,10 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && status is null && entityType is null && displayName is null && productCode is null && billingAccountResourceId is null && commitment is null && startOn is null && endOn is null && systemId is null && automaticShortfall is null && automaticShortfallSuppressReason is null && shortfall is null && milestones is null && resourceId is null && isAllowContributors is null && primaryResourceId is null && primaryBillingAccountResourceId is null ? default : new MaccModelProperties(
+                provisioningState is null && status is null && entityType is null && displayName is null && productCode is null && billingAccountResourceId is null && commitment is null && startOn is null && endOn is null && systemId is null && automaticShortfall is null && automaticShortfallSuppressReason is null && shortfall is null && resourceId is null && isAllowContributors is null && primaryResourceId is null && primaryBillingAccountResourceId is null ? default : new MaccModelProperties(
                     provisioningState,
                     status,
-                    entityType.Value,
+                    entityType.GetValueOrDefault(),
                     displayName,
                     productCode,
                     billingAccountResourceId,
@@ -558,7 +558,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                status is null && productCode is null && reason is null && credit is null && startOn is null && endOn is null && policies is null && billingAccountResourceId is null && billingProfileResourceId is null && breakdown is null && provisioningState is null && systemId is null && customerId is null && resourceId is null ? default : new CreditProperties(
+                status is null && productCode is null && reason is null && credit is null && startOn is null && endOn is null && policies is null && billingAccountResourceId is null && billingProfileResourceId is null && provisioningState is null && systemId is null && customerId is null && resourceId is null ? default : new CreditProperties(
                     status,
                     productCode,
                     reason,
@@ -604,7 +604,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new CreditPatch(tags, credit is null && endOn is null && breakdown is null ? default : new CreditPatchProperties(credit, endOn, (breakdown ?? new ChangeTrackingList<CreditBreakdownItem>()).ToList(), null), additionalBinaryDataProperties: null);
+            return new CreditPatch(tags, credit is null && endOn is null ? default : new CreditPatchProperties(credit, endOn, (breakdown ?? new ChangeTrackingList<CreditBreakdownItem>()).ToList(), null), additionalBinaryDataProperties: null);
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -777,7 +777,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new ConditionalCreditPatch(displayName is null && endOn is null && allowContributors is null && milestones is null ? default : new ConditionalCreditPatchRequestProperties(displayName, endOn, allowContributors, (milestones ?? new ChangeTrackingList<ConditionalCreditMilestone>()).ToList(), null), tags, additionalBinaryDataProperties: null);
+            return new ConditionalCreditPatch(displayName is null && endOn is null && allowContributors is null ? default : new ConditionalCreditPatchRequestProperties(displayName, endOn, allowContributors, (milestones ?? new ChangeTrackingList<ConditionalCreditMilestone>()).ToList(), null), tags, additionalBinaryDataProperties: null);
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -806,7 +806,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                displayName is null && billingAccountResourceId is null && provisioningState is null && status is null && startOn is null && endOn is null && productCode is null && benefitResourceId is null && resourceId is null && primaryResourceId is null && systemId is null && milestones is null && primaryBillingAccountResourceId is null ? default : new ContributorConditionalCreditProperties(
+                displayName is null && billingAccountResourceId is null && provisioningState is null && status is null && startOn is null && endOn is null && productCode is null && benefitResourceId is null && resourceId is null && primaryResourceId is null && systemId is null && primaryBillingAccountResourceId is null ? default : new ContributorConditionalCreditProperties(
                     default,
                     displayName,
                     billingAccountResourceId,
@@ -867,10 +867,10 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                provisioningState is null && status is null && entityType is null && displayName is null && productCode is null && billingAccountResourceId is null && commitment is null && startOn is null && endOn is null && systemId is null && automaticShortfall is null && automaticShortfallSuppressReason is null && shortfall is null && milestones is null && resourceId is null && isAllowContributors is null && primaryResourceId is null && primaryBillingAccountResourceId is null ? default : new MaccModelProperties(
+                provisioningState is null && status is null && entityType is null && displayName is null && productCode is null && billingAccountResourceId is null && commitment is null && startOn is null && endOn is null && systemId is null && automaticShortfall is null && automaticShortfallSuppressReason is null && shortfall is null && resourceId is null && isAllowContributors is null && primaryResourceId is null && primaryBillingAccountResourceId is null ? default : new MaccModelProperties(
                     provisioningState,
                     status,
-                    entityType.Value,
+                    entityType.GetValueOrDefault(),
                     displayName,
                     productCode,
                     billingAccountResourceId,
@@ -911,7 +911,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new MaccPatch(commitment is null && endOn is null && isAllowContributors is null && automaticShortfall is null && automaticShortfallSuppressReason is null && displayName is null && status is null && milestones is null && primaryResourceId is null && primaryBillingAccountResourceId is null ? default : new MaccPatchRequestProperties(
+            return new MaccPatch(commitment is null && endOn is null && isAllowContributors is null && automaticShortfall is null && automaticShortfallSuppressReason is null && displayName is null && status is null && primaryResourceId is null && primaryBillingAccountResourceId is null ? default : new MaccPatchRequestProperties(
                 commitment,
                 endOn,
                 isAllowContributors,
@@ -993,7 +993,7 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                displayName is null && provisioningState is null && billingScopeId is null && billingProfileId is null && customerId is null && billingAccountId is null && term is null && billingPlan is null && expireOn is null && benefitStartOn is null && planInformation is null && savingsPlans is null && extendedStatusInfo is null ? default : new SavingsPlanOrderModelProperties(
+                displayName is null && provisioningState is null && billingScopeId is null && billingProfileId is null && customerId is null && billingAccountId is null && term is null && billingPlan is null && expireOn is null && benefitStartOn is null && planInformation is null && extendedStatusInfo is null ? default : new SavingsPlanOrderModelProperties(
                     displayName,
                     provisioningState,
                     billingScopeId,
@@ -1293,10 +1293,10 @@ namespace Azure.ResourceManager.BillingBenefits.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && status is null && entityType is null && displayName is null && productCode is null && billingAccountResourceId is null && commitment is null && startOn is null && endOn is null && systemId is null && automaticShortfall is null && automaticShortfallSuppressReason is null && shortfall is null && milestones is null && resourceId is null && isAllowContributors is null && primaryResourceId is null && primaryBillingAccountResourceId is null ? default : new MaccModelProperties(
+                provisioningState is null && status is null && entityType is null && displayName is null && productCode is null && billingAccountResourceId is null && commitment is null && startOn is null && endOn is null && systemId is null && automaticShortfall is null && automaticShortfallSuppressReason is null && shortfall is null && resourceId is null && isAllowContributors is null && primaryResourceId is null && primaryBillingAccountResourceId is null ? default : new MaccModelProperties(
                     provisioningState,
                     status,
-                    entityType.Value,
+                    entityType.GetValueOrDefault(),
                     displayName,
                     productCode,
                     billingAccountResourceId,

@@ -73,7 +73,7 @@ namespace Azure.ResourceManager.CosmosDBForPostgreSql.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                aadAuthEnabled is null && administratorLogin is null && administratorLoginPassword is null && dataEncryption is null && provisioningState is null && state is null && postgresqlVersion is null && citusVersion is null && maintenanceWindow is null && preferredPrimaryZone is null && isShardsOnCoordinatorEnabled is null && isHAEnabled is null && coordinatorServerEdition is null && coordinatorStorageQuotaInMb is null && coordinatorVCores is null && isCoordinatorPublicIPAccessEnabled is null && nodeServerEdition is null && nodeCount is null && nodeStorageQuotaInMb is null && nodeVCores is null && isNodePublicIPAccessEnabled is null && serverNames is null && sourceResourceId is null && sourceLocation is null && passwordEnabled is null && pointInTimeUTC is null && readReplicas is null && earliestRestoreOn is null && privateEndpointConnections is null && databaseName is null && enableGeoBackup is null && authConfig is null ? default : new ClusterProperties(
+                aadAuthEnabled is null && administratorLogin is null && administratorLoginPassword is null && dataEncryption is null && provisioningState is null && state is null && postgresqlVersion is null && citusVersion is null && maintenanceWindow is null && preferredPrimaryZone is null && isShardsOnCoordinatorEnabled is null && isHAEnabled is null && coordinatorServerEdition is null && coordinatorStorageQuotaInMb is null && coordinatorVCores is null && isCoordinatorPublicIPAccessEnabled is null && nodeServerEdition is null && nodeCount is null && nodeStorageQuotaInMb is null && nodeVCores is null && isNodePublicIPAccessEnabled is null && sourceResourceId is null && sourceLocation is null && passwordEnabled is null && pointInTimeUTC is null && earliestRestoreOn is null && databaseName is null && enableGeoBackup is null && authConfig is null ? default : new ClusterProperties(
                     aadAuthEnabled,
                     administratorLogin,
                     administratorLoginPassword,
@@ -203,7 +203,7 @@ namespace Azure.ResourceManager.CosmosDBForPostgreSql.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                description is null && dataType is null && allowedValues is null && isRestartRequired is null && serverRoleGroupConfigurations is null && provisioningState is null ? default : new ConfigurationProperties(
+                description is null && dataType is null && allowedValues is null && isRestartRequired is null && provisioningState is null ? default : new ConfigurationProperties(
                     description,
                     dataType,
                     allowedValues,
@@ -245,7 +245,7 @@ namespace Azure.ResourceManager.CosmosDBForPostgreSql.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                value is null && source is null && description is null && defaultValue is null && dataType is null && allowedValues is null && isRestartRequired is null && provisioningState is null ? default : new ServerConfigurationProperties(
+                source is null && description is null && defaultValue is null && dataType is null && allowedValues is null && isRestartRequired is null && provisioningState is null ? default : new ServerConfigurationProperties(
                     value,
                     source,
                     description,
@@ -273,7 +273,7 @@ namespace Azure.ResourceManager.CosmosDBForPostgreSql.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                startIPAddress is null && endIPAddress is null && provisioningState is null ? default : new FirewallRuleProperties(startIPAddress, endIPAddress, provisioningState, null));
+                provisioningState is null ? default : new FirewallRuleProperties(startIPAddress, endIPAddress, provisioningState, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -292,7 +292,7 @@ namespace Azure.ResourceManager.CosmosDBForPostgreSql.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                groupId is null && requiredMembers is null && requiredZoneNames is null ? default : new CosmosDBForPostgreSqlPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
+                groupId is null ? default : new CosmosDBForPostgreSqlPrivateLinkResourceProperties(groupId, (requiredMembers ?? new ChangeTrackingList<string>()).ToList(), (requiredZoneNames ?? new ChangeTrackingList<string>()).ToList(), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -314,7 +314,7 @@ namespace Azure.ResourceManager.CosmosDBForPostgreSql.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                roleType is null && password is null && provisioningState is null && objectId is null && principalType is null && tenantId is null ? default : new RoleProperties(roleType, password, new RolePropertiesExternalIdentity(objectId, principalType.Value, tenantId, null), provisioningState, null));
+                roleType is null && password is null && provisioningState is null && principalType is null && tenantId is null ? default : new RoleProperties(roleType, password, new RolePropertiesExternalIdentity(objectId, principalType.GetValueOrDefault(), tenantId, null), provisioningState, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>

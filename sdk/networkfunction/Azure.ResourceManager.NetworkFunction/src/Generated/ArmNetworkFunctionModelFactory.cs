@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.NetworkFunction.Models
                 systemData,
                 additionalBinaryDataProperties: null,
                 location,
-                collectorPolicies is null && provisioningState is null && virtualHubId is null ? default : new AzureTrafficCollectorPropertiesFormat((collectorPolicies ?? new ChangeTrackingList<SubResource>()).ToList(), new ResourceReference(virtualHubId, null), provisioningState, null),
+                provisioningState is null && virtualHubId is null ? default : new AzureTrafficCollectorPropertiesFormat((collectorPolicies ?? new ChangeTrackingList<SubResource>()).ToList(), new ResourceReference(virtualHubId, null), provisioningState, null),
                 tags,
                 etag);
         }
@@ -78,7 +78,7 @@ namespace Azure.ResourceManager.NetworkFunction.Models
                 systemData,
                 additionalBinaryDataProperties: null,
                 location,
-                ingestionPolicy is null && emissionPolicies is null && provisioningState is null ? default : new CollectorPolicyPropertiesFormat(ingestionPolicy, (emissionPolicies ?? new ChangeTrackingList<EmissionPoliciesPropertiesFormat>()).ToList(), provisioningState, null),
+                ingestionPolicy is null && provisioningState is null ? default : new CollectorPolicyPropertiesFormat(ingestionPolicy, (emissionPolicies ?? new ChangeTrackingList<EmissionPoliciesPropertiesFormat>()).ToList(), provisioningState, null),
                 tags,
                 etag);
         }

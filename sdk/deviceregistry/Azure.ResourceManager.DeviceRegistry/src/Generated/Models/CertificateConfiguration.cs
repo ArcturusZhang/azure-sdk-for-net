@@ -26,7 +26,7 @@ namespace Azure.ResourceManager.DeviceRegistry.Models
             Argument.AssertNotNull(certificateAuthorityConfiguration, nameof(certificateAuthorityConfiguration));
 
             CertificateAuthorityConfiguration = certificateAuthorityConfiguration;
-            LeafCertificateConfiguration = leafCertificateValidityPeriodInDays is null ? default : new LeafCertificateConfiguration(leafCertificateValidityPeriodInDays.Value);
+            LeafCertificateConfiguration = leafCertificateValidityPeriodInDays is null ? default : new LeafCertificateConfiguration(leafCertificateValidityPeriodInDays.GetValueOrDefault());
         }
 
         /// <summary> Initializes a new instance of <see cref="CertificateConfiguration"/>. </summary>

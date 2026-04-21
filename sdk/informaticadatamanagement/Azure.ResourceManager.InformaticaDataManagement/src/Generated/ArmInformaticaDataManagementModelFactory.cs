@@ -281,12 +281,12 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
                 computeUnits,
                 executionTimeout,
                 serverlessAccountLocation,
-                networkInterfaceConfiguration is null ? default : new ServerlessRuntimeNetworkProfile(networkInterfaceConfiguration, null),
+                new ServerlessRuntimeNetworkProfile(networkInterfaceConfiguration, null),
                 advancedCustomProperties.ToList(),
                 supplementaryFileLocation,
                 serverlessRuntimeConfig,
                 serverlessRuntimeTags.ToList(),
-                userContextToken is null ? default : new ServerlessRuntimeUserContextProperties(userContextToken, null),
+                new ServerlessRuntimeUserContextProperties(userContextToken, null),
                 additionalBinaryDataProperties: null);
         }
 
@@ -315,7 +315,7 @@ namespace Azure.ResourceManager.InformaticaDataManagement.Models
                 computeUnits,
                 executionTimeout,
                 serverlessAccountLocation,
-                networkInterfaceConfiguration is null ? default : new ServerlessRuntimeNetworkProfileUpdate(networkInterfaceConfiguration, null),
+                new ServerlessRuntimeNetworkProfileUpdate(networkInterfaceConfiguration, null),
                 advancedCustomProperties.ToList(),
                 supplementaryFileLocation,
                 serverlessRuntimeConfig,

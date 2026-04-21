@@ -89,7 +89,7 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                policyType is null && provisioningState is null && wafPolicyId is null && rules is null ? default : new SecurityPolicyProperties(policyType, new WafPolicy(wafPolicyId, null), new ServiceNetworkingIPAccessRulesPolicy((rules ?? new ChangeTrackingList<ServiceNetworkingIPAccessRule>()).ToList(), null), provisioningState, null));
+                policyType is null && provisioningState is null ? default : new SecurityPolicyProperties(policyType, new WafPolicy(wafPolicyId, null), new ServiceNetworkingIPAccessRulesPolicy((rules ?? new ChangeTrackingList<ServiceNetworkingIPAccessRule>()).ToList(), null), provisioningState, null));
         }
 
         /// <summary> Ip Access Policy Rules. </summary>
@@ -141,7 +141,7 @@ namespace Azure.ResourceManager.ServiceNetworking.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                configurationEndpoints is null && frontends is null && associations is null && securityPolicies is null && securityPolicyConfigurations is null && trafficControllerProvisioningState is null ? default : new TrafficControllerProperties(
+                securityPolicyConfigurations is null && trafficControllerProvisioningState is null ? default : new TrafficControllerProperties(
                     (configurationEndpoints ?? new ChangeTrackingList<string>()).ToList(),
                     (frontends ?? new ChangeTrackingList<SubResource>()).ToList(),
                     (associations ?? new ChangeTrackingList<SubResource>()).ToList(),

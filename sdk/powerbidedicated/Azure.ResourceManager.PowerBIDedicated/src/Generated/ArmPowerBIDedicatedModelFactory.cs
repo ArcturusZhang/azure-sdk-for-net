@@ -45,7 +45,7 @@ namespace Azure.ResourceManager.PowerBIDedicated.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                mode is null && tenantId is null && friendlyName is null && administrationMembers is null && state is null && provisioningState is null ? default : new DedicatedCapacityProperties(
+                mode is null && tenantId is null && friendlyName is null && state is null && provisioningState is null ? default : new DedicatedCapacityProperties(
                     new DedicatedCapacityAdministrators((administrationMembers ?? new ChangeTrackingList<string>()).ToList(), null),
                     mode,
                     tenantId,
@@ -67,7 +67,7 @@ namespace Azure.ResourceManager.PowerBIDedicated.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new DedicatedCapacityPatch(sku, tags, mode is null && tenantId is null && friendlyName is null && administrationMembers is null ? default : new DedicatedCapacityMutableProperties(new DedicatedCapacityAdministrators((administrationMembers ?? new ChangeTrackingList<string>()).ToList(), null), mode, tenantId, friendlyName, null), additionalBinaryDataProperties: null);
+            return new DedicatedCapacityPatch(sku, tags, mode is null && tenantId is null && friendlyName is null ? default : new DedicatedCapacityMutableProperties(new DedicatedCapacityAdministrators((administrationMembers ?? new ChangeTrackingList<string>()).ToList(), null), mode, tenantId, friendlyName, null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> An object that represents SKU details for existing resources. </summary>

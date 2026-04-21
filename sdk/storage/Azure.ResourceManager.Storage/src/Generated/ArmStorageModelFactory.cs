@@ -244,7 +244,7 @@ namespace Azure.ResourceManager.Storage.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                provisioningState is null && primaryEndpoints is null && primaryLocation is null && statusOfPrimary is null && lastGeoFailoverOn is null && secondaryLocation is null && statusOfSecondary is null && createdOn is null && customDomain is null && sasPolicy is null && keyCreationTime is null && secondaryEndpoints is null && encryption is null && accessTier is null && azureFilesIdentityBasedAuthentication is null && enableHttpsTrafficOnly is null && networkRuleSet is null && isSftpEnabled is null && isLocalUserEnabled is null && isExtendedGroupEnabled is null && isHnsEnabled is null && geoReplicationStats is null && isFailoverInProgress is null && largeFileSharesState is null && privateEndpointConnections is null && routingPreference is null && blobRestoreStatus is null && allowBlobPublicAccess is null && minimumTlsVersion is null && allowSharedKeyAccess is null && isNfsV3Enabled is null && allowCrossTenantReplication is null && isDefaultToOAuthAuthentication is null && publicNetworkAccess is null && immutableStorageWithVersioning is null && allowedCopyScope is null && storageAccountSkuConversionStatus is null && dnsEndpointType is null && isSkuConversionBlocked is null && isAccountMigrationInProgress is null && keyExpirationPeriodInDays is null && isIPv6EndpointToBePublished is null && isBlobEnabled is null ? default : new StorageAccountProperties(
+                provisioningState is null && primaryEndpoints is null && primaryLocation is null && statusOfPrimary is null && lastGeoFailoverOn is null && secondaryLocation is null && statusOfSecondary is null && createdOn is null && customDomain is null && sasPolicy is null && keyCreationTime is null && secondaryEndpoints is null && encryption is null && accessTier is null && azureFilesIdentityBasedAuthentication is null && enableHttpsTrafficOnly is null && networkRuleSet is null && isSftpEnabled is null && isLocalUserEnabled is null && isExtendedGroupEnabled is null && isHnsEnabled is null && geoReplicationStats is null && isFailoverInProgress is null && largeFileSharesState is null && routingPreference is null && blobRestoreStatus is null && allowBlobPublicAccess is null && minimumTlsVersion is null && allowSharedKeyAccess is null && isNfsV3Enabled is null && allowCrossTenantReplication is null && isDefaultToOAuthAuthentication is null && publicNetworkAccess is null && immutableStorageWithVersioning is null && allowedCopyScope is null && storageAccountSkuConversionStatus is null && dnsEndpointType is null && isSkuConversionBlocked is null && isAccountMigrationInProgress is null && keyExpirationPeriodInDays is null && isIPv6EndpointToBePublished is null && isBlobEnabled is null ? default : new StorageAccountProperties(
                     provisioningState,
                     primaryEndpoints,
                     primaryLocation,
@@ -255,7 +255,7 @@ namespace Azure.ResourceManager.Storage.Models
                     createdOn,
                     customDomain,
                     sasPolicy,
-                    new KeyPolicy(keyExpirationPeriodInDays.Value, null),
+                    new KeyPolicy(keyExpirationPeriodInDays.GetValueOrDefault(), null),
                     keyCreationTime,
                     secondaryEndpoints,
                     encryption,
@@ -469,7 +469,7 @@ namespace Azure.ResourceManager.Storage.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                connectionState is null && provisioningState is null && privateEndpointId is null ? default : new StoragePrivateEndpointConnectionProperties(new PrivateEndpoint(privateEndpointId, null), connectionState, provisioningState, null));
+                provisioningState is null && privateEndpointId is null ? default : new StoragePrivateEndpointConnectionProperties(new PrivateEndpoint(privateEndpointId, null), connectionState, provisioningState, null));
         }
 
         /// <summary> Blob restore status. </summary>
@@ -549,7 +549,7 @@ namespace Azure.ResourceManager.Storage.Models
                     customDomain,
                     encryption,
                     sasPolicy,
-                    new KeyPolicy(keyExpirationPeriodInDays.Value, null),
+                    new KeyPolicy(keyExpirationPeriodInDays.GetValueOrDefault(), null),
                     accessTier,
                     azureFilesIdentityBasedAuthentication,
                     enableHttpsTrafficOnly,
@@ -700,7 +700,7 @@ namespace Azure.ResourceManager.Storage.Models
         /// <param name="migrationFailedDetailedReason"> Reason for migration failure. </param>
         /// <param name="name0"> The name of the Storage Account Migration. It should always be 'default'. </param>
         /// <returns> A new <see cref="Storage.StorageAccountMigrationData"/> instance for mocking. </returns>
-        public static StorageAccountMigrationData StorageAccountMigrationData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, StorageSkuName? targetSkuName = default, StorageAccountMigrationStatus? migrationStatus = default, string migrationFailedReason = default, string migrationFailedDetailedReason = default, string name0 = default)
+        public static StorageAccountMigrationData StorageAccountMigrationData(ResourceIdentifier id = default, string name = default, ResourceType resourceType = default, SystemData systemData = default, StorageSkuName targetSkuName = default, StorageAccountMigrationStatus? migrationStatus = default, string migrationFailedReason = default, string migrationFailedDetailedReason = default, string name0 = default)
         {
             return new StorageAccountMigrationData(
                 id,
@@ -708,7 +708,7 @@ namespace Azure.ResourceManager.Storage.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                targetSkuName is null && migrationStatus is null && migrationFailedReason is null && migrationFailedDetailedReason is null ? default : new StorageAccountMigrationProperties(targetSkuName.Value, migrationStatus, migrationFailedReason, migrationFailedDetailedReason, null),
+                migrationStatus is null && migrationFailedReason is null && migrationFailedDetailedReason is null ? default : new StorageAccountMigrationProperties(targetSkuName, migrationStatus, migrationFailedReason, migrationFailedDetailedReason, null),
                 name);
         }
 
@@ -852,7 +852,7 @@ namespace Azure.ResourceManager.Storage.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                corsRules is null ? default : new QueueServicePropertiesProperties(new StorageCorsRules((corsRules ?? new ChangeTrackingList<StorageCorsRule>()).ToList(), null), null));
+                new QueueServicePropertiesProperties(new StorageCorsRules((corsRules ?? new ChangeTrackingList<StorageCorsRule>()).ToList(), null), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -870,7 +870,7 @@ namespace Azure.ResourceManager.Storage.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                metadata is null && approximateMessageCount is null ? default : new QueueProperties(metadata, approximateMessageCount, null));
+                approximateMessageCount is null ? default : new QueueProperties(metadata, approximateMessageCount, null));
         }
 
         /// <param name="id"></param>
@@ -923,7 +923,7 @@ namespace Azure.ResourceManager.Storage.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                lastModifiedOn is null && policySchema is null ? default : new BlobInventoryPolicyProperties(lastModifiedOn, policySchema, null));
+                lastModifiedOn is null ? default : new BlobInventoryPolicyProperties(lastModifiedOn, policySchema, null));
         }
 
         /// <summary> The storage account blob inventory policy rules. </summary>
@@ -1037,7 +1037,7 @@ namespace Azure.ResourceManager.Storage.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                corsRules is null ? default : new TableServicePropertiesProperties(new StorageCorsRules((corsRules ?? new ChangeTrackingList<StorageCorsRule>()).ToList(), null), null));
+                new TableServicePropertiesProperties(new StorageCorsRules((corsRules ?? new ChangeTrackingList<StorageCorsRule>()).ToList(), null), null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -1058,7 +1058,7 @@ namespace Azure.ResourceManager.Storage.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && provisioningIssues is null && networkSecurityPerimeter is null && resourceAssociation is null && profile is null ? default : new NetworkSecurityPerimeterConfigurationProperties(
+                provisioningState is null && networkSecurityPerimeter is null && resourceAssociation is null && profile is null ? default : new NetworkSecurityPerimeterConfigurationProperties(
                     provisioningState,
                     (provisioningIssues ?? new ChangeTrackingList<NetworkSecurityPerimeterProvisioningIssue>()).ToList(),
                     networkSecurityPerimeter,
@@ -1208,7 +1208,7 @@ namespace Azure.ResourceManager.Storage.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                policyId is null && enabledOn is null && sourceAccount is null && destinationAccount is null && rules is null && isMetricsEnabled is null && isPriorityReplicationEnabled is null ? default : new ObjectReplicationPolicyProperties(
+                policyId is null && enabledOn is null && isMetricsEnabled is null && isPriorityReplicationEnabled is null ? default : new ObjectReplicationPolicyProperties(
                     policyId,
                     enabledOn,
                     sourceAccount,
@@ -1255,7 +1255,7 @@ namespace Azure.ResourceManager.Storage.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                permissionScopes is null && homeDirectory is null && sshAuthorizedKeys is null && sid is null && hasSharedKey is null && hasSshKey is null && hasSshPassword is null && userId is null && groupId is null && isAclAuthorizationAllowed is null && extendedGroups is null && isNfsV3Enabled is null ? default : new LocalUserProperties(
+                homeDirectory is null && sid is null && hasSharedKey is null && hasSshKey is null && hasSshPassword is null && userId is null && groupId is null && isAclAuthorizationAllowed is null && isNfsV3Enabled is null ? default : new LocalUserProperties(
                     (permissionScopes ?? new ChangeTrackingList<StoragePermissionScope>()).ToList(),
                     homeDirectory,
                     (sshAuthorizedKeys ?? new ChangeTrackingList<StorageSshPublicKey>()).ToList(),
@@ -1305,7 +1305,7 @@ namespace Azure.ResourceManager.Storage.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                tableName is null && signedIdentifiers is null ? default : new TableProperties(tableName, (signedIdentifiers ?? new ChangeTrackingList<StorageTableSignedIdentifier>()).ToList(), null));
+                tableName is null ? default : new TableProperties(tableName, (signedIdentifiers ?? new ChangeTrackingList<StorageTableSignedIdentifier>()).ToList(), null));
         }
 
         /// <summary> Storage SKU and its properties. </summary>

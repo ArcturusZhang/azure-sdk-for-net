@@ -91,7 +91,7 @@ namespace Azure.ResourceManager.Chaos.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                publisher is null && targetType is null && displayName is null && description is null && parametersSchema is null && urn is null && kind is null && azureRbacActions is null && azureRbacDataActions is null && requiredAzureRoleDefinitionIds is null && runtimeKind is null ? default : new CapabilityTypeProperties(
+                publisher is null && targetType is null && displayName is null && description is null && parametersSchema is null && urn is null && kind is null && runtimeKind is null ? default : new CapabilityTypeProperties(
                     publisher,
                     targetType,
                     displayName,
@@ -130,7 +130,7 @@ namespace Azure.ResourceManager.Chaos.Models
                 tags,
                 location,
                 identity,
-                provisioningState is null && steps is null && selectors is null ? default : new ExperimentProperties(provisioningState, (steps ?? new ChangeTrackingList<ChaosExperimentStep>()).ToList(), (selectors ?? new ChangeTrackingList<ChaosTargetSelector>()).ToList(), null));
+                provisioningState is null ? default : new ExperimentProperties(provisioningState, (steps ?? new ChangeTrackingList<ChaosExperimentStep>()).ToList(), (selectors ?? new ChangeTrackingList<ChaosTargetSelector>()).ToList(), null));
         }
 
         /// <summary> Model that represents a step in the Experiment resource. </summary>
@@ -339,7 +339,7 @@ namespace Azure.ResourceManager.Chaos.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                displayName is null && description is null && propertiesSchema is null && resourceTypes is null ? default : new TargetTypeProperties(displayName, description, propertiesSchema, (resourceTypes ?? new ChangeTrackingList<string>()).ToList(), null));
+                displayName is null && description is null && propertiesSchema is null ? default : new TargetTypeProperties(displayName, description, propertiesSchema, (resourceTypes ?? new ChangeTrackingList<string>()).ToList(), null));
         }
 
         /// <summary> Initializes a new instance of <see cref="Models.ExperimentExecutionDetails"/>. </summary>

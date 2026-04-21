@@ -86,7 +86,7 @@ namespace Azure.ResourceManager.Sphere.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                deploymentId is null && deployedImages is null && deploymentDateUtc is null && provisioningState is null ? default : new DeploymentProperties(deploymentId, (deployedImages ?? new ChangeTrackingList<SphereImageData>()).ToList(), deploymentDateUtc, provisioningState, null));
+                deploymentId is null && deploymentDateUtc is null && provisioningState is null ? default : new DeploymentProperties(deploymentId, (deployedImages ?? new ChangeTrackingList<SphereImageData>()).ToList(), deploymentDateUtc, provisioningState, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>

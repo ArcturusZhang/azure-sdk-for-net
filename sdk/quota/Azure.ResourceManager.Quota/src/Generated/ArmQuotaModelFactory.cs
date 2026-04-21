@@ -284,7 +284,7 @@ namespace Azure.ResourceManager.Quota.Models
                 unit,
                 value is null && localizedValue is null ? default : new GroupQuotaDetailsName(value, localizedValue, null),
                 availableLimit,
-                allocatedToSubscriptionsValue is null ? default : new AllocatedQuotaToSubscriptionList((allocatedToSubscriptionsValue ?? new ChangeTrackingList<SubscriptionAllocatedQuota>()).ToList(), null),
+                new AllocatedQuotaToSubscriptionList((allocatedToSubscriptionsValue ?? new ChangeTrackingList<SubscriptionAllocatedQuota>()).ToList(), null),
                 additionalBinaryDataProperties: null);
         }
 
@@ -306,7 +306,7 @@ namespace Azure.ResourceManager.Quota.Models
                 unit,
                 value is null && localizedValue is null ? default : new GroupQuotaDetailsName(value, localizedValue, null),
                 availableLimit,
-                allocatedToSubscriptionsValue is null ? default : new AllocatedQuotaToSubscriptionList((allocatedToSubscriptionsValue ?? new ChangeTrackingList<SubscriptionAllocatedQuota>()).ToList(), null),
+                new AllocatedQuotaToSubscriptionList((allocatedToSubscriptionsValue ?? new ChangeTrackingList<SubscriptionAllocatedQuota>()).ToList(), null),
                 additionalBinaryDataProperties: null);
         }
 
@@ -548,7 +548,7 @@ namespace Azure.ResourceManager.Quota.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && message is null && error is null && requestSubmitOn is null && value is null ? default : new QuotaRequestProperties(
+                provisioningState is null && message is null && error is null && requestSubmitOn is null ? default : new QuotaRequestProperties(
                     provisioningState,
                     message,
                     error,

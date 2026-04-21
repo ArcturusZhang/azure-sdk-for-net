@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.VirtualEnclaves.Models
         {
             resourceGroupCollection ??= new ChangeTrackingList<string>();
 
-            return new VirtualEnclaveWorkloadProperties(provisioningState, resourceGroupCollection.ToList(), managedOnBehalfOfMoboBrokerResources is null ? default : new ManagedOnBehalfOfConfiguration((managedOnBehalfOfMoboBrokerResources ?? new ChangeTrackingList<MoboBrokerResource>()).ToList(), null), additionalBinaryDataProperties: null);
+            return new VirtualEnclaveWorkloadProperties(provisioningState, resourceGroupCollection.ToList(), new ManagedOnBehalfOfConfiguration((managedOnBehalfOfMoboBrokerResources ?? new ChangeTrackingList<MoboBrokerResource>()).ToList(), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> Managed-On-Behalf-Of broker resource. This resource is created by the Resource Provider to manage some resources on behalf of the user. </summary>
@@ -69,7 +69,7 @@ namespace Azure.ResourceManager.VirtualEnclaves.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new VirtualEnclaveWorkloadPatch(workloadPatchResourceGroupCollection is null ? default : new WorkloadPatchProperties((workloadPatchResourceGroupCollection ?? new ChangeTrackingList<string>()).ToList(), null), tags, additionalBinaryDataProperties: null);
+            return new VirtualEnclaveWorkloadPatch(new WorkloadPatchProperties((workloadPatchResourceGroupCollection ?? new ChangeTrackingList<string>()).ToList(), null), tags, additionalBinaryDataProperties: null);
         }
 
         /// <summary> Virtual Enclave Model Resource. </summary>
@@ -126,7 +126,7 @@ namespace Azure.ResourceManager.VirtualEnclaves.Models
                 communityResourceId,
                 resourceCollection.ToList(),
                 managedResourceGroupName,
-                managedOnBehalfOfMoboBrokerResources is null ? default : new ManagedOnBehalfOfConfiguration((managedOnBehalfOfMoboBrokerResources ?? new ChangeTrackingList<MoboBrokerResource>()).ToList(), null),
+                new ManagedOnBehalfOfConfiguration((managedOnBehalfOfMoboBrokerResources ?? new ChangeTrackingList<MoboBrokerResource>()).ToList(), null),
                 isBastionEnabled,
                 enclaveRoleAssignments.ToList(),
                 workloadRoleAssignments.ToList(),
@@ -370,7 +370,7 @@ namespace Azure.ResourceManager.VirtualEnclaves.Models
                 provisioningState,
                 resourceCollection.ToList(),
                 managedResourceGroupName,
-                managedOnBehalfOfMoboBrokerResources is null ? default : new ManagedOnBehalfOfConfiguration((managedOnBehalfOfMoboBrokerResources ?? new ChangeTrackingList<MoboBrokerResource>()).ToList(), null),
+                new ManagedOnBehalfOfConfiguration((managedOnBehalfOfMoboBrokerResources ?? new ChangeTrackingList<MoboBrokerResource>()).ToList(), null),
                 governedServiceList.ToList(),
                 policyOverride,
                 communityRoleAssignments.ToList(),
@@ -452,7 +452,7 @@ namespace Azure.ResourceManager.VirtualEnclaves.Models
                 policyOverride,
                 communityRoleAssignments.ToList(),
                 firewallSku,
-                approvalMandatoryApprovers is null ? default : new ApprovalSettingsPatchProperties((approvalMandatoryApprovers ?? new ChangeTrackingList<VirtualEnclaveMandatoryApprover>()).ToList(), null),
+                new ApprovalSettingsPatchProperties((approvalMandatoryApprovers ?? new ChangeTrackingList<VirtualEnclaveMandatoryApprover>()).ToList(), null),
                 maintenanceModeConfiguration,
                 additionalBinaryDataProperties: null);
         }
@@ -637,7 +637,7 @@ namespace Azure.ResourceManager.VirtualEnclaves.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new VirtualEnclaveEndpointPatch(enclaveEndpointPatchRuleCollection is null ? default : new EnclaveEndpointPatchProperties((enclaveEndpointPatchRuleCollection ?? new ChangeTrackingList<EnclaveEndpointDestinationRule>()).ToList(), null), tags, additionalBinaryDataProperties: null);
+            return new VirtualEnclaveEndpointPatch(new EnclaveEndpointPatchProperties((enclaveEndpointPatchRuleCollection ?? new ChangeTrackingList<EnclaveEndpointDestinationRule>()).ToList(), null), tags, additionalBinaryDataProperties: null);
         }
 
         /// <summary> CommunityEndpoint Model Resource. </summary>
@@ -706,7 +706,7 @@ namespace Azure.ResourceManager.VirtualEnclaves.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new VirtualEnclaveCommunityEndpointPatch(communityEndpointPatchRuleCollection is null ? default : new CommunityEndpointPatchProperties((communityEndpointPatchRuleCollection ?? new ChangeTrackingList<CommunityEndpointDestinationRule>()).ToList(), null), tags, additionalBinaryDataProperties: null);
+            return new VirtualEnclaveCommunityEndpointPatch(new CommunityEndpointPatchProperties((communityEndpointPatchRuleCollection ?? new ChangeTrackingList<CommunityEndpointDestinationRule>()).ToList(), null), tags, additionalBinaryDataProperties: null);
         }
 
         /// <summary> Approval Model Resource. </summary>

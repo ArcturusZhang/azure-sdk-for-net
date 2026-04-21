@@ -68,7 +68,7 @@ namespace Azure.ResourceManager.CertificateRegistration
         public string Kind { get { throw null; } set { } }
         public System.DateTimeOffset? LastCertificateIssuedOn { get { throw null; } }
         public System.DateTimeOffset? NextAutoRenewOn { get { throw null; } }
-        public Azure.ResourceManager.CertificateRegistration.Models.CertificateProductType ProductType { get { throw null; } set { } }
+        public Azure.ResourceManager.CertificateRegistration.Models.CertificateProductType? ProductType { get { throw null; } set { } }
         public Azure.ResourceManager.CertificateRegistration.Models.CertificateRegistrationProvisioningState? ProvisioningState { get { throw null; } }
         public Azure.ResourceManager.CertificateRegistration.Models.AppServiceCertificateDetails Root { get { throw null; } }
         public string SerialNumber { get { throw null; } }
@@ -312,7 +312,7 @@ namespace Azure.ResourceManager.CertificateRegistration.Models
         public int? KeySize { get { throw null; } set { } }
         public System.DateTimeOffset? LastCertificateIssuedOn { get { throw null; } }
         public System.DateTimeOffset? NextAutoRenewOn { get { throw null; } }
-        public Azure.ResourceManager.CertificateRegistration.Models.CertificateProductType ProductType { get { throw null; } }
+        public Azure.ResourceManager.CertificateRegistration.Models.CertificateProductType? ProductType { get { throw null; } }
         public Azure.ResourceManager.CertificateRegistration.Models.CertificateRegistrationProvisioningState? ProvisioningState { get { throw null; } }
         public Azure.ResourceManager.CertificateRegistration.Models.AppServiceCertificateDetails Root { get { throw null; } }
         public string SerialNumber { get { throw null; } }

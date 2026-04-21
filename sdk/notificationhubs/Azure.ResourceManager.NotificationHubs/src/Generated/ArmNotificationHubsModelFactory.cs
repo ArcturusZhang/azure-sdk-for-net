@@ -53,7 +53,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                notificationHubName is null && registrationTtl is null && authorizationRules is null && apnsCredential is null && wnsCredential is null && gcmCredential is null && mpnsCredential is null && admCredential is null && baiduCredential is null && browserCredential is null && xiaomiCredential is null && fcmV1Credential is null && dailyMaxActiveDevices is null ? default : new NotificationHubProperties(
+                notificationHubName is null && registrationTtl is null && apnsCredential is null && wnsCredential is null && gcmCredential is null && mpnsCredential is null && admCredential is null && baiduCredential is null && browserCredential is null && xiaomiCredential is null && fcmV1Credential is null && dailyMaxActiveDevices is null ? default : new NotificationHubProperties(
                     notificationHubName,
                     registrationTtl,
                     (authorizationRules ?? new ChangeTrackingList<SharedAccessAuthorizationRuleProperties>()).ToList(),
@@ -138,7 +138,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                notificationHubName is null && registrationTtl is null && authorizationRules is null && apnsCredential is null && wnsCredential is null && gcmCredential is null && mpnsCredential is null && admCredential is null && baiduCredential is null && browserCredential is null && xiaomiCredential is null && fcmV1Credential is null && dailyMaxActiveDevices is null ? default : new NotificationHubProperties(
+                notificationHubName is null && registrationTtl is null && apnsCredential is null && wnsCredential is null && gcmCredential is null && mpnsCredential is null && admCredential is null && baiduCredential is null && browserCredential is null && xiaomiCredential is null && fcmV1Credential is null && dailyMaxActiveDevices is null ? default : new NotificationHubProperties(
                     notificationHubName,
                     registrationTtl,
                     (authorizationRules ?? new ChangeTrackingList<SharedAccessAuthorizationRuleProperties>()).ToList(),
@@ -177,7 +177,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 systemData,
                 additionalBinaryDataProperties: null,
                 location,
-                success is null && failure is null && failureDescription is null ? default : new DebugSendResult(success, failure, (failureDescription ?? new ChangeTrackingList<NotificationHubPubRegistrationResult>()).ToList(), null),
+                success is null && failure is null ? default : new DebugSendResult(success, failure, (failureDescription ?? new ChangeTrackingList<NotificationHubPubRegistrationResult>()).ToList(), null),
                 tags);
         }
 
@@ -267,7 +267,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 systemData,
                 additionalBinaryDataProperties: null,
                 location,
-                accessRights is null && primaryKey is null && secondaryKey is null && keyName is null && modifiedOn is null && createdOn is null && claimType is null && claimValue is null && revision is null && rights is null ? default : new SharedAccessAuthorizationRuleProperties(
+                primaryKey is null && secondaryKey is null && keyName is null && modifiedOn is null && createdOn is null && claimType is null && claimValue is null && revision is null ? default : new SharedAccessAuthorizationRuleProperties(
                     (accessRights ?? new ChangeTrackingList<AuthorizationRuleAccessRightExt>()).ToList(),
                     primaryKey,
                     secondaryKey,
@@ -351,7 +351,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                namespaceName is null && operationProvisioningState is null && namespaceStatus is null && isEnabled is null && isCritical is null && subscriptionId is null && region is null && metricId is null && createdOn is null && updatedOn is null && hubNamespaceType is null && replicationRegion is null && zoneRedundancy is null && networkAcls is null && pnsCredentials is null && serviceBusEndpoint is null && privateEndpointConnections is null && scaleUnit is null && dataCenter is null && publicNetworkAccess is null ? default : new NotificationHubNamespaceProperties(
+                namespaceName is null && operationProvisioningState is null && namespaceStatus is null && isEnabled is null && isCritical is null && subscriptionId is null && region is null && metricId is null && createdOn is null && updatedOn is null && hubNamespaceType is null && replicationRegion is null && zoneRedundancy is null && networkAcls is null && pnsCredentials is null && serviceBusEndpoint is null && scaleUnit is null && dataCenter is null && publicNetworkAccess is null ? default : new NotificationHubNamespaceProperties(
                     namespaceName,
                     operationProvisioningState,
                     namespaceStatus,
@@ -442,7 +442,7 @@ namespace Azure.ResourceManager.NotificationHubs.Models
         {
             ipRules ??= new ChangeTrackingList<NotificationHubIPRule>();
 
-            return new NotificationHubNetworkAcls(ipRules.ToList(), publicNetworkRuleAccessRights is null ? default : new PublicInternetAuthorizationRule((publicNetworkRuleAccessRights ?? new ChangeTrackingList<AuthorizationRuleAccessRightExt>()).ToList(), null), additionalBinaryDataProperties: null);
+            return new NotificationHubNetworkAcls(ipRules.ToList(), new PublicInternetAuthorizationRule((publicNetworkRuleAccessRights ?? new ChangeTrackingList<AuthorizationRuleAccessRightExt>()).ToList(), null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> A network authorization rule that filters traffic based on IP address. </summary>

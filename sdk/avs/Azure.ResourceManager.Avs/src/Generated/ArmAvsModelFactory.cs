@@ -335,7 +335,7 @@ namespace Azure.ResourceManager.Avs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && networkBlock is null ? default : new IscsiPathProperties(provisioningState, networkBlock, null));
+                provisioningState is null ? default : new IscsiPathProperties(provisioningState, networkBlock, null));
         }
 
         /// <summary> A license resource. </summary>
@@ -782,7 +782,7 @@ namespace Azure.ResourceManager.Avs.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                managementCluster is null && internet is null && identitySources is null && availability is null && encryption is null && extendedNetworkBlocks is null && provisioningState is null && circuit is null && endpoints is null && networkBlock is null && managementNetwork is null && provisioningNetwork is null && vMotionNetwork is null && vCenterPassword is null && nsxtPassword is null && vCenterCertificateThumbprint is null && nsxtCertificateThumbprint is null && externalCloudLinks is null && secondaryCircuit is null && nsxPublicIPQuotaRaised is null && virtualNetworkId is null && dnsZoneType is null && vcfLicense is null ? default : new PrivateCloudProperties(
+                internet is null && availability is null && encryption is null && provisioningState is null && circuit is null && endpoints is null && managementNetwork is null && provisioningNetwork is null && vMotionNetwork is null && vCenterPassword is null && nsxtPassword is null && vCenterCertificateThumbprint is null && nsxtCertificateThumbprint is null && secondaryCircuit is null && nsxPublicIPQuotaRaised is null && virtualNetworkId is null && dnsZoneType is null && vcfLicense is null ? default : new PrivateCloudProperties(
                     managementCluster,
                     internet,
                     (identitySources ?? new ChangeTrackingList<SingleSignOnIdentitySource>()).ToList(),
@@ -953,7 +953,7 @@ namespace Azure.ResourceManager.Avs.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new AvsPrivateCloudPatch(tags, sku, identity, managementCluster is null && internet is null && identitySources is null && availability is null && encryption is null && extendedNetworkBlocks is null && dnsZoneType is null ? default : new PrivateCloudUpdateProperties(
+            return new AvsPrivateCloudPatch(tags, sku, identity, managementCluster is null && internet is null && availability is null && encryption is null && dnsZoneType is null ? default : new PrivateCloudUpdateProperties(
                 managementCluster,
                 internet,
                 (identitySources ?? new ChangeTrackingList<SingleSignOnIdentitySource>()).ToList(),
@@ -1049,7 +1049,7 @@ namespace Azure.ResourceManager.Avs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && description is null && timeout is null && audience is null && parameters is null ? default : new ScriptCmdletProperties(
+                provisioningState is null && description is null && timeout is null && audience is null ? default : new ScriptCmdletProperties(
                     provisioningState,
                     description,
                     timeout,
@@ -1116,7 +1116,7 @@ namespace Azure.ResourceManager.Avs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                scriptCmdletId is null && parameters is null && hiddenParameters is null && failureReason is null && timeout is null && retention is null && submittedOn is null && startedOn is null && finishedOn is null && provisioningState is null && output is null && namedOutputs is null && information is null && warnings is null && errors is null ? default : new ScriptExecutionProperties(
+                scriptCmdletId is null && failureReason is null && retention is null && submittedOn is null && startedOn is null && finishedOn is null && provisioningState is null && namedOutputs is null ? default : new ScriptExecutionProperties(
                     scriptCmdletId,
                     (parameters ?? new ChangeTrackingList<ScriptExecutionParameterDetails>()).ToList(),
                     (hiddenParameters ?? new ChangeTrackingList<ScriptExecutionParameterDetails>()).ToList(),
@@ -1404,7 +1404,7 @@ namespace Azure.ResourceManager.Avs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                displayName is null && dnsServiceIP is null && defaultDnsZone is null && fqdnZones is null && logLevel is null && status is null && provisioningState is null && revision is null ? default : new WorkloadNetworkDnsServiceProperties(
+                displayName is null && dnsServiceIP is null && defaultDnsZone is null && logLevel is null && status is null && provisioningState is null && revision is null ? default : new WorkloadNetworkDnsServiceProperties(
                     displayName,
                     dnsServiceIP,
                     defaultDnsZone,
@@ -1436,7 +1436,7 @@ namespace Azure.ResourceManager.Avs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                displayName is null && domain is null && dnsServerIPs is null && sourceIP is null && dnsServices is null && provisioningState is null && revision is null ? default : new WorkloadNetworkDnsZoneProperties(
+                displayName is null && sourceIP is null && dnsServices is null && provisioningState is null && revision is null ? default : new WorkloadNetworkDnsZoneProperties(
                     displayName,
                     (domain ?? new ChangeTrackingList<string>()).ToList(),
                     (dnsServerIPs ?? new ChangeTrackingList<IPAddress>()).ToList(),
@@ -1537,7 +1537,7 @@ namespace Azure.ResourceManager.Avs.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                displayName is null && connectedGateway is null && subnet is null && portVif is null && status is null && provisioningState is null && revision is null ? default : new WorkloadNetworkSegmentProperties(
+                displayName is null && connectedGateway is null && subnet is null && status is null && provisioningState is null && revision is null ? default : new WorkloadNetworkSegmentProperties(
                     displayName,
                     connectedGateway,
                     subnet,

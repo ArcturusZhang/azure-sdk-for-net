@@ -60,7 +60,7 @@ namespace Azure.ResourceManager.Resources.DeploymentStacks.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                error is null && template is null && templateLink is null && parameters is null && parametersLink is null && extensionConfigs is null && externalInputs is null && externalInputDefinitions is null && actionOnUnmanage is null && deploymentScope is null && description is null && denySettings is null && provisioningState is null && correlationId is null && validationLevel is null && bypassStackOutOfSyncError is null && detachedResources is null && deletedResources is null && failedResources is null && resources is null && deploymentExtensions is null && deploymentId is null && outputs is null && duration is null && debugSettingDetailLevel is null ? default : new DeploymentStackProperties(
+                error is null && template is null && templateLink is null && parametersLink is null && deploymentScope is null && description is null && provisioningState is null && correlationId is null && validationLevel is null && bypassStackOutOfSyncError is null && deploymentId is null && outputs is null && duration is null && debugSettingDetailLevel is null ? default : new DeploymentStackProperties(
                     error,
                     template,
                     templateLink,

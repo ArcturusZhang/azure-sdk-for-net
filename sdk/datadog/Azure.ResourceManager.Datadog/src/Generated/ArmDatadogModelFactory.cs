@@ -43,7 +43,7 @@ namespace Azure.ResourceManager.Datadog.Models
                 tags,
                 location,
                 properties,
-                skuName is null ? default : new DatadogSku(skuName, null),
+                new DatadogSku(skuName, null),
                 identity);
         }
 
@@ -119,7 +119,7 @@ namespace Azure.ResourceManager.Datadog.Models
             return new MonitoringTagRuleProperties(
                 provisioningState,
                 logRules,
-                metricRulesFilteringTags is null ? default : new DatadogMonitorMetricRules((metricRulesFilteringTags ?? new ChangeTrackingList<DatadogMonitorFilteringTag>()).ToList(), null),
+                new DatadogMonitorMetricRules((metricRulesFilteringTags ?? new ChangeTrackingList<DatadogMonitorFilteringTag>()).ToList(), null),
                 agentRules,
                 isAutomutingEnabled,
                 isCustomMetricsEnabled,
@@ -215,7 +215,7 @@ namespace Azure.ResourceManager.Datadog.Models
         {
             tags ??= new ChangeTrackingDictionary<string, string>();
 
-            return new DatadogMonitorPatch(properties, tags, skuName is null ? default : new DatadogSku(skuName, null), additionalBinaryDataProperties: null);
+            return new DatadogMonitorPatch(properties, tags, new DatadogSku(skuName, null), additionalBinaryDataProperties: null);
         }
 
         /// <summary> Request for adding/removing Datadog MCP connectors on SRE Agent resource. </summary>

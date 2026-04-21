@@ -59,13 +59,13 @@ namespace Azure.ResourceManager.CertificateRegistration.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                certificates is null && distinguishedName is null && domainVerificationToken is null && validityInYears is null && keySize is null && productType is null && isAutoRenew is null && provisioningState is null && status is null && signedCertificate is null && csr is null && intermediate is null && root is null && serialNumber is null && lastCertificateIssuedOn is null && expireOn is null && isPrivateKeyExternal is null && appServiceCertificateNotRenewableReasons is null && nextAutoRenewOn is null && contact is null ? default : new AppServiceCertificateOrderProperties(
+                distinguishedName is null && domainVerificationToken is null && validityInYears is null && keySize is null && productType is null && isAutoRenew is null && provisioningState is null && status is null && signedCertificate is null && csr is null && intermediate is null && root is null && serialNumber is null && lastCertificateIssuedOn is null && expireOn is null && isPrivateKeyExternal is null && nextAutoRenewOn is null && contact is null ? default : new AppServiceCertificateOrderProperties(
                     certificates,
                     distinguishedName,
                     domainVerificationToken,
                     validityInYears,
                     keySize,
-                    productType.Value,
+                    productType.GetValueOrDefault(),
                     isAutoRenew,
                     provisioningState,
                     status,
@@ -164,13 +164,13 @@ namespace Azure.ResourceManager.CertificateRegistration.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                certificates is null && distinguishedName is null && domainVerificationToken is null && validityInYears is null && keySize is null && productType is null && isAutoRenew is null && provisioningState is null && status is null && signedCertificate is null && csr is null && intermediate is null && root is null && serialNumber is null && lastCertificateIssuedOn is null && expireOn is null && isPrivateKeyExternal is null && appServiceCertificateNotRenewableReasons is null && nextAutoRenewOn is null && contact is null ? default : new AppServiceCertificateOrderPatchResourceProperties(
+                distinguishedName is null && domainVerificationToken is null && validityInYears is null && keySize is null && productType is null && isAutoRenew is null && provisioningState is null && status is null && signedCertificate is null && csr is null && intermediate is null && root is null && serialNumber is null && lastCertificateIssuedOn is null && expireOn is null && isPrivateKeyExternal is null && nextAutoRenewOn is null && contact is null ? default : new AppServiceCertificateOrderPatchResourceProperties(
                     certificates,
                     distinguishedName,
                     domainVerificationToken,
                     validityInYears,
                     keySize,
-                    productType.Value,
+                    productType.GetValueOrDefault(),
                     isAutoRenew,
                     provisioningState,
                     status,
@@ -318,7 +318,7 @@ namespace Azure.ResourceManager.CertificateRegistration.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                metadata is null && dataset is null && status is null && dataProvidersMetadata is null && suggestedUtterances is null ? default : new DetectorResponseProperties(
+                metadata is null && status is null && suggestedUtterances is null ? default : new DetectorResponseProperties(
                     metadata,
                     (dataset ?? new ChangeTrackingList<DiagnosticDataset>()).ToList(),
                     status,

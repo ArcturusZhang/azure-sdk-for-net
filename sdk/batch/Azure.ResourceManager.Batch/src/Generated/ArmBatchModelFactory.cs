@@ -163,7 +163,7 @@ namespace Azure.ResourceManager.Batch.Models
                 extensions.ToList(),
                 osDisk,
                 securityProfile,
-                serviceArtifactReferenceId is null ? default : new ServiceArtifactReference(serviceArtifactReferenceId, null),
+                new ServiceArtifactReference(serviceArtifactReferenceId, null),
                 additionalBinaryDataProperties: null);
         }
 

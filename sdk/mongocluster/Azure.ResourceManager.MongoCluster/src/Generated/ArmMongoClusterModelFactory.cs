@@ -93,7 +93,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
                 previewFeatures.ToList(),
                 replica,
                 infrastructureVersion,
-                authConfigAllowedModes is null ? default : new AuthConfigProperties((authConfigAllowedModes ?? new ChangeTrackingList<MongoClusterAuthenticationMode>()).ToList(), null),
+                new AuthConfigProperties((authConfigAllowedModes ?? new ChangeTrackingList<MongoClusterAuthenticationMode>()).ToList(), null),
                 customerManagedKeyEncryption is null ? default : new EncryptionProperties(customerManagedKeyEncryption, null),
                 additionalBinaryDataProperties: null);
         }
@@ -179,7 +179,7 @@ namespace Azure.ResourceManager.MongoCluster.Models
                 backupEarliestRestoreTime is null ? default : new BackupProperties(backupEarliestRestoreTime, null),
                 dataApiMode is null ? default : new DataApiProperties(dataApiMode, null),
                 previewFeatures.ToList(),
-                authConfigAllowedModes is null ? default : new AuthConfigProperties((authConfigAllowedModes ?? new ChangeTrackingList<MongoClusterAuthenticationMode>()).ToList(), null),
+                new AuthConfigProperties((authConfigAllowedModes ?? new ChangeTrackingList<MongoClusterAuthenticationMode>()).ToList(), null),
                 customerManagedKeyEncryption is null ? default : new EncryptionProperties(customerManagedKeyEncryption, null),
                 additionalBinaryDataProperties: null);
         }

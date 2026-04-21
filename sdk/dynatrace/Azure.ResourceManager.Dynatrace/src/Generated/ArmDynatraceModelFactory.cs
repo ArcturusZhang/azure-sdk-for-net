@@ -367,7 +367,7 @@ namespace Azure.ResourceManager.Dynatrace.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                singleSignOnState is null && enterpriseAppId is null && singleSignOnUri is null && aadDomains is null && provisioningState is null ? default : new DynatraceSingleSignOnProperties(
+                singleSignOnState is null && enterpriseAppId is null && singleSignOnUri is null && provisioningState is null ? default : new DynatraceSingleSignOnProperties(
                     singleSignOnState,
                     enterpriseAppId,
                     singleSignOnUri,

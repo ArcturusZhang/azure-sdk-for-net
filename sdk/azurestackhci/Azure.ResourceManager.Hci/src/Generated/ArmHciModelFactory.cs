@@ -34,7 +34,7 @@ namespace Azure.ResourceManager.Hci.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                kubernetesVersionValue is null ? default : new KubernetesVersionProperties(kubernetesVersionValue, null));
+                new KubernetesVersionProperties(kubernetesVersionValue, null));
         }
 
         /// <param name="id"> Fully qualified resource ID for the resource. Ex - /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}. </param>
@@ -51,7 +51,7 @@ namespace Azure.ResourceManager.Hci.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                platformUpdateDetails is null ? default : new PlatformUpdateProperties((platformUpdateDetails ?? new ChangeTrackingList<PlatformUpdateDetails>()).ToList(), null));
+                new PlatformUpdateProperties((platformUpdateDetails ?? new ChangeTrackingList<PlatformUpdateDetails>()).ToList(), null));
         }
 
         /// <summary> Represents details of a specific platform update. </summary>
@@ -120,7 +120,7 @@ namespace Azure.ResourceManager.Hci.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                updatePayloads is null ? default : new UpdateContentProperties((updatePayloads ?? new ChangeTrackingList<ContentPayload>()).ToList(), null));
+                new UpdateContentProperties((updatePayloads ?? new ChangeTrackingList<ContentPayload>()).ToList(), null));
         }
 
         /// <summary> Represents details of a specific update content payload. </summary>
@@ -214,7 +214,7 @@ namespace Azure.ResourceManager.Hci.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && publisherId is null && content is null && contentVersion is null && skuMappings is null ? default : new OfferProperties(
+                provisioningState is null && publisherId is null && content is null && contentVersion is null ? default : new OfferProperties(
                     provisioningState,
                     publisherId,
                     content,
@@ -288,7 +288,7 @@ namespace Azure.ResourceManager.Hci.Models
                 additionalBinaryDataProperties: null,
                 tags,
                 location,
-                provisioningState is null && status is null && connectivityStatus is null && cloudId is null && ring is null && cloudManagementEndpoint is null && aadClientId is null && aadTenantId is null && aadApplicationObjectId is null && aadServicePrincipalObjectId is null && softwareAssuranceProperties is null && isManagementCluster is null && logCollectionProperties is null && remoteSupportProperties is null && desiredProperties is null && reportedProperties is null && isolatedVmAttestationConfiguration is null && trialDaysRemaining is null && billingModel is null && registrationTimestamp is null && lastSyncTimestamp is null && lastBillingTimestamp is null && serviceEndpoint is null && resourceProviderObjectId is null && secretsLocations is null && clusterPattern is null && confidentialVmProperties is null && sdnProperties is null && localAvailabilityZones is null && identityProvider is null && storageType is null && nextBillingModel is null ? default : new ClusterProperties(
+                provisioningState is null && status is null && connectivityStatus is null && cloudId is null && ring is null && cloudManagementEndpoint is null && aadClientId is null && aadTenantId is null && aadApplicationObjectId is null && aadServicePrincipalObjectId is null && softwareAssuranceProperties is null && isManagementCluster is null && logCollectionProperties is null && remoteSupportProperties is null && desiredProperties is null && reportedProperties is null && isolatedVmAttestationConfiguration is null && trialDaysRemaining is null && billingModel is null && registrationTimestamp is null && lastSyncTimestamp is null && lastBillingTimestamp is null && serviceEndpoint is null && resourceProviderObjectId is null && clusterPattern is null && confidentialVmProperties is null && sdnProperties is null && identityProvider is null && storageType is null && nextBillingModel is null ? default : new ClusterProperties(
                     provisioningState,
                     status,
                     connectivityStatus,
@@ -1132,7 +1132,7 @@ namespace Azure.ResourceManager.Hci.Models
         {
             return new HciReportedProperties(
                 deviceState,
-                extensions is null ? default : new ExtensionProfile((extensions ?? new ChangeTrackingList<HciEdgeDeviceArcExtension>()).ToList(), null),
+                new ExtensionProfile((extensions ?? new ChangeTrackingList<HciEdgeDeviceArcExtension>()).ToList(), null),
                 lastSyncedOn,
                 confidentialVmProfile,
                 additionalBinaryDataProperties: null,
@@ -1368,7 +1368,7 @@ namespace Azure.ResourceManager.Hci.Models
         /// <returns> A new <see cref="Models.HciEdgeDeviceReportedProperties"/> instance for mocking. </returns>
         public static HciEdgeDeviceReportedProperties HciEdgeDeviceReportedProperties(HciEdgeDeviceState? deviceState = default, IEnumerable<HciEdgeDeviceArcExtension> extensions = default, DateTimeOffset? lastSyncedOn = default, ConfidentialVmProfile confidentialVmProfile = default)
         {
-            return new HciEdgeDeviceReportedProperties(deviceState, extensions is null ? default : new ExtensionProfile((extensions ?? new ChangeTrackingList<HciEdgeDeviceArcExtension>()).ToList(), null), lastSyncedOn, confidentialVmProfile, additionalBinaryDataProperties: null);
+            return new HciEdgeDeviceReportedProperties(deviceState, new ExtensionProfile((extensions ?? new ChangeTrackingList<HciEdgeDeviceArcExtension>()).ToList(), null), lastSyncedOn, confidentialVmProfile, additionalBinaryDataProperties: null);
         }
 
         /// <summary> Arc extension installed on edge device. </summary>
@@ -1513,7 +1513,7 @@ namespace Azure.ResourceManager.Hci.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && aggregateState is null && perNodeExtensionDetails is null && managedBy is null && forceUpdateTag is null && publisher is null && arcExtensionType is null && typeHandlerVersion is null && shouldAutoUpgradeMinorVersion is null && settings is null && protectedSettings is null && enableAutomaticUpgrade is null ? default : new ExtensionProperties(
+                provisioningState is null && aggregateState is null && managedBy is null && forceUpdateTag is null && publisher is null && arcExtensionType is null && typeHandlerVersion is null && shouldAutoUpgradeMinorVersion is null && settings is null && protectedSettings is null && enableAutomaticUpgrade is null ? default : new ExtensionProperties(
                     provisioningState,
                     new ExtensionParameters(
                         forceUpdateTag,
@@ -1641,7 +1641,7 @@ namespace Azure.ResourceManager.Hci.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && publisherId is null && offerId is null && content is null && contentVersion is null && skuMappings is null ? default : new SkuProperties(
+                provisioningState is null && publisherId is null && offerId is null && content is null && contentVersion is null ? default : new SkuProperties(
                     provisioningState,
                     publisherId,
                     offerId,
@@ -1683,7 +1683,7 @@ namespace Azure.ResourceManager.Hci.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && timeStarted is null && lastCompletedOn is null && duration is null && state is null && name0 is null && description is null && errorMessage is null && status is null && startOn is null && endOn is null && lastUpdatedOn is null && expectedExecutionTime is null && steps is null && startTimeUtc is null && endTimeUtc is null && lastUpdatedTimeUtc is null ? default : new UpdateRunProperties(
+                provisioningState is null && timeStarted is null && lastCompletedOn is null && duration is null && state is null && name0 is null && description is null && errorMessage is null && status is null && startOn is null && endOn is null && lastUpdatedOn is null && expectedExecutionTime is null && startTimeUtc is null && endTimeUtc is null && lastUpdatedTimeUtc is null ? default : new UpdateRunProperties(
                     provisioningState,
                     timeStarted,
                     lastCompletedOn,
@@ -2050,7 +2050,7 @@ namespace Azure.ResourceManager.Hci.Models
                 hardwareProfile,
                 storagePoolableDisksCount is null ? default : new StorageProfile(storagePoolableDisksCount, null),
                 sbeDeploymentPackageInfo,
-                extensions is null ? default : new ExtensionProfile((extensions ?? new ChangeTrackingList<HciEdgeDeviceArcExtension>()).ToList(), null),
+                new ExtensionProfile((extensions ?? new ChangeTrackingList<HciEdgeDeviceArcExtension>()).ToList(), null),
                 additionalBinaryDataProperties: null);
         }
 

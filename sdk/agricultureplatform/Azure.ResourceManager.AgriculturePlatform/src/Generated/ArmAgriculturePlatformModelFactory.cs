@@ -62,7 +62,7 @@ namespace Azure.ResourceManager.AgriculturePlatform.Models
             return new AgricultureServiceProperties(
                 provisioningState,
                 config,
-                managedOnBehalfOfMoboBrokerResources is null ? default : new ManagedOnBehalfOfConfiguration((managedOnBehalfOfMoboBrokerResources ?? new ChangeTrackingList<SubResource>()).ToList(), null),
+                new ManagedOnBehalfOfConfiguration((managedOnBehalfOfMoboBrokerResources ?? new ChangeTrackingList<SubResource>()).ToList(), null),
                 dataConnectorCredentials.ToList(),
                 installedSolutions.ToList(),
                 additionalBinaryDataProperties: null);

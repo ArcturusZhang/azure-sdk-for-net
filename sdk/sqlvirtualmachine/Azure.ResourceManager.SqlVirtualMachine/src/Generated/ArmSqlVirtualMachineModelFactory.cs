@@ -41,7 +41,7 @@ namespace Azure.ResourceManager.SqlVirtualMachine.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                provisioningState is null && availabilityGroupName is null && loadBalancerConfigurations is null && multiSubnetIPConfigurations is null && createDefaultAvailabilityGroupIfNotExist is null && port is null && availabilityGroupReplicas is null ? default : new AvailabilityGroupListenerProperties(
+                provisioningState is null && availabilityGroupName is null && createDefaultAvailabilityGroupIfNotExist is null && port is null ? default : new AvailabilityGroupListenerProperties(
                     provisioningState,
                     availabilityGroupName,
                     (loadBalancerConfigurations ?? new ChangeTrackingList<AvailabilityGroupListenerLoadBalancerConfiguration>()).ToList(),

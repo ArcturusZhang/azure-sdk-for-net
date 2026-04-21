@@ -121,7 +121,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 managementType is null ? default : new IdentityManagement(managementType, null),
                 metadata,
                 requiredFeatures.ToList(),
-                requiredFeaturesPolicy is null ? default : new ProviderFeaturesRule(requiredFeaturesPolicy.Value, null),
+                requiredFeaturesPolicy is null ? default : new ProviderFeaturesRule(requiredFeaturesPolicy.GetValueOrDefault(), null),
                 subscriptionStateRules.ToList(),
                 serviceTreeInfos.ToList(),
                 requestHeaderOptions,
@@ -187,7 +187,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 endpointUri,
                 locations.ToList(),
                 requiredFeatures.ToList(),
-                requiredFeaturesPolicy is null ? default : new ProviderFeaturesRule(requiredFeaturesPolicy.Value, null),
+                requiredFeaturesPolicy is null ? default : new ProviderFeaturesRule(requiredFeaturesPolicy.GetValueOrDefault(), null),
                 timeout,
                 endpointType,
                 skuLink,
@@ -399,7 +399,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 resourceType,
                 systemData,
                 additionalBinaryDataProperties: null,
-                operationsContentContents is null ? default : new OperationsContentProperties((operationsContentContents ?? new ChangeTrackingList<LocalizedOperationDefinition>()).ToList(), null));
+                new OperationsContentProperties((operationsContentContents ?? new ChangeTrackingList<LocalizedOperationDefinition>()).ToList(), null));
         }
 
         /// <summary> Concrete proxy resource types can be created by aliasing this type using a specific property type. </summary>
@@ -435,7 +435,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
 
             return new CustomRolloutSpecification(
                 autoProvisionConfig,
-                canaryRegions is null ? default : new TrafficRegions((canaryRegions ?? new ChangeTrackingList<AzureLocation>()).ToList(), null),
+                new TrafficRegions((canaryRegions ?? new ChangeTrackingList<AzureLocation>()).ToList(), null),
                 releaseScopes.ToList(),
                 refreshSubscriptionRegistration,
                 skipReleaseScopeValidation,
@@ -669,7 +669,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 loggingRules.ToList(),
                 throttlingRules.ToList(),
                 requiredFeatures.ToList(),
-                requiredFeaturesPolicy is null ? default : new ProviderFeaturesRule(requiredFeaturesPolicy.Value, null),
+                requiredFeaturesPolicy is null ? default : new ProviderFeaturesRule(requiredFeaturesPolicy.GetValueOrDefault(), null),
                 isAsyncOperationEnabled,
                 provisioningState,
                 isThirdPartyS2SEnabled,
@@ -762,7 +762,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 apiVersions.ToList(),
                 locations.ToList(),
                 requiredFeatures.ToList(),
-                requiredFeaturesPolicy is null ? default : new ProviderFeaturesRule(requiredFeaturesPolicy.Value, null),
+                requiredFeaturesPolicy is null ? default : new ProviderFeaturesRule(requiredFeaturesPolicy.GetValueOrDefault(), null),
                 extensions.ToList(),
                 timeout,
                 endpointType,
@@ -1065,7 +1065,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 serviceFeatureFlag,
                 includeResourceTypes.ToList(),
                 excludeResourceTypes.ToList(),
-                overrideManifestLevelFieldsResourceHydrationAccounts is null ? default : new ManifestLevelPropertyBag((overrideManifestLevelFieldsResourceHydrationAccounts ?? new ChangeTrackingList<ResourceHydrationAccount>()).ToList(), null),
+                new ManifestLevelPropertyBag((overrideManifestLevelFieldsResourceHydrationAccounts ?? new ChangeTrackingList<ResourceHydrationAccount>()).ToList(), null),
                 overrideEndpointLevelFields,
                 ignoreFields.ToList(),
                 additionalBinaryDataProperties: null);
@@ -1107,7 +1107,7 @@ namespace Azure.ResourceManager.ProviderHub.Models
                 endpointUri,
                 locations.ToList(),
                 requiredFeatures.ToList(),
-                requiredFeaturesPolicy is null ? default : new ProviderFeaturesRule(requiredFeaturesPolicy.Value, null),
+                requiredFeaturesPolicy is null ? default : new ProviderFeaturesRule(requiredFeaturesPolicy.GetValueOrDefault(), null),
                 timeout,
                 endpointType,
                 dstsConfiguration,
