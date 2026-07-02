@@ -75,7 +75,7 @@ infra.Add(new ProvisioningOutput("resourceId", typeof(string)) { Value = account
 
 ## Next steps
 
-Temporary workflow validation change.
+Temporary workflow validation change for provisioning review.
 
 ## Contributing
 
