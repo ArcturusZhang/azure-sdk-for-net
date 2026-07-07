@@ -93,7 +93,10 @@ export function resolveArmResources(
   program: Program,
   sdkContext: CSharpEmitterContext
 ): ArmProviderSchema {
-  const provider = resolveArmResourcesFromLibrary(program);
+  sdkContext.getMutatedGlobalNamespace();
+  const provider = resolveArmResourcesFromLibrary(
+    sdkContext.__mutatedRealm?.program ?? program
+  );
 
   // Convert resources
   const resources: ArmResourceSchema[] = [];

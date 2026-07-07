@@ -4094,6 +4094,83 @@ interface Employees {
     deepStrictEqual(resolvedGadget.metadata.apiVersions, ["2024-05-01"]);
   });
 
+  it.skip("resolveArmResources uses the version-mutated program", async () => {
+    const fileContent = `
+    import "@typespec/http";
+    import "@typespec/rest";
+    import "@typespec/versioning";
+    import "@azure-tools/typespec-azure-core";
+    import "@azure-tools/typespec-azure-resource-manager";
+    import "@azure-tools/typespec-client-generator-core";
+    using TypeSpec.Http;
+    using TypeSpec.Rest;
+    using TypeSpec.Versioning;
+    using Azure.Core;
+    using Azure.ResourceManager;
+    using Azure.ClientGenerator.Core;
+
+    @armProviderNamespace
+    @service(#{ title: "Azure Management emitter Testing" })
+    @versioned(Versions)
+    namespace Microsoft.ContosoProviderHub;
+
+    enum Versions {
+      @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+      \`2024-04-01\`,
+      @armCommonTypesVersion(Azure.ResourceManager.CommonTypes.Versions.v5)
+      \`2024-05-01\`,
+    }
+
+    model WidgetProperties {
+      color?: string;
+    }
+
+    model Widget is TrackedResource<WidgetProperties> {
+      ...ResourceNameParameter<Widget>;
+    }
+
+    model PreviewOnlyProperties {
+      size?: int32;
+    }
+
+    @removed(Versions.\`2024-05-01\`)
+    @parentResource(Widget)
+    model PreviewOnly is ProxyResource<PreviewOnlyProperties> {
+      ...ResourceNameParameter<PreviewOnly>;
+    }
+
+    interface Operations extends Azure.ResourceManager.Operations {}
+
+    @armResourceOperations
+    interface Widgets {
+      get is ArmResourceRead<Widget>;
+      createOrUpdate is ArmResourceCreateOrReplaceAsync<Widget>;
+    }
+
+    @removed(Versions.\`2024-05-01\`)
+    @armResourceOperations
+    interface PreviewOnlyOperations {
+      get is ArmResourceRead<PreviewOnly>;
+      createOrUpdate is ArmResourceCreateOrReplaceAsync<PreviewOnly>;
+    }
+    `;
+    runner.addTypeSpecFile("main.tsp", fileContent);
+    await runner.compile("./", { warningAsError: false });
+    const program = runner.program;
+
+    const context = createEmitterContext(program);
+    const sdkContext = await createCSharpSdkContext(context);
+    const [root] = createModel(sdkContext);
+
+    const armProviderSchema = buildArmProviderSchema(sdkContext, root);
+    ok(armProviderSchema);
+    strictEqual(armProviderSchema.resources.length, 1);
+
+    const resolvedSchema = resolveArmResources(program, sdkContext);
+    ok(resolvedSchema);
+    strictEqual(resolvedSchema.resources.length, 1);
+  });
+
   it("rbac roles from clientOption decorator", async () => {
     const program = await typeSpecCompile(
       `
