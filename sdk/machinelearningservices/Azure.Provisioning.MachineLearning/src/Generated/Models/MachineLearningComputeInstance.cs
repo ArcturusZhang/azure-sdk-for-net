@@ -15,6 +15,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningComputeInstance. </summary>
         public MachineLearningComputeInstance()
         {
+            ComputeType.Assign(MachineLearning.ComputeType.ComputeInstance);
         }
 
         /// <summary> Gets or sets the Properties. </summary>
@@ -36,7 +37,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            ComputeType.Assign("ComputeInstance");
             _properties = DefineModelProperty<MachineLearningComputeInstanceProperties>(nameof(Properties), new string[] { "properties" });
             DefineAdditionalProperties();
         }

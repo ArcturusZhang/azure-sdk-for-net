@@ -17,6 +17,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningServicePrincipalDatastoreSecrets. </summary>
         public MachineLearningServicePrincipalDatastoreSecrets()
         {
+            SecretsType.Assign(MachineLearning.SecretsType.ServicePrincipal);
         }
 
         /// <summary> Gets or sets the ClientSecret. </summary>
@@ -38,7 +39,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            SecretsType.Assign("ServicePrincipal");
             _clientSecret = DefineProperty<string>(nameof(ClientSecret), new string[] { "clientSecret" });
             DefineAdditionalProperties();
         }

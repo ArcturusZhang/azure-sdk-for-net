@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class SparkJobEntry : ProvisionableConstruct
     {
-        private BicepValue<string> _sparkJobEntryType;
+        private BicepValue<SparkJobEntryType> _sparkJobEntryType;
 
         /// <summary> Creates a new SparkJobEntry. </summary>
         public SparkJobEntry()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Type of the job's entry point. </summary>
-        internal BicepValue<string> SparkJobEntryType
+        internal BicepValue<SparkJobEntryType> SparkJobEntryType
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _sparkJobEntryType = DefineProperty<string>(nameof(SparkJobEntryType), new string[] { "sparkJobEntryType" }, isRequired: true);
+            _sparkJobEntryType = DefineProperty<SparkJobEntryType>(nameof(SparkJobEntryType), new string[] { "sparkJobEntryType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

@@ -19,6 +19,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningOutputPathAssetReference. </summary>
         public MachineLearningOutputPathAssetReference()
         {
+            ReferenceType.Assign(MachineLearning.ReferenceType.OutputPath);
         }
 
         /// <summary> Gets or sets the JobId. </summary>
@@ -55,7 +56,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            ReferenceType.Assign("OutputPath");
             _jobId = DefineProperty<ResourceIdentifier>(nameof(JobId), new string[] { "jobId" });
             _path = DefineProperty<string>(nameof(Path), new string[] { "path" });
             DefineAdditionalProperties();

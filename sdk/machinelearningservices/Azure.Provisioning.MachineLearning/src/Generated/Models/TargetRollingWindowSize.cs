@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class TargetRollingWindowSize : ProvisionableConstruct
     {
-        private BicepValue<string> _mode;
+        private BicepValue<TargetRollingWindowSizeMode> _mode;
 
         /// <summary> Creates a new TargetRollingWindowSize. </summary>
         public TargetRollingWindowSize()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] TargetRollingWindowSiz detection mode. </summary>
-        internal BicepValue<string> Mode
+        internal BicepValue<TargetRollingWindowSizeMode> Mode
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _mode = DefineProperty<string>(nameof(Mode), new string[] { "mode" }, isRequired: true);
+            _mode = DefineProperty<TargetRollingWindowSizeMode>(nameof(Mode), new string[] { "mode" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

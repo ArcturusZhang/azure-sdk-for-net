@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class MachineLearningOnlineScaleSettings : ProvisionableConstruct
     {
-        private BicepValue<string> _scaleType;
+        private BicepValue<ScaleType> _scaleType;
 
         /// <summary> Creates a new MachineLearningOnlineScaleSettings. </summary>
         public MachineLearningOnlineScaleSettings()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Type of deployment scaling algorithm. </summary>
-        internal BicepValue<string> ScaleType
+        internal BicepValue<ScaleType> ScaleType
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _scaleType = DefineProperty<string>(nameof(ScaleType), new string[] { "scaleType" }, isRequired: true);
+            _scaleType = DefineProperty<ScaleType>(nameof(ScaleType), new string[] { "scaleType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

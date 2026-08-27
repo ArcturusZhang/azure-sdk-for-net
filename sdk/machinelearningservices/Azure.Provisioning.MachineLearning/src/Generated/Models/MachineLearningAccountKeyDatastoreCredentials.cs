@@ -15,6 +15,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningAccountKeyDatastoreCredentials. </summary>
         public MachineLearningAccountKeyDatastoreCredentials()
         {
+            CredentialsType.Assign(MachineLearning.CredentialsType.AccountKey);
         }
 
         /// <summary> Gets or sets the Secrets. </summary>
@@ -36,7 +37,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            CredentialsType.Assign("AccountKey");
             _secrets = DefineModelProperty<MachineLearningAccountKeyDatastoreSecrets>(nameof(Secrets), new string[] { "secrets" }, isRequired: true);
             DefineAdditionalProperties();
         }

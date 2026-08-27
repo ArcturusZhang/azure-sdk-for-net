@@ -17,7 +17,7 @@ namespace Azure.Provisioning.MachineLearning
     public partial class MachineLearningWebhook : ProvisionableConstruct
     {
         private BicepValue<string> _eventType;
-        private BicepValue<string> _webhookType;
+        private BicepValue<WebhookType> _webhookType;
 
         /// <summary> Creates a new MachineLearningWebhook. </summary>
         public MachineLearningWebhook()
@@ -40,7 +40,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Specifies the type of service to send a callback. </summary>
-        internal BicepValue<string> WebhookType
+        internal BicepValue<WebhookType> WebhookType
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Azure.Provisioning.MachineLearning
         {
             base.DefineProvisionableProperties();
             _eventType = DefineProperty<string>(nameof(EventType), new string[] { "eventType" });
-            _webhookType = DefineProperty<string>(nameof(WebhookType), new string[] { "webhookType" }, isRequired: true);
+            _webhookType = DefineProperty<WebhookType>(nameof(WebhookType), new string[] { "webhookType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

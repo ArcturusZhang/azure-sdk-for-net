@@ -20,6 +20,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new OneLakeDatastore. </summary>
         public OneLakeDatastore()
         {
+            DatastoreType.Assign(MachineLearning.DatastoreType.OneLake);
         }
 
         /// <summary> Gets or sets the Artifact. </summary>
@@ -86,7 +87,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            DatastoreType.Assign("OneLake");
             _artifact = DefineModelProperty<OneLakeArtifact>(nameof(Artifact), new string[] { "artifact" }, isRequired: true);
             _endpoint = DefineProperty<string>(nameof(Endpoint), new string[] { "endpoint" });
             _oneLakeWorkspaceName = DefineProperty<string>(nameof(OneLakeWorkspaceName), new string[] { "oneLakeWorkspaceName" }, isRequired: true);

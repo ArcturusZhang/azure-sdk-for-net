@@ -13,13 +13,13 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningDefaultScaleSettings. </summary>
         public MachineLearningDefaultScaleSettings()
         {
+            ScaleType.Assign(MachineLearning.ScaleType.Default);
         }
 
         /// <summary> Define all the provisionable properties for MachineLearningDefaultScaleSettings. </summary>
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            ScaleType.Assign("Default");
             DefineAdditionalProperties();
         }
 

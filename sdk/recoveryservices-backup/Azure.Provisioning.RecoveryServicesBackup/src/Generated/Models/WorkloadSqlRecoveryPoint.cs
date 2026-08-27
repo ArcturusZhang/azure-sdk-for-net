@@ -31,7 +31,6 @@ namespace Azure.Provisioning.RecoveryServicesBackup
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            DefineProperty<string>("objectType", new string[] { "objectType" }, defaultValue: "AzureWorkloadSQLRecoveryPoint");
             _extendedInfo = DefineModelProperty<WorkloadSqlRecoveryPointExtendedInfo>(nameof(ExtendedInfo), new string[] { "extendedInfo" });
             DefineAdditionalProperties();
         }

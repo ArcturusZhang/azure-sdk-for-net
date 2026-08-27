@@ -23,6 +23,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningCertificateDatastoreCredentials. </summary>
         public MachineLearningCertificateDatastoreCredentials()
         {
+            CredentialsType.Assign(MachineLearning.CredentialsType.Certificate);
         }
 
         /// <summary> Gets or sets the AuthorityUri. </summary>
@@ -119,7 +120,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            CredentialsType.Assign("Certificate");
             _authorityUri = DefineProperty<Uri>(nameof(AuthorityUri), new string[] { "authorityUrl" });
             _clientId = DefineProperty<Guid>(nameof(ClientId), new string[] { "clientId" }, isRequired: true);
             _resourceUri = DefineProperty<Uri>(nameof(ResourceUri), new string[] { "resourceUrl" });

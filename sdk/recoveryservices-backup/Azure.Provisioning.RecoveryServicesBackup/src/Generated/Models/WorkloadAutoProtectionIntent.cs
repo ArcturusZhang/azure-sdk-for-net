@@ -19,7 +19,6 @@ namespace Azure.Provisioning.RecoveryServicesBackup
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            DefineProperty<string>("protectionIntentItemType", new string[] { "protectionIntentItemType" }, defaultValue: "AzureWorkloadAutoProtectionIntent");
             DefineAdditionalProperties();
         }
 

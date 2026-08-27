@@ -13,13 +13,13 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningUriFolderDataVersion. </summary>
         public MachineLearningUriFolderDataVersion()
         {
+            DataType.Assign(MachineLearningDataType.UriFolder);
         }
 
         /// <summary> Define all the provisionable properties for MachineLearningUriFolderDataVersion. </summary>
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            DataType.Assign("uri_folder");
             DefineAdditionalProperties();
         }
 

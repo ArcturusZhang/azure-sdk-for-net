@@ -13,13 +13,13 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningDataFactoryCompute. </summary>
         public MachineLearningDataFactoryCompute()
         {
+            ComputeType.Assign(MachineLearning.ComputeType.DataFactory);
         }
 
         /// <summary> Define all the provisionable properties for MachineLearningDataFactoryCompute. </summary>
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            ComputeType.Assign("DataFactory");
             DefineAdditionalProperties();
         }
 

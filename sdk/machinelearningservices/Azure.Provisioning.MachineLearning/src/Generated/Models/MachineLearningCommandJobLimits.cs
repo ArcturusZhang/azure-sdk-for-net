@@ -13,13 +13,13 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningCommandJobLimits. </summary>
         public MachineLearningCommandJobLimits()
         {
+            JobLimitsType.Assign(MachineLearning.JobLimitsType.Command);
         }
 
         /// <summary> Define all the provisionable properties for MachineLearningCommandJobLimits. </summary>
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            JobLimitsType.Assign("Command");
             DefineAdditionalProperties();
         }
 

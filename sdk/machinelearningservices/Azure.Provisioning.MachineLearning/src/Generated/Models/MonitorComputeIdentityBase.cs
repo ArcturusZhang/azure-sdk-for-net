@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class MonitorComputeIdentityBase : ProvisionableConstruct
     {
-        private BicepValue<string> _computeIdentityType;
+        private BicepValue<MonitorComputeIdentityType> _computeIdentityType;
 
         /// <summary> Creates a new MonitorComputeIdentityBase. </summary>
         public MonitorComputeIdentityBase()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Specifies the type of identity to use within the monitoring jobs. </summary>
-        internal BicepValue<string> ComputeIdentityType
+        internal BicepValue<MonitorComputeIdentityType> ComputeIdentityType
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _computeIdentityType = DefineProperty<string>(nameof(ComputeIdentityType), new string[] { "computeIdentityType" }, isRequired: true);
+            _computeIdentityType = DefineProperty<MonitorComputeIdentityType>(nameof(ComputeIdentityType), new string[] { "computeIdentityType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

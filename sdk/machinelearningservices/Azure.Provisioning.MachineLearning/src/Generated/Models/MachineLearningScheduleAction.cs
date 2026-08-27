@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class MachineLearningScheduleAction : ProvisionableConstruct
     {
-        private BicepValue<string> _actionType;
+        private BicepValue<ScheduleActionType> _actionType;
 
         /// <summary> Creates a new MachineLearningScheduleAction. </summary>
         public MachineLearningScheduleAction()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Specifies the action type of the schedule. </summary>
-        internal BicepValue<string> ActionType
+        internal BicepValue<ScheduleActionType> ActionType
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _actionType = DefineProperty<string>(nameof(ActionType), new string[] { "actionType" }, isRequired: true);
+            _actionType = DefineProperty<ScheduleActionType>(nameof(ActionType), new string[] { "actionType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class MachineLearningDistributionConfiguration : ProvisionableConstruct
     {
-        private BicepValue<string> _distributionType;
+        private BicepValue<DistributionType> _distributionType;
 
         /// <summary> Creates a new MachineLearningDistributionConfiguration. </summary>
         public MachineLearningDistributionConfiguration()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Specifies the type of distribution framework. </summary>
-        internal BicepValue<string> DistributionType
+        internal BicepValue<DistributionType> DistributionType
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _distributionType = DefineProperty<string>(nameof(DistributionType), new string[] { "distributionType" }, isRequired: true);
+            _distributionType = DefineProperty<DistributionType>(nameof(DistributionType), new string[] { "distributionType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

@@ -18,7 +18,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class MachineLearningComputeProperties : ProvisionableConstruct
     {
-        private BicepValue<string> _computeType;
+        private BicepValue<ComputeType> _computeType;
         private BicepValue<string> _computeLocation;
         private BicepValue<MachineLearningProvisioningState> _provisioningState;
         private BicepValue<string> _description;
@@ -35,7 +35,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> The type of compute. </summary>
-        internal BicepValue<string> ComputeType
+        internal BicepValue<ComputeType> ComputeType
         {
             get
             {
@@ -158,7 +158,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _computeType = DefineProperty<string>(nameof(ComputeType), new string[] { "computeType" }, isRequired: true);
+            _computeType = DefineProperty<ComputeType>(nameof(ComputeType), new string[] { "computeType" }, isRequired: true);
             _computeLocation = DefineProperty<string>(nameof(ComputeLocation), new string[] { "computeLocation" });
             _provisioningState = DefineProperty<MachineLearningProvisioningState>(nameof(ProvisioningState), new string[] { "provisioningState" }, isOutput: true);
             _description = DefineProperty<string>(nameof(Description), new string[] { "description" });

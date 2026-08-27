@@ -23,6 +23,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new TextClassificationMultilabel. </summary>
         public TextClassificationMultilabel()
         {
+            TaskType.Assign(MachineLearning.TaskType.TextClassificationMultilabel);
         }
 
         /// <summary> Gets or sets the FeaturizationSettings. </summary>
@@ -101,7 +102,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            TaskType.Assign("TextClassificationMultilabel");
             _featurizationSettings = DefineModelProperty<NlpVerticalFeaturizationSettings>(nameof(FeaturizationSettings), new string[] { "featurizationSettings" });
             _limitSettings = DefineModelProperty<NlpVerticalLimitSettings>(nameof(LimitSettings), new string[] { "limitSettings" });
             _validationData = DefineModelProperty<MachineLearningTableJobInput>(nameof(ValidationData), new string[] { "validationData" });

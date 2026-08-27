@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class MonitoringFeatureFilterBase : ProvisionableConstruct
     {
-        private BicepValue<string> _filterType;
+        private BicepValue<MonitoringFeatureFilterType> _filterType;
 
         /// <summary> Creates a new MonitoringFeatureFilterBase. </summary>
         public MonitoringFeatureFilterBase()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Specifies the feature filter to leverage when selecting features to calculate metrics over. </summary>
-        internal BicepValue<string> FilterType
+        internal BicepValue<MonitoringFeatureFilterType> FilterType
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _filterType = DefineProperty<string>(nameof(FilterType), new string[] { "filterType" }, isRequired: true);
+            _filterType = DefineProperty<MonitoringFeatureFilterType>(nameof(FilterType), new string[] { "filterType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

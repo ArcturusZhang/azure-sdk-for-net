@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class JobNodes : ProvisionableConstruct
     {
-        private BicepValue<string> _nodesValueType;
+        private BicepValue<NodesValueType> _nodesValueType;
 
         /// <summary> Creates a new JobNodes. </summary>
         public JobNodes()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Type of the Nodes value. </summary>
-        internal BicepValue<string> NodesValueType
+        internal BicepValue<NodesValueType> NodesValueType
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _nodesValueType = DefineProperty<string>(nameof(NodesValueType), new string[] { "nodesValueType" }, isRequired: true);
+            _nodesValueType = DefineProperty<NodesValueType>(nameof(NodesValueType), new string[] { "nodesValueType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

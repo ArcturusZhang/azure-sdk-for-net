@@ -13,13 +13,13 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningNoneDatastoreCredentials. </summary>
         public MachineLearningNoneDatastoreCredentials()
         {
+            CredentialsType.Assign(MachineLearning.CredentialsType.None);
         }
 
         /// <summary> Define all the provisionable properties for MachineLearningNoneDatastoreCredentials. </summary>
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            CredentialsType.Assign("None");
             DefineAdditionalProperties();
         }
 

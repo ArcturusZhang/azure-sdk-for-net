@@ -13,13 +13,13 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new LakeHouseArtifact. </summary>
         public LakeHouseArtifact()
         {
+            ArtifactType.Assign(OneLakeArtifactType.LakeHouse);
         }
 
         /// <summary> Define all the provisionable properties for LakeHouseArtifact. </summary>
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            ArtifactType.Assign("LakeHouse");
             DefineAdditionalProperties();
         }
 

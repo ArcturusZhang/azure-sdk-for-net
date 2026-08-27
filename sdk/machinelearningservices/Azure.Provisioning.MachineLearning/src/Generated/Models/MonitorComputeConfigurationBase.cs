@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class MonitorComputeConfigurationBase : ProvisionableConstruct
     {
-        private BicepValue<string> _computeType;
+        private BicepValue<MonitorComputeType> _computeType;
 
         /// <summary> Creates a new MonitorComputeConfigurationBase. </summary>
         public MonitorComputeConfigurationBase()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Specifies the type of signal to monitor. </summary>
-        internal BicepValue<string> ComputeType
+        internal BicepValue<MonitorComputeType> ComputeType
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _computeType = DefineProperty<string>(nameof(ComputeType), new string[] { "computeType" }, isRequired: true);
+            _computeType = DefineProperty<MonitorComputeType>(nameof(ComputeType), new string[] { "computeType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

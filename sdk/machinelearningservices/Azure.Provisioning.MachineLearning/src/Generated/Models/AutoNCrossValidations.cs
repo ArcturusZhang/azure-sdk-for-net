@@ -13,13 +13,13 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new AutoNCrossValidations. </summary>
         public AutoNCrossValidations()
         {
+            Mode.Assign(NCrossValidationsMode.Auto);
         }
 
         /// <summary> Define all the provisionable properties for AutoNCrossValidations. </summary>
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            Mode.Assign("Auto");
             DefineAdditionalProperties();
         }
 

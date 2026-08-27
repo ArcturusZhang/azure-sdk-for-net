@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class ForecastingSeasonality : ProvisionableConstruct
     {
-        private BicepValue<string> _mode;
+        private BicepValue<SeasonalityMode> _mode;
 
         /// <summary> Creates a new ForecastingSeasonality. </summary>
         public ForecastingSeasonality()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Seasonality mode. </summary>
-        internal BicepValue<string> Mode
+        internal BicepValue<SeasonalityMode> Mode
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _mode = DefineProperty<string>(nameof(Mode), new string[] { "mode" }, isRequired: true);
+            _mode = DefineProperty<SeasonalityMode>(nameof(Mode), new string[] { "mode" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class NCrossValidations : ProvisionableConstruct
     {
-        private BicepValue<string> _mode;
+        private BicepValue<NCrossValidationsMode> _mode;
 
         /// <summary> Creates a new NCrossValidations. </summary>
         public NCrossValidations()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Mode for determining N-Cross validations. </summary>
-        internal BicepValue<string> Mode
+        internal BicepValue<NCrossValidationsMode> Mode
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _mode = DefineProperty<string>(nameof(Mode), new string[] { "mode" }, isRequired: true);
+            _mode = DefineProperty<NCrossValidationsMode>(nameof(Mode), new string[] { "mode" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

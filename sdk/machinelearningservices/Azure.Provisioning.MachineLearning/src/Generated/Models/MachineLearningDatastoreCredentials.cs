@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class MachineLearningDatastoreCredentials : ProvisionableConstruct
     {
-        private BicepValue<string> _credentialsType;
+        private BicepValue<CredentialsType> _credentialsType;
 
         /// <summary> Creates a new MachineLearningDatastoreCredentials. </summary>
         public MachineLearningDatastoreCredentials()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Credential type used to authentication with storage. </summary>
-        internal BicepValue<string> CredentialsType
+        internal BicepValue<CredentialsType> CredentialsType
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _credentialsType = DefineProperty<string>(nameof(CredentialsType), new string[] { "credentialsType" }, isRequired: true);
+            _credentialsType = DefineProperty<CredentialsType>(nameof(CredentialsType), new string[] { "credentialsType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

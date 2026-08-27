@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class TargetLags : ProvisionableConstruct
     {
-        private BicepValue<string> _mode;
+        private BicepValue<TargetLagsMode> _mode;
 
         /// <summary> Creates a new TargetLags. </summary>
         public TargetLags()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Set target lags mode - Auto/Custom. </summary>
-        internal BicepValue<string> Mode
+        internal BicepValue<TargetLagsMode> Mode
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _mode = DefineProperty<string>(nameof(Mode), new string[] { "mode" }, isRequired: true);
+            _mode = DefineProperty<TargetLagsMode>(nameof(Mode), new string[] { "mode" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

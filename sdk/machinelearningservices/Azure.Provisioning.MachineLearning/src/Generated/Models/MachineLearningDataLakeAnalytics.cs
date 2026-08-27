@@ -17,6 +17,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningDataLakeAnalytics. </summary>
         public MachineLearningDataLakeAnalytics()
         {
+            ComputeType.Assign(MachineLearning.ComputeType.DataLakeAnalytics);
         }
 
         /// <summary> Gets or sets the Properties. </summary>
@@ -55,7 +56,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            ComputeType.Assign("DataLakeAnalytics");
             _properties = DefineModelProperty<DataLakeAnalyticsSchemaProperties>(nameof(Properties), new string[] { "properties" });
             DefineAdditionalProperties();
         }

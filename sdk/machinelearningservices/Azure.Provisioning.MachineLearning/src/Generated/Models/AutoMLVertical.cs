@@ -19,7 +19,7 @@ namespace Azure.Provisioning.MachineLearning
     {
         private BicepValue<MachineLearningLogVerbosity> _logVerbosity;
         private BicepValue<string> _targetColumnName;
-        private BicepValue<string> _taskType;
+        private BicepValue<TaskType> _taskType;
         private MachineLearningTableJobInput _trainingData;
 
         /// <summary> Creates a new AutoMLVertical. </summary>
@@ -58,7 +58,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Task type for AutoMLJob. </summary>
-        internal BicepValue<string> TaskType
+        internal BicepValue<TaskType> TaskType
         {
             get
             {
@@ -88,7 +88,7 @@ namespace Azure.Provisioning.MachineLearning
             base.DefineProvisionableProperties();
             _logVerbosity = DefineProperty<MachineLearningLogVerbosity>(nameof(LogVerbosity), new string[] { "logVerbosity" });
             _targetColumnName = DefineProperty<string>(nameof(TargetColumnName), new string[] { "targetColumnName" });
-            _taskType = DefineProperty<string>(nameof(TaskType), new string[] { "taskType" }, isRequired: true);
+            _taskType = DefineProperty<TaskType>(nameof(TaskType), new string[] { "taskType" }, isRequired: true);
             _trainingData = DefineModelProperty<MachineLearningTableJobInput>(nameof(TrainingData), new string[] { "trainingData" }, isRequired: true);
             DefineAdditionalProperties();
         }

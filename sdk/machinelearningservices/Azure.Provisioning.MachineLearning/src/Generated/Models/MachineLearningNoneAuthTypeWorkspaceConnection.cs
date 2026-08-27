@@ -13,13 +13,13 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningNoneAuthTypeWorkspaceConnection. </summary>
         public MachineLearningNoneAuthTypeWorkspaceConnection()
         {
+            AuthType.Assign(ConnectionAuthType.None);
         }
 
         /// <summary> Define all the provisionable properties for MachineLearningNoneAuthTypeWorkspaceConnection. </summary>
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            AuthType.Assign("None");
             DefineAdditionalProperties();
         }
 

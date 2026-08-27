@@ -738,14 +738,14 @@ namespace Azure.Provisioning.PostgreSql
         public Azure.Provisioning.BicepValue<string> BackupName { get { throw null; } }
         public Azure.Provisioning.BicepValue<long> DatasourceSizeInBytes { get { throw null; } }
         public Azure.Provisioning.BicepValue<long> DataTransferredInBytes { get { throw null; } }
-        public Azure.Provisioning.BicepValue<System.DateTimeOffset> EndOn { get { throw null; } }
+        public Azure.Provisioning.BicepValue<System.DateTimeOffset> EndsOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ErrorCode { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> ErrorMessage { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> Id { get { throw null; } }
         public Azure.Provisioning.BicepValue<string> Name { get { throw null; } set { } }
         public Azure.Provisioning.PostgreSql.PostgreSqlFlexibleServer Parent { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<double> PercentComplete { get { throw null; } }
-        public Azure.Provisioning.BicepValue<System.DateTimeOffset> StartOn { get { throw null; } }
+        public Azure.Provisioning.BicepValue<System.DateTimeOffset> StartsOn { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.PostgreSql.PostgreSqlExecutionStatus> Status { get { throw null; } }
         public Azure.Provisioning.Resources.SystemData SystemData { get { throw null; } }
         protected override void DefineProvisionableProperties() { }
@@ -794,18 +794,18 @@ namespace Azure.Provisioning.PostgreSql
         public Azure.Provisioning.BicepValue<Azure.Provisioning.PostgreSql.PostgreSqlMigrationOverwriteDbsInTarget> OverwriteDbsInTarget { get { throw null; } set { } }
         public Azure.Provisioning.PostgreSql.PostgreSqlFlexibleServer Parent { get { throw null; } set { } }
         public Azure.Provisioning.PostgreSql.PostgreSqlMigrationSecretParameters SecretParameters { get { throw null; } set { } }
-        public Azure.Provisioning.BicepValue<Azure.Provisioning.PostgreSql.PostgreSqlMigrationLogicalReplicationOnSourceDb> SetupLogicalReplicationOnSourceDbIfNeeded { get { throw null; } set { } }
-        public Azure.Provisioning.BicepValue<string> SourceDbServerFullyQualifiedDomainName { get { throw null; } set { } }
-        public Azure.Provisioning.PostgreSql.PostgreSqlServerMetadata SourceDbServerMetadata { get { throw null; } }
-        public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> SourceDbServerResourceId { get { throw null; } set { } }
+        public Azure.Provisioning.BicepValue<Azure.Provisioning.PostgreSql.PostgreSqlMigrationLogicalReplicationOnSourceDb> SetupLogicalReplicationOnSourceDBIfNeeded { get { throw null; } set { } }
+        public Azure.Provisioning.BicepValue<string> SourceDBServerFullyQualifiedDomainName { get { throw null; } set { } }
+        public Azure.Provisioning.PostgreSql.PostgreSqlServerMetadata SourceDBServerMetadata { get { throw null; } }
+        public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> SourceDBServerResourceId { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.PostgreSql.PostgreSqlFlexibleServersSourceType> SourceType { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.PostgreSql.PostgreSqlFlexibleServersSslMode> SslMode { get { throw null; } set { } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.PostgreSql.PostgreSqlMigrationStartDataMigration> StartDataMigration { get { throw null; } set { } }
         public Azure.Provisioning.Resources.SystemData SystemData { get { throw null; } }
         public Azure.Provisioning.BicepDictionary<string> Tags { get { throw null; } set { } }
-        public Azure.Provisioning.BicepValue<string> TargetDbServerFullyQualifiedDomainName { get { throw null; } set { } }
-        public Azure.Provisioning.PostgreSql.PostgreSqlServerMetadata TargetDbServerMetadata { get { throw null; } }
-        public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> TargetDbServerResourceId { get { throw null; } }
+        public Azure.Provisioning.BicepValue<string> TargetDBServerFullyQualifiedDomainName { get { throw null; } set { } }
+        public Azure.Provisioning.PostgreSql.PostgreSqlServerMetadata TargetDBServerMetadata { get { throw null; } }
+        public Azure.Provisioning.BicepValue<Azure.Core.ResourceIdentifier> TargetDBServerResourceId { get { throw null; } }
         public Azure.Provisioning.BicepValue<Azure.Provisioning.PostgreSql.PostgreSqlMigrationTriggerCutover> TriggerCutover { get { throw null; } set { } }
         protected override void DefineProvisionableProperties() { }
         public static Azure.Provisioning.PostgreSql.PostgreSqlMigration FromExisting(string bicepIdentifier, string resourceVersion = null) { throw null; }

@@ -18,7 +18,7 @@ namespace Azure.Provisioning.MachineLearning
     {
         private BicepList<MonitoringNotificationType> _notificationTypes;
         private BicepDictionary<string> _properties;
-        private BicepValue<string> _signalType;
+        private BicepValue<MonitoringSignalType> _signalType;
 
         /// <summary> Creates a new MonitoringSignalBase. </summary>
         public MonitoringSignalBase()
@@ -56,7 +56,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Specifies the type of signal to monitor. </summary>
-        internal BicepValue<string> SignalType
+        internal BicepValue<MonitoringSignalType> SignalType
         {
             get
             {
@@ -71,7 +71,7 @@ namespace Azure.Provisioning.MachineLearning
             base.DefineProvisionableProperties();
             _notificationTypes = DefineListProperty<MonitoringNotificationType>(nameof(NotificationTypes), new string[] { "notificationTypes" });
             _properties = DefineDictionaryProperty<string>(nameof(Properties), new string[] { "properties" });
-            _signalType = DefineProperty<string>(nameof(SignalType), new string[] { "signalType" }, isRequired: true);
+            _signalType = DefineProperty<MonitoringSignalType>(nameof(SignalType), new string[] { "signalType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

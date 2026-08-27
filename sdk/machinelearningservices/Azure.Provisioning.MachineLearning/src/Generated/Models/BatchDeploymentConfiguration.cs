@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class BatchDeploymentConfiguration : ProvisionableConstruct
     {
-        private BicepValue<string> _deploymentConfigurationType;
+        private BicepValue<BatchDeploymentConfigurationType> _deploymentConfigurationType;
 
         /// <summary> Creates a new BatchDeploymentConfiguration. </summary>
         public BatchDeploymentConfiguration()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] The type of the deployment. </summary>
-        internal BicepValue<string> DeploymentConfigurationType
+        internal BicepValue<BatchDeploymentConfigurationType> DeploymentConfigurationType
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _deploymentConfigurationType = DefineProperty<string>(nameof(DeploymentConfigurationType), new string[] { "deploymentConfigurationType" }, isRequired: true);
+            _deploymentConfigurationType = DefineProperty<BatchDeploymentConfigurationType>(nameof(DeploymentConfigurationType), new string[] { "deploymentConfigurationType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

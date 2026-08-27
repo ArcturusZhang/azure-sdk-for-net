@@ -19,7 +19,6 @@ namespace Azure.Provisioning.RecoveryServicesBackup
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            DefineProperty<string>("protectedItemType", new string[] { "protectedItemType" }, defaultValue: "Microsoft.ClassicCompute/virtualMachines");
             DefineAdditionalProperties();
         }
 

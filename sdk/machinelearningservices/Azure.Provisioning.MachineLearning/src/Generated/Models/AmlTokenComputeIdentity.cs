@@ -13,13 +13,13 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new AmlTokenComputeIdentity. </summary>
         public AmlTokenComputeIdentity()
         {
+            ComputeIdentityType.Assign(MonitorComputeIdentityType.AmlToken);
         }
 
         /// <summary> Define all the provisionable properties for AmlTokenComputeIdentity. </summary>
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            ComputeIdentityType.Assign("AmlToken");
             DefineAdditionalProperties();
         }
 

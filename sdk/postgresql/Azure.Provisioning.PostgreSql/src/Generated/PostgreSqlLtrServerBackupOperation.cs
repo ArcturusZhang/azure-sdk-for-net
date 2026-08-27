@@ -95,7 +95,7 @@ namespace Azure.Provisioning.PostgreSql
         {
             get
             {
-                return Properties.DatasourceSizeInBytes;
+                return Properties is null ? default : Properties.DatasourceSizeInBytes;
             }
         }
 
@@ -104,7 +104,7 @@ namespace Azure.Provisioning.PostgreSql
         {
             get
             {
-                return Properties.DataTransferredInBytes;
+                return Properties is null ? default : Properties.DataTransferredInBytes;
             }
         }
 
@@ -113,7 +113,7 @@ namespace Azure.Provisioning.PostgreSql
         {
             get
             {
-                return Properties.BackupName;
+                return Properties is null ? default : Properties.BackupName;
             }
         }
 
@@ -122,7 +122,7 @@ namespace Azure.Provisioning.PostgreSql
         {
             get
             {
-                return Properties.BackupMetadata;
+                return Properties is null ? default : Properties.BackupMetadata;
             }
         }
 
@@ -131,25 +131,25 @@ namespace Azure.Provisioning.PostgreSql
         {
             get
             {
-                return Properties.Status;
+                return Properties is null ? default : Properties.Status;
             }
         }
 
-        /// <summary> Gets the StartOn. </summary>
-        public BicepValue<DateTimeOffset> StartOn
+        /// <summary> Gets the StartsOn. </summary>
+        public BicepValue<DateTimeOffset> StartsOn
         {
             get
             {
-                return Properties.StartOn;
+                return Properties is null ? default : Properties.StartsOn;
             }
         }
 
-        /// <summary> Gets the EndOn. </summary>
-        public BicepValue<DateTimeOffset> EndOn
+        /// <summary> Gets the EndsOn. </summary>
+        public BicepValue<DateTimeOffset> EndsOn
         {
             get
             {
-                return Properties.EndOn;
+                return Properties is null ? default : Properties.EndsOn;
             }
         }
 
@@ -158,7 +158,7 @@ namespace Azure.Provisioning.PostgreSql
         {
             get
             {
-                return Properties.PercentComplete;
+                return Properties is null ? default : Properties.PercentComplete;
             }
         }
 
@@ -167,7 +167,7 @@ namespace Azure.Provisioning.PostgreSql
         {
             get
             {
-                return Properties.ErrorCode;
+                return Properties is null ? default : Properties.ErrorCode;
             }
         }
 
@@ -176,7 +176,7 @@ namespace Azure.Provisioning.PostgreSql
         {
             get
             {
-                return Properties.ErrorMessage;
+                return Properties is null ? default : Properties.ErrorMessage;
             }
         }
 
@@ -188,7 +188,7 @@ namespace Azure.Provisioning.PostgreSql
             _name = DefineProperty<string>(nameof(Name), new string[] { "name" }, isRequired: true);
             _systemData = DefineModelProperty<SystemData>(nameof(SystemData), new string[] { "systemData" }, isOutput: true);
             _properties = DefineModelProperty<LtrBackupOperationResponseProperties>(nameof(Properties), new string[] { "properties" });
-            _parent = DefineResource<PostgreSqlFlexibleServer>("Parent", new string[] { "parent" }, isRequired: true);
+            _parent = DefineResource<PostgreSqlFlexibleServer>(nameof(Parent), new string[] { "parent" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

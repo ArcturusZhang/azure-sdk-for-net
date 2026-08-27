@@ -17,6 +17,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningSasDatastoreSecrets. </summary>
         public MachineLearningSasDatastoreSecrets()
         {
+            SecretsType.Assign(MachineLearning.SecretsType.Sas);
         }
 
         /// <summary> Gets or sets the SasToken. </summary>
@@ -38,7 +39,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            SecretsType.Assign("Sas");
             _sasToken = DefineProperty<string>(nameof(SasToken), new string[] { "sasToken" });
             DefineAdditionalProperties();
         }

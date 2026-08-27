@@ -17,7 +17,7 @@ namespace Azure.Provisioning.MachineLearning
     public partial class OneLakeArtifact : ProvisionableConstruct
     {
         private BicepValue<string> _artifactName;
-        private BicepValue<string> _artifactType;
+        private BicepValue<OneLakeArtifactType> _artifactType;
 
         /// <summary> Creates a new OneLakeArtifact. </summary>
         public OneLakeArtifact()
@@ -40,7 +40,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] OneLake artifact type. </summary>
-        internal BicepValue<string> ArtifactType
+        internal BicepValue<OneLakeArtifactType> ArtifactType
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Azure.Provisioning.MachineLearning
         {
             base.DefineProvisionableProperties();
             _artifactName = DefineProperty<string>(nameof(ArtifactName), new string[] { "artifactName" }, isRequired: true);
-            _artifactType = DefineProperty<string>(nameof(ArtifactType), new string[] { "artifactType" }, isRequired: true);
+            _artifactType = DefineProperty<OneLakeArtifactType>(nameof(ArtifactType), new string[] { "artifactType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

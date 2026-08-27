@@ -29,6 +29,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningCommandJob. </summary>
         public MachineLearningCommandJob()
         {
+            JobType.Assign(MachineLearning.JobType.Command);
         }
 
         /// <summary> Gets or sets the CodeId. </summary>
@@ -212,7 +213,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            JobType.Assign("Command");
             _codeId = DefineProperty<ResourceIdentifier>(nameof(CodeId), new string[] { "codeId" });
             _command = DefineProperty<string>(nameof(Command), new string[] { "command" }, isRequired: true);
             _distribution = DefineModelProperty<MachineLearningDistributionConfiguration>(nameof(Distribution), new string[] { "distribution" });

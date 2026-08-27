@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class ForecastHorizon : ProvisionableConstruct
     {
-        private BicepValue<string> _mode;
+        private BicepValue<ForecastHorizonMode> _mode;
 
         /// <summary> Creates a new ForecastHorizon. </summary>
         public ForecastHorizon()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Set forecast horizon value selection mode. </summary>
-        internal BicepValue<string> Mode
+        internal BicepValue<ForecastHorizonMode> Mode
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _mode = DefineProperty<string>(nameof(Mode), new string[] { "mode" }, isRequired: true);
+            _mode = DefineProperty<ForecastHorizonMode>(nameof(Mode), new string[] { "mode" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

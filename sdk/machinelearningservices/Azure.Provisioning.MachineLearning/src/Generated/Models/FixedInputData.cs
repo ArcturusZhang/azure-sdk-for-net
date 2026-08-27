@@ -13,13 +13,13 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new FixedInputData. </summary>
         public FixedInputData()
         {
+            InputDataType.Assign(MonitoringInputDataType.Fixed);
         }
 
         /// <summary> Define all the provisionable properties for FixedInputData. </summary>
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            InputDataType.Assign("Fixed");
             DefineAdditionalProperties();
         }
 

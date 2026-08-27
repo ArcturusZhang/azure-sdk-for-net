@@ -16,7 +16,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class MachineLearningAssetReferenceBase : ProvisionableConstruct
     {
-        private BicepValue<string> _referenceType;
+        private BicepValue<ReferenceType> _referenceType;
 
         /// <summary> Creates a new MachineLearningAssetReferenceBase. </summary>
         public MachineLearningAssetReferenceBase()
@@ -24,7 +24,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Specifies the type of asset reference. </summary>
-        internal BicepValue<string> ReferenceType
+        internal BicepValue<ReferenceType> ReferenceType
         {
             get
             {
@@ -37,7 +37,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _referenceType = DefineProperty<string>(nameof(ReferenceType), new string[] { "referenceType" }, isRequired: true);
+            _referenceType = DefineProperty<ReferenceType>(nameof(ReferenceType), new string[] { "referenceType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

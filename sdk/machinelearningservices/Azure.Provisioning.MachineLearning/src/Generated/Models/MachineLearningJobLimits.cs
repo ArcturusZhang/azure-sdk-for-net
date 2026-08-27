@@ -17,7 +17,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class MachineLearningJobLimits : ProvisionableConstruct
     {
-        private BicepValue<string> _jobLimitsType;
+        private BicepValue<JobLimitsType> _jobLimitsType;
         private BicepValue<TimeSpan> _timeout;
 
         /// <summary> Creates a new MachineLearningJobLimits. </summary>
@@ -26,7 +26,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] JobLimit type. </summary>
-        internal BicepValue<string> JobLimitsType
+        internal BicepValue<JobLimitsType> JobLimitsType
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _jobLimitsType = DefineProperty<string>(nameof(JobLimitsType), new string[] { "jobLimitsType" }, isRequired: true);
+            _jobLimitsType = DefineProperty<JobLimitsType>(nameof(JobLimitsType), new string[] { "jobLimitsType" }, isRequired: true);
             _timeout = DefineProperty<TimeSpan>(nameof(Timeout), new string[] { "timeout" }, format: "P");
             DefineAdditionalProperties();
         }

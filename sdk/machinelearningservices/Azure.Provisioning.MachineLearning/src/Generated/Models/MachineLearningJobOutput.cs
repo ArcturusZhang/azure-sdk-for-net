@@ -17,7 +17,7 @@ namespace Azure.Provisioning.MachineLearning
     public partial class MachineLearningJobOutput : ProvisionableConstruct
     {
         private BicepValue<string> _description;
-        private BicepValue<string> _jobOutputType;
+        private BicepValue<JobOutputType> _jobOutputType;
 
         /// <summary> Creates a new MachineLearningJobOutput. </summary>
         public MachineLearningJobOutput()
@@ -40,7 +40,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] Specifies the type of job. </summary>
-        internal BicepValue<string> JobOutputType
+        internal BicepValue<JobOutputType> JobOutputType
         {
             get
             {
@@ -54,7 +54,7 @@ namespace Azure.Provisioning.MachineLearning
         {
             base.DefineProvisionableProperties();
             _description = DefineProperty<string>(nameof(Description), new string[] { "description" });
-            _jobOutputType = DefineProperty<string>(nameof(JobOutputType), new string[] { "jobOutputType" }, isRequired: true);
+            _jobOutputType = DefineProperty<JobOutputType>(nameof(JobOutputType), new string[] { "jobOutputType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 

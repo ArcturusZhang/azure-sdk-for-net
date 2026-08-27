@@ -1246,6 +1246,29 @@ namespace Azure.Provisioning.RecoveryServicesBackup
         Rejected = 2,
         Disconnected = 3,
     }
+    public enum ProtectableContainerType
+    {
+        Invalid = 0,
+        Unknown = 1,
+        IaasVMContainer = 2,
+        IaasVMServiceContainer = 3,
+        DPMContainer = 4,
+        AzureBackupServerContainer = 5,
+        MABContainer = 6,
+        Cluster = 7,
+        AzureSqlContainer = 8,
+        Windows = 9,
+        VCenter = 10,
+        VMAppContainer = 11,
+        SQLAGWorkLoadContainer = 12,
+        StorageContainer = 13,
+        GenericContainer = 14,
+        [System.Runtime.Serialization.DataMemberAttribute(Name="Microsoft.ClassicCompute/virtualMachines")]
+        MicrosoftClassicComputeVirtualMachines = 15,
+        [System.Runtime.Serialization.DataMemberAttribute(Name="Microsoft.Compute/virtualMachines")]
+        MicrosoftComputeVirtualMachines = 16,
+        AzureWorkloadContainer = 17,
+    }
     public enum ProtectedItemState
     {
         Invalid = 0,
@@ -1255,6 +1278,15 @@ namespace Azure.Provisioning.RecoveryServicesBackup
         ProtectionStopped = 4,
         ProtectionPaused = 5,
         BackupsSuspended = 6,
+    }
+    public enum ProtectionIntentItemType
+    {
+        Invalid = 0,
+        AzureResourceItem = 1,
+        RecoveryServiceVaultItem = 2,
+        AzureWorkloadContainerAutoProtectionIntent = 3,
+        AzureWorkloadAutoProtectionIntent = 4,
+        AzureWorkloadSQLAutoProtectionIntent = 5,
     }
     public partial class RecoveryPointDiskConfiguration : Azure.Provisioning.Primitives.ProvisionableConstruct
     {

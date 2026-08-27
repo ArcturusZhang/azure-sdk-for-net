@@ -17,6 +17,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new SparkJobScalaEntry. </summary>
         public SparkJobScalaEntry()
         {
+            SparkJobEntryType.Assign(MachineLearning.SparkJobEntryType.SparkJobScalaEntry);
         }
 
         /// <summary> Gets or sets the ClassName. </summary>
@@ -38,7 +39,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            SparkJobEntryType.Assign("SparkJobScalaEntry");
             _className = DefineProperty<string>(nameof(ClassName), new string[] { "className" }, isRequired: true);
             DefineAdditionalProperties();
         }

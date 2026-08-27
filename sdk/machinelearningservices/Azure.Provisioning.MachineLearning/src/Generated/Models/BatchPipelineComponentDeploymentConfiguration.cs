@@ -20,6 +20,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new BatchPipelineComponentDeploymentConfiguration. </summary>
         public BatchPipelineComponentDeploymentConfiguration()
         {
+            DeploymentConfigurationType.Assign(BatchDeploymentConfigurationType.PipelineComponent);
         }
 
         /// <summary> Gets or sets the ComponentId. </summary>
@@ -86,7 +87,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            DeploymentConfigurationType.Assign("PipelineComponent");
             _componentId = DefineModelProperty<MachineLearningIdAssetReference>(nameof(ComponentId), new string[] { "componentId" });
             _description = DefineProperty<string>(nameof(Description), new string[] { "description" });
             _settings = DefineDictionaryProperty<string>(nameof(Settings), new string[] { "settings" });

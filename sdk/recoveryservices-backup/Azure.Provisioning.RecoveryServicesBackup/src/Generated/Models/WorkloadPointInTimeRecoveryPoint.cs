@@ -33,7 +33,6 @@ namespace Azure.Provisioning.RecoveryServicesBackup
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            DefineProperty<string>("objectType", new string[] { "objectType" }, defaultValue: "AzureWorkloadPointInTimeRecoveryPoint");
             _timeRanges = DefineListProperty<PointInTimeRange>(nameof(TimeRanges), new string[] { "timeRanges" });
             DefineAdditionalProperties();
         }

@@ -17,6 +17,7 @@ namespace Azure.Provisioning.MachineLearning
         /// <summary> Creates a new MachineLearningCertificateDatastoreSecrets. </summary>
         public MachineLearningCertificateDatastoreSecrets()
         {
+            SecretsType.Assign(MachineLearning.SecretsType.Certificate);
         }
 
         /// <summary> Gets or sets the Certificate. </summary>
@@ -38,7 +39,6 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            SecretsType.Assign("Certificate");
             _certificate = DefineProperty<string>(nameof(Certificate), new string[] { "certificate" });
             DefineAdditionalProperties();
         }

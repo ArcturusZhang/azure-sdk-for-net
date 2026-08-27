@@ -17,7 +17,7 @@ namespace Azure.Provisioning.MachineLearning
     /// </summary>
     public partial class SamplingAlgorithm : ProvisionableConstruct
     {
-        private BicepValue<string> _samplingAlgorithmType;
+        private BicepValue<SamplingAlgorithmType> _samplingAlgorithmType;
 
         /// <summary> Creates a new SamplingAlgorithm. </summary>
         public SamplingAlgorithm()
@@ -25,7 +25,7 @@ namespace Azure.Provisioning.MachineLearning
         }
 
         /// <summary> [Required] The algorithm used for generating hyperparameter values, along with configuration properties. </summary>
-        internal BicepValue<string> SamplingAlgorithmType
+        internal BicepValue<SamplingAlgorithmType> SamplingAlgorithmType
         {
             get
             {
@@ -38,7 +38,7 @@ namespace Azure.Provisioning.MachineLearning
         protected override void DefineProvisionableProperties()
         {
             base.DefineProvisionableProperties();
-            _samplingAlgorithmType = DefineProperty<string>(nameof(SamplingAlgorithmType), new string[] { "samplingAlgorithmType" }, isRequired: true);
+            _samplingAlgorithmType = DefineProperty<SamplingAlgorithmType>(nameof(SamplingAlgorithmType), new string[] { "samplingAlgorithmType" }, isRequired: true);
             DefineAdditionalProperties();
         }
 
